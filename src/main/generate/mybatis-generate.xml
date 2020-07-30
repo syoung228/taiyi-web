@@ -32,9 +32,9 @@
 
         <!-- 数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.0.206:3306/medcrab_operate?nullNamePatternMatchesAll=true"
+                        connectionURL="jdbc:mysql://139.9.131.103:3306/db-mcms-open?nullNamePatternMatchesAll=true"
                         userId="root"
-                        password="123456">
+                        password="sy19940518">
             <property name="useInformationSchema" value="true"></property>
         </jdbcConnection>
 
@@ -45,11 +45,10 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.medcrab.operate.server.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.taiyi.websiate.taiyiweb.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
             <property name="javaFileEncoding" value="UTF-8"/>
-            <property name="rootClass" value="com.medcrab.common.code.bean.BaseEntity"/>
         </javaModelGenerator>
 
         <!-- 生成映射文件的包名和位置-->
@@ -58,7 +57,7 @@
         </sqlMapGenerator>
 
         <!-- 生成DAO的包名和位置 MIXEDMAPPER-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.medcrab.operate.server.mapper" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.taiyi.websiate.taiyiweb.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -91,11 +90,13 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
         </table>-->
-        <table tableName="tb_role_template" domainObjectName="RoleTemplateEntity">
+        <table tableName="cms_category" domainObjectName="CmsCategoryEntity">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
         </table>
-        <table tableName="tb_role_relation" domainObjectName="RoleRelationEntity">
+        <table tableName="cms_content" domainObjectName="CmsContentEntity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="project_process_item" domainObjectName="ProjectProcessItemEntity">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
