@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 配置生成器 -->
+<generatorConfiguration>
+    <context id="Mysql5Tables" targetRuntime="MyBatis3">
+        <!-- 生成的Java文件的编码
+         注意 需要在电脑上配置一个系统变量  如同JAVA_HOME
+         变量名：MAVEN_OPTS
+        变量值 ： -Dfile.encoding=UTF-8
+       -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <!--        自定义插件-->
+        <plugin type="comm.leam.mybatis.plugin.CommonMybatisPluginForRemarks"/>
+        <plugin type="comm.leam.mybatis.plugin.QuerySignleResultMethodPluginFor14"/>
+        <plugin type="comm.leam.mybatis.plugin.QueryMethodPluginFor15"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+        </commentGenerator>
+
+        <!-- 数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.0.206:3306/medcrab_operate?nullNamePatternMatchesAll=true"
+                        userId="root"
+                        password="123456">
+            <property name="useInformationSchema" value="true"></property>
+        </jdbcConnection>
+
+        <!-- 类型转换 -->
+        <javaTypeResolver type="comm.leam.mybatis.handler.CustomJavaTypeResoverImpl">
+            <!-- 是否使用BigDecimals，false可自动转化以下类型(Long Integer Short等) -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.medcrab.operate.server.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <property name="rootClass" value="com.medcrab.common.code.bean.BaseEntity"/>
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="mappers" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置 MIXEDMAPPER-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.medcrab.operate.server.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <!--            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+      <!-- <table tableName="tb_menu" domainObjectName="MenuEntity" >
+            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="app_id" javaType="com.medcrab.operate.api.enumeration.AppSystemEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="menu_type" javaType="com.medcrab.operate.api.enumeration.MenuTypeEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="is_show" javaType="com.medcrab.common.code.contants.YesNoEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="hide_header" javaType="com.medcrab.common.code.contants.YesNoEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="hide_children" javaType="com.medcrab.common.code.contants.YesNoEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="menu_link_type" javaType="com.medcrab.operate.api.enumeration.LinkTypeEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+            <columnOverride column="business_type" javaType="com.medcrab.operate.api.enumeration.BusinessTypeEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+        </table>-->
+<!--         <table tableName="tb_saas_module" domainObjectName="SaasModuleEntity">-->
+<!--            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>-->
+<!--        </table>-->
+<!--        <table tableName="tb_saas_organization" domainObjectName="SaasOrganizationEntity">-->
+<!--            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>-->
+<!--        </table>-->
+<!--        <table tableName="tb_on_sell_package" domainObjectName="OnSellPackageEntity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+        </table>
+        <table tableName="tb_on_sell_package_relation" domainObjectName="OnSellPackageRelationEntity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="tb_saas_organization" domainObjectName="SaasOrganizationEntity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+        </table>-->
+        <table tableName="tb_role_template" domainObjectName="RoleTemplateEntity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
+        </table>
+        <table tableName="tb_role_relation" domainObjectName="RoleRelationEntity">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
