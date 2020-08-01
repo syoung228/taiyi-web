@@ -90,13 +90,7 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
         </table>-->
-        <table tableName="cms_category" domainObjectName="CmsCategoryEntity">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="cms_content" domainObjectName="CmsContentEntity">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="project_process_item" domainObjectName="ProjectProcessItemEntity">
+        <table tableName="region" domainObjectName="RegionEntity">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
