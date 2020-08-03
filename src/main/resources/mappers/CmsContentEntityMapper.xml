@@ -85,8 +85,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, app_id, content_title, content_category_id, content_url, content_keyword, content_description, 
-    content_img, content_sort, content_datetime, content_source, content_author, content_display, 
+    id, app_id, content_title, content_category_id, content_url, content_keyword, content_description,
+    content_img, content_sort, content_datetime, content_source, content_author, content_display,
     content_type, content_hit, del, update_date, update_by, create_date, create_by
   </sql>
   <sql id="Blob_Column_List">
@@ -129,7 +129,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -150,19 +150,19 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into cms_content (app_id, content_title, content_category_id, 
-      content_url, content_keyword, content_description, 
-      content_img, content_sort, content_datetime, 
-      content_source, content_author, content_display, 
-      content_type, content_hit, del, 
-      update_date, update_by, create_date, 
+    insert into cms_content (app_id, content_title, content_category_id,
+      content_url, content_keyword, content_description,
+      content_img, content_sort, content_datetime,
+      content_source, content_author, content_display,
+      content_type, content_hit, del,
+      update_date, update_by, create_date,
       create_by, content_details)
-    values (#{appId,jdbcType=INTEGER}, #{contentTitle,jdbcType=VARCHAR}, #{contentCategoryId,jdbcType=VARCHAR}, 
-      #{contentUrl,jdbcType=VARCHAR}, #{contentKeyword,jdbcType=VARCHAR}, #{contentDescription,jdbcType=VARCHAR}, 
-      #{contentImg,jdbcType=VARCHAR}, #{contentSort,jdbcType=INTEGER}, #{contentDatetime,jdbcType=TIMESTAMP}, 
-      #{contentSource,jdbcType=VARCHAR}, #{contentAuthor,jdbcType=VARCHAR}, #{contentDisplay,jdbcType=VARCHAR}, 
-      #{contentType,jdbcType=VARCHAR}, #{contentHit,jdbcType=BIGINT}, #{del,jdbcType=INTEGER}, 
-      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+    values (#{appId,jdbcType=INTEGER}, #{contentTitle,jdbcType=VARCHAR}, #{contentCategoryId,jdbcType=VARCHAR},
+      #{contentUrl,jdbcType=VARCHAR}, #{contentKeyword,jdbcType=VARCHAR}, #{contentDescription,jdbcType=VARCHAR},
+      #{contentImg,jdbcType=VARCHAR}, #{contentSort,jdbcType=INTEGER}, #{contentDatetime,jdbcType=TIMESTAMP},
+      #{contentSource,jdbcType=VARCHAR}, #{contentAuthor,jdbcType=VARCHAR}, #{contentDisplay,jdbcType=VARCHAR},
+      #{contentType,jdbcType=VARCHAR}, #{contentHit,jdbcType=BIGINT}, #{del,jdbcType=INTEGER},
+      #{updateDate,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},
       #{createBy,jdbcType=INTEGER}, #{contentDetails,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.taiyi.websiate.taiyiweb.entity.CmsContentEntity">
@@ -555,7 +555,7 @@
     <include refid="Base_Column_List" />
     from cms_content
     <where>
-      1=1 
+      1=1
       <if test="id != null">
         and id=#{id,jdbcType=INTEGER}
       </if>
@@ -620,5 +620,19 @@
         and content_details=#{contentDetails,jdbcType=LONGVARCHAR}
       </if>
     </where>
+  </select>
+
+  <select id="getByCategoryId" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    FROM
+    cms_content con
+    LEFT JOIN cms_category ca ON con.content_category_id = ca.id
+    LEFT JOIN case_area ar ON ar.case_id = con.id
+    WHERE
+    ca.category_parent_id = #{id}
+    <if test="regionCode != null">
+      AND ar.region_code=#{regionCode}
+    </if>
+
   </select>
 </mapper>

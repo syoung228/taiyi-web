@@ -5,7 +5,7 @@ package com.taiyi.websiate.taiyiweb.entity;
  * 表注释：
  * 
  * @author mybites-generater
- * @createtime 2020-07-30 19:54:25
+ * @createtime 2020-08-03 15:38:05
  * 
  */
 public class ProjectProcessEntity {
@@ -38,6 +38,16 @@ public class ProjectProcessEntity {
      * 图片地址
      */
     private String imgUrl;
+
+    /**
+     * 项目时间
+     */
+    private Long createTime;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDelete;
 
     public Integer getId() {
         return id;
@@ -85,5 +95,21 @@ public class ProjectProcessEntity {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl == null ? null : imgUrl.trim();
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 }

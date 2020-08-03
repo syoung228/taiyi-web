@@ -39,4 +39,6 @@ public interface CmsContentEntityMapper {
     int updateByPrimaryKeyWithBLOBs(CmsContentEntity record);
 
     int updateByPrimaryKey(CmsContentEntity record);
+
+    List<CmsContentEntity> getByCategoryId( @Param("id")Integer id,@Param("regionCode") Integer regionCode);
 }

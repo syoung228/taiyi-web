@@ -8,6 +8,8 @@
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="des" jdbcType="VARCHAR" property="des" />
     <result column="img-url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, address, status, des, img-url
+    id, title, address, status, des, img-url, create_time, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessEntityExample" resultMap="BaseResultMap">
     select
@@ -111,9 +113,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into project_process (title, address, status, 
-      des, img-url)
+      des, img-url, create_time, 
+      is_delete)
     values (#{title,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{des,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR})
+      #{des,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{isDelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessEntity">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -136,6 +140,12 @@
       <if test="imgUrl != null">
         img-url,
       </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="title != null">
@@ -152,6 +162,12 @@
       </if>
       <if test="imgUrl != null">
         #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -182,6 +198,12 @@
       <if test="record.imgUrl != null">
         img-url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,7 +216,9 @@
       address = #{record.address,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       des = #{record.des,jdbcType=VARCHAR},
-      img-url = #{record.imgUrl,jdbcType=VARCHAR}
+      img-url = #{record.imgUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      is_delete = #{record.isDelete,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -217,6 +241,12 @@
       <if test="imgUrl != null">
         img-url = #{imgUrl,jdbcType=VARCHAR},
       </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -226,7 +256,9 @@
       address = #{address,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       des = #{des,jdbcType=VARCHAR},
-      img-url = #{imgUrl,jdbcType=VARCHAR}
+      img-url = #{imgUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="singleResultByExample" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessEntityExample" resultMap="BaseResultMap">
@@ -264,6 +296,12 @@
       </if>
       <if test="imgUrl != null">
         and img-url=#{imgUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null">
+        and create_time=#{createTime,jdbcType=BIGINT}
+      </if>
+      <if test="isDelete != null">
+        and is_delete=#{isDelete,jdbcType=INTEGER}
       </if>
     </where>
   </select>

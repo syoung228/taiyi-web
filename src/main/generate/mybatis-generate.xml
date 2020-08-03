@@ -90,7 +90,7 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
         </table>-->
-        <table tableName="mdiy_post_feedback" domainObjectName="mdiyPostFeedbackEntity">
+        <table tableName="project_process" domainObjectName="ProjectProcessEntity">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
