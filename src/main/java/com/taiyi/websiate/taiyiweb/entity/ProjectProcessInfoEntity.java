@@ -5,7 +5,7 @@ package com.taiyi.websiate.taiyiweb.entity;
  * 表注释：
  * 
  * @author mybites-generater
- * @createtime 2020-07-30 19:54:25
+ * @createtime 2020-08-03 17:12:12
  * 
  */
 public class ProjectProcessInfoEntity {
@@ -38,6 +38,11 @@ public class ProjectProcessInfoEntity {
      * 进度图片集
      */
     private String imgs;
+
+    /**
+     * 进度项名称
+     */
+    private String itemName;
 
     public Integer getId() {
         return id;
@@ -85,5 +90,13 @@ public class ProjectProcessInfoEntity {
 
     public void setImgs(String imgs) {
         this.imgs = imgs == null ? null : imgs.trim();
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName == null ? null : itemName.trim();
     }
 }

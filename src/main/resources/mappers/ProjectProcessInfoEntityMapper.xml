@@ -8,6 +8,7 @@
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
     <result column="imgs" jdbcType="VARCHAR" property="imgs" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, content, item_id, project_id, is_delete, imgs
+    id, content, item_id, project_id, is_delete, imgs, item_name
   </sql>
   <select id="selectByExample" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntityExample" resultMap="BaseResultMap">
     select
@@ -111,9 +112,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into project_process_info (content, item_id, project_id, 
-      is_delete, imgs)
+      is_delete, imgs, item_name
+      )
     values (#{content,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
-      #{isDelete,jdbcType=INTEGER}, #{imgs,jdbcType=VARCHAR})
+      #{isDelete,jdbcType=INTEGER}, #{imgs,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntity">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -136,6 +139,9 @@
       <if test="imgs != null">
         imgs,
       </if>
+      <if test="itemName != null">
+        item_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="content != null">
@@ -152,6 +158,9 @@
       </if>
       <if test="imgs != null">
         #{imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -182,6 +191,9 @@
       <if test="record.imgs != null">
         imgs = #{record.imgs,jdbcType=VARCHAR},
       </if>
+      <if test="record.itemName != null">
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -194,7 +206,8 @@
       item_id = #{record.itemId,jdbcType=INTEGER},
       project_id = #{record.projectId,jdbcType=INTEGER},
       is_delete = #{record.isDelete,jdbcType=INTEGER},
-      imgs = #{record.imgs,jdbcType=VARCHAR}
+      imgs = #{record.imgs,jdbcType=VARCHAR},
+      item_name = #{record.itemName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -217,6 +230,9 @@
       <if test="imgs != null">
         imgs = #{imgs,jdbcType=VARCHAR},
       </if>
+      <if test="itemName != null">
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -226,7 +242,8 @@
       item_id = #{itemId,jdbcType=INTEGER},
       project_id = #{projectId,jdbcType=INTEGER},
       is_delete = #{isDelete,jdbcType=INTEGER},
-      imgs = #{imgs,jdbcType=VARCHAR}
+      imgs = #{imgs,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="singleResultByExample" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntityExample" resultMap="BaseResultMap">
@@ -264,6 +281,9 @@
       </if>
       <if test="imgs != null">
         and imgs=#{imgs,jdbcType=VARCHAR}
+      </if>
+      <if test="itemName != null">
+        and item_name=#{itemName,jdbcType=VARCHAR}
       </if>
     </where>
   </select>
