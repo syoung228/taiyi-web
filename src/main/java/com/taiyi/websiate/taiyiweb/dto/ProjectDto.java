@@ -48,5 +48,69 @@ public class ProjectDto {
     /**
      * 进度详情
      */
-    private List<ProjectProcessInfoEntity> projectProcessInfoEntity;
+    private List<ProjectProcessInfoDto> projectProcessInfo;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public List<ProjectProcessInfoDto> getProjectProcessInfo() {
+        return projectProcessInfo;
+    }
+
+    public void setProjectProcessInfo(List<ProjectProcessInfoDto> projectProcessInfo) {
+        this.projectProcessInfo = projectProcessInfo;
+    }
 }

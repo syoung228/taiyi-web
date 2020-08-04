@@ -1,5 +1,7 @@
 package com.taiyi.websiate.taiyiweb.mapper;
 
+import com.taiyi.websiate.taiyiweb.dto.ProjectDto;
+import com.taiyi.websiate.taiyiweb.dto.ProjectProcessInfoDto;
 import com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntity;
 import com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntityExample;
 import java.util.List;
@@ -33,4 +35,6 @@ public interface ProjectProcessInfoEntityMapper {
     int updateByPrimaryKeySelective(ProjectProcessInfoEntity record);
 
     int updateByPrimaryKey(ProjectProcessInfoEntity record);
+
+    List<ProjectProcessInfoDto> getByProject(Integer projectId);
 }

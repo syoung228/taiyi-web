@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author EDZ
+ */
 @RestController
-@RequestMapping("/index")
 public class IndexController {
     @Autowired
     IndexService indexService;
-    @RequestMapping("/i")
+    @RequestMapping("/index")
     public Object indexDate(HttpServletRequest request){
 
         String resultStr = AddressUtils.getCityByIp(request.getRemoteAddr());

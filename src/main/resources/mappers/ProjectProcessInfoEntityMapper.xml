@@ -10,6 +10,16 @@
     <result column="imgs" jdbcType="VARCHAR" property="imgs" />
     <result column="item_name" jdbcType="VARCHAR" property="itemName" />
   </resultMap>
+
+  <resultMap id="BaseDtoMap" type="com.taiyi.websiate.taiyiweb.dto.ProjectProcessInfoDto">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="project_id" jdbcType="INTEGER" property="projectId" />
+    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
+    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="icon" jdbcType="VARCHAR" property="itemIcon" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -92,7 +102,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from project_process_info
     where id = #{id,jdbcType=INTEGER}
@@ -111,10 +121,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into project_process_info (content, item_id, project_id, 
+    insert into project_process_info (content, item_id, project_id,
       is_delete, imgs, item_name
       )
-    values (#{content,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, 
+    values (#{content,jdbcType=VARCHAR}, #{itemId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER},
       #{isDelete,jdbcType=INTEGER}, #{imgs,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}
       )
   </insert>
@@ -263,7 +273,7 @@
     <include refid="Base_Column_List" />
     from project_process_info
     <where>
-      1=1 
+      1=1
       <if test="id != null">
         and id=#{id,jdbcType=INTEGER}
       </if>
@@ -286,5 +296,21 @@
         and item_name=#{itemName,jdbcType=VARCHAR}
       </if>
     </where>
+  </select>
+  <select id="getByProject" resultMap="BaseDtoMap">
+        SELECT
+	pi.id,
+	pi.content,
+	pi.item_id,
+	pi.project_id,
+	pi.is_delete,
+	pi.imgs,
+	pi.item_id,
+	it.icon
+FROM
+	project_process_info pi
+LEFT JOIN project_process_item it ON pi.item_id = it.id
+WHERE
+	pi.project_id = #{projectId}
   </select>
 </mapper>

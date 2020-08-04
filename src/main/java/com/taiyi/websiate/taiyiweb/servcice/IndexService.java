@@ -23,6 +23,8 @@ public class IndexService {
 
     @Autowired
     CmsContentEntityMapper cmsContentEntityMapper;
+    @Autowired
+    ProjectProcessService projectProcessService;
     /**
      * 案例id
      */
@@ -54,7 +56,8 @@ public class IndexService {
         result.put("banner", cmsContentEntityMapper.getByCategoryId(bannerCategory,null));
         //行业新闻
         result.put("news", cmsContentEntityMapper.getByCategoryId(newsCategory,null));
-
+        //工程进度
+        result.put("projects", projectProcessService.getProjectList());
 
         return cmsCategoryEntity;
     }

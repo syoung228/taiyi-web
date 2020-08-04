@@ -33,4 +33,5 @@ public interface ProjectProcessEntityMapper {
     int updateByPrimaryKeySelective(ProjectProcessEntity record);
 
     int updateByPrimaryKey(ProjectProcessEntity record);
+
 }
