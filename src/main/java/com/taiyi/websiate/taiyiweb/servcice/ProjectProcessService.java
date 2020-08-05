@@ -5,7 +5,6 @@ import com.taiyi.websiate.taiyiweb.entity.ProjectProcessEntity;
 import com.taiyi.websiate.taiyiweb.entity.ProjectProcessEntityExample;
 import com.taiyi.websiate.taiyiweb.mapper.ProjectProcessEntityMapper;
 import com.taiyi.websiate.taiyiweb.mapper.ProjectProcessInfoEntityMapper;
-import com.taiyi.websiate.taiyiweb.utils.BeanCopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

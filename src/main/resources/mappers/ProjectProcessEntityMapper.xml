@@ -7,7 +7,7 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="des" jdbcType="VARCHAR" property="des" />
-    <result column="img-url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
     <result column="create_time" jdbcType="BIGINT" property="createTime" />
     <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
   </resultMap>
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, address, status, des, img-url, create_time, is_delete
+    id, title, address, status, des, img_url, create_time, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.taiyi.websiate.taiyiweb.entity.ProjectProcessEntityExample" resultMap="BaseResultMap">
     select
@@ -113,7 +113,7 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into project_process (title, address, status, 
-      des, img-url, create_time, 
+      des, img_url, create_time, 
       is_delete)
     values (#{title,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{des,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
@@ -138,7 +138,7 @@
         des,
       </if>
       <if test="imgUrl != null">
-        img-url,
+        img_url,
       </if>
       <if test="createTime != null">
         create_time,
@@ -196,7 +196,7 @@
         des = #{record.des,jdbcType=VARCHAR},
       </if>
       <if test="record.imgUrl != null">
-        img-url = #{record.imgUrl,jdbcType=VARCHAR},
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=BIGINT},
@@ -216,7 +216,7 @@
       address = #{record.address,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       des = #{record.des,jdbcType=VARCHAR},
-      img-url = #{record.imgUrl,jdbcType=VARCHAR},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=BIGINT},
       is_delete = #{record.isDelete,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -239,7 +239,7 @@
         des = #{des,jdbcType=VARCHAR},
       </if>
       <if test="imgUrl != null">
-        img-url = #{imgUrl,jdbcType=VARCHAR},
+        img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=BIGINT},
@@ -256,7 +256,7 @@
       address = #{address,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       des = #{des,jdbcType=VARCHAR},
-      img-url = #{imgUrl,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=BIGINT},
       is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
@@ -295,7 +295,7 @@
         and des=#{des,jdbcType=VARCHAR}
       </if>
       <if test="imgUrl != null">
-        and img-url=#{imgUrl,jdbcType=VARCHAR}
+        and img_url=#{imgUrl,jdbcType=VARCHAR}
       </if>
       <if test="createTime != null">
         and create_time=#{createTime,jdbcType=BIGINT}

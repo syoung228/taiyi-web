@@ -17,7 +17,7 @@
     <result column="item_id" jdbcType="INTEGER" property="itemId" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
     <result column="imgs" jdbcType="VARCHAR" property="imgs" />
-    <result column="item_name" jdbcType="VARCHAR" property="itemName" />
+    <result column="itemName" jdbcType="VARCHAR" property="itemName" />
     <result column="icon" jdbcType="VARCHAR" property="itemIcon" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -306,11 +306,12 @@
 	pi.is_delete,
 	pi.imgs,
 	pi.item_id,
-	it.icon
+	it.icon,
+	it.name itemName
 FROM
 	project_process_info pi
 LEFT JOIN project_process_item it ON pi.item_id = it.id
 WHERE
-	pi.project_id = #{projectId}
+	pi.project_id = #{projectId} order by pi.item_id
   </select>
 </mapper>

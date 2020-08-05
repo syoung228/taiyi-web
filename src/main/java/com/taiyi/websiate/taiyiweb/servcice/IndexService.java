@@ -2,17 +2,21 @@ package com.taiyi.websiate.taiyiweb.servcice;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.taiyi.websiate.taiyiweb.dto.CmsCategoryDto;
 import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntity;
 import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntityExample;
 import com.taiyi.websiate.taiyiweb.entity.CmsContentEntity;
+import com.taiyi.websiate.taiyiweb.entity.CmsContentEntityExample;
 import com.taiyi.websiate.taiyiweb.mapper.CmsCategoryEntityMapper;
 import com.taiyi.websiate.taiyiweb.mapper.CmsContentEntityMapper;
 import com.taiyi.websiate.taiyiweb.utils.AddressUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,25 +44,48 @@ public class IndexService {
         Map<String,Object> result = new HashMap<>();
         String resultStr = AddressUtils.getCityByIp(request.getRemoteAddr());
         JSONObject json = JSON.parseObject(resultStr);
-        Integer regionCode = (Integer) json.getJSONObject("data").get("region_id");
-        Integer cityCode = (Integer) json.getJSONObject("data").get("city_id");
+        String cityCode = (String) json.getJSONObject("data").get("city_id");
+        Integer cityCodeInt =0;
+        try{
+            cityCodeInt = Integer.parseInt(cityCode);
+        }catch (Exception e){
+
+        }
         CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
-        cmsCategoryEntityExample.createCriteria().andIdEqualTo(61).andDelEqualTo(0);
-        CmsCategoryEntity cmsCategoryEntity =  cmsCategoryEntityMapper.singleResultByExample(cmsCategoryEntityExample);
+        cmsCategoryEntityExample.createCriteria().andCategoryParentIdEqualTo(caseCategory+"").andDelEqualTo(0);
+        List<CmsCategoryEntity> caseCategories =  cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
+
         //获取案例 关联城市
-        List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(caseCategory,cityCode);
+        List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(caseCategory,cityCodeInt);
         if(cityCmsContent==null||cityCmsContent.size()<=0){
             result.put("case",cmsContentEntityMapper.getByCategoryId(caseCategory,0));
         }else{
             result.put("case",cityCmsContent);
         }
+        //案例分类
+        result.put("caseCategory",caseCategories);
         //获取banner
-        result.put("banner", cmsContentEntityMapper.getByCategoryId(bannerCategory,null));
+        result.put("banner", cmsContentEntityMapper.getByCategoryId2(bannerCategory));
         //行业新闻
         result.put("news", cmsContentEntityMapper.getByCategoryId(newsCategory,null));
         //工程进度
+        projectProcessService.getProjectList();
         result.put("projects", projectProcessService.getProjectList());
 
-        return cmsCategoryEntity;
+        return result;
     }
+
+    private List<CmsCategoryDto> entityToDto(List<CmsCategoryEntity> cmsCategoryEntities){
+        List<CmsCategoryDto> cmsCategoryDtos = new ArrayList<>();
+        for (CmsCategoryEntity entity: cmsCategoryEntities) {
+            CmsCategoryDto cmsCategoryDto = new CmsCategoryDto();
+            BeanUtils.copyProperties(entity,cmsCategoryDto);
+            CmsContentEntityExample cmsContentEntityExample = new CmsContentEntityExample();
+            cmsContentEntityExample.createCriteria().andContentCategoryIdEqualTo(entity.getId()+"").andDelEqualTo(0);
+            cmsCategoryDto.setCmsContentEntities(cmsContentEntityMapper.selectByExample(cmsContentEntityExample));
+            cmsCategoryDtos.add(cmsCategoryDto);
+        }
+        return cmsCategoryDtos;
+    }
+
 }

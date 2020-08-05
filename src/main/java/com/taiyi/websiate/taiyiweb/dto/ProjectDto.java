@@ -2,6 +2,7 @@ package com.taiyi.websiate.taiyiweb.dto;
 
 import com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -45,6 +46,14 @@ public class ProjectDto {
      * 项目时间
      */
     private Long createTime;
+    /**
+     * 年
+     */
+    private String year;
+    /**
+     * 月日
+     */
+    private String monthDay;
     /**
      * 进度详情
      */
@@ -103,6 +112,10 @@ public class ProjectDto {
     }
 
     public void setCreateTime(Long createTime) {
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy");
+        this.year=format.format(createTime);
+        SimpleDateFormat format2 =  new SimpleDateFormat("MM-dd");
+        this.monthDay = format2.format(createTime);
         this.createTime = createTime;
     }
 
@@ -112,5 +125,21 @@ public class ProjectDto {
 
     public void setProjectProcessInfo(List<ProjectProcessInfoDto> projectProcessInfo) {
         this.projectProcessInfo = projectProcessInfo;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonthDay() {
+        return monthDay;
+    }
+
+    public void setMonthDay(String monthDay) {
+        this.monthDay = monthDay;
     }
 }

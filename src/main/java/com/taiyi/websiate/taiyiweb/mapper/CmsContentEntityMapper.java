@@ -41,4 +41,6 @@ public interface CmsContentEntityMapper {
     int updateByPrimaryKey(CmsContentEntity record);
 
     List<CmsContentEntity> getByCategoryId( @Param("id")Integer id,@Param("regionCode") Integer regionCode);
+
+    List<CmsContentEntity> getByCategoryId2( @Param("id")Integer id);
 }
