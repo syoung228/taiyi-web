@@ -40,6 +40,20 @@ public interface CmsContentEntityMapper {
 
     int updateByPrimaryKey(CmsContentEntity record);
 
+    /**
+     * 一级菜单
+     * @param id
+     * @param regionCode
+     * @return
+     */
+    List<CmsContentEntity> getByAllCategoryId( @Param("id")Integer id,@Param("regionCode") Integer regionCode);
+
+    /**
+     * 二级菜单
+     * @param id 二级菜单id
+     * @param regionCode
+     * @return
+     */
     List<CmsContentEntity> getByCategoryId( @Param("id")Integer id,@Param("regionCode") Integer regionCode);
 
     List<CmsContentEntity> getByCategoryId2( @Param("id")Integer id);

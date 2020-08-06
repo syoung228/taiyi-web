@@ -51,23 +51,26 @@ public class IndexService {
         }catch (Exception e){
 
         }
-        CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
-        cmsCategoryEntityExample.createCriteria().andCategoryParentIdEqualTo(caseCategory+"").andDelEqualTo(0);
-        List<CmsCategoryEntity> caseCategories =  cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
 
-        //获取案例 关联城市
-        List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(caseCategory,cityCodeInt);
-        if(cityCmsContent==null||cityCmsContent.size()<=0){
-            result.put("case",cmsContentEntityMapper.getByCategoryId(caseCategory,0));
-        }else{
-            result.put("case",cityCmsContent);
+        List<CmsCategoryDto> cmsCaseDtos = entityToDto(caseCategory);
+        for(int i=0;i<cmsCaseDtos.size();i++){
+            //获取案例 关联城市
+            List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(cmsCaseDtos.get(i).getId(),cityCodeInt);
+            if(cityCmsContent==null||cityCmsContent.size()<=0){
+                cmsCaseDtos.get(i).setCmsContentEntities(cmsContentEntityMapper.getByCategoryId(caseCategory,0));
+            }else{
+                cmsCaseDtos.get(i).setCmsContentEntities(cityCmsContent);
+            }
         }
+
+
+
         //案例分类
-        result.put("caseCategory",caseCategories);
+        result.put("caseCategory",cmsCaseDtos);
         //获取banner
         result.put("banner", cmsContentEntityMapper.getByCategoryId2(bannerCategory));
         //行业新闻
-        result.put("news", cmsContentEntityMapper.getByCategoryId(newsCategory,null));
+        result.put("news", entityToDto(newsCategory));
         //工程进度
         projectProcessService.getProjectList();
         result.put("projects", projectProcessService.getProjectList());
@@ -75,9 +78,12 @@ public class IndexService {
         return result;
     }
 
-    private List<CmsCategoryDto> entityToDto(List<CmsCategoryEntity> cmsCategoryEntities){
+    private List<CmsCategoryDto> entityToDto(Integer categoryId){
+        CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
+        cmsCategoryEntityExample.createCriteria().andCategoryParentIdEqualTo(categoryId+"").andDelEqualTo(0);
+        List<CmsCategoryEntity> caseCategories =  cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
         List<CmsCategoryDto> cmsCategoryDtos = new ArrayList<>();
-        for (CmsCategoryEntity entity: cmsCategoryEntities) {
+        for (CmsCategoryEntity entity: caseCategories) {
             CmsCategoryDto cmsCategoryDto = new CmsCategoryDto();
             BeanUtils.copyProperties(entity,cmsCategoryDto);
             CmsContentEntityExample cmsContentEntityExample = new CmsContentEntityExample();
