@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.taiyi.websiate.taiyiweb.servcice.IndexService;
 import com.taiyi.websiate.taiyiweb.utils.AddressUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,16 @@ public class IndexController {
         String resultStr = AddressUtils.getCityByIp(request.getRemoteAddr());
         JSONObject json = JSON.parseObject(resultStr);
         return indexService.index(request);
+    }
+
+    @GetMapping("/getContentList")
+    public Object getContentList(Integer categoryId){
+        return indexService.getcontentByCategory(categoryId);
+    }
+
+    @GetMapping("/getContentDetail")
+    public Object getContentDetail(Integer contentId){
+        return indexService.getcontentByCategory(contentId);
     }
 
 

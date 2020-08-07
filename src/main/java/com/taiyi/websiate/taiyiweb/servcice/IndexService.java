@@ -94,4 +94,8 @@ public class IndexService {
         return cmsCategoryDtos;
     }
 
+    public Object getcontentByCategory(Integer categoryId){
+
+        return null;
+    }
 }
