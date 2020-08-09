@@ -2,6 +2,8 @@ package com.taiyi.websiate.taiyiweb.servcice;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.taiyi.websiate.taiyiweb.dto.CmsCategoryDto;
 import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntity;
 import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntityExample;
@@ -55,12 +57,8 @@ public class IndexService {
         List<CmsCategoryDto> cmsCaseDtos = entityToDto(caseCategory);
         for(int i=0;i<cmsCaseDtos.size();i++){
             //获取案例 关联城市
-            List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(cmsCaseDtos.get(i).getId(),cityCodeInt);
-            if(cityCmsContent==null||cityCmsContent.size()<=0){
-                cmsCaseDtos.get(i).setCmsContentEntities(cmsContentEntityMapper.getByCategoryId(caseCategory,0));
-            }else{
-                cmsCaseDtos.get(i).setCmsContentEntities(cityCmsContent);
-            }
+            List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(cmsCaseDtos.get(i).getId(),null);
+            cmsCaseDtos.get(i).setCmsContentEntities(cityCmsContent);
         }
 
 
@@ -94,8 +92,18 @@ public class IndexService {
         return cmsCategoryDtos;
     }
 
-    public Object getcontentByCategory(Integer categoryId){
+    public Object getcontentByCategory(Integer categoryId,Integer pageNum,Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        return new PageInfo<>(cmsContentEntityMapper.getByCategoryId(categoryId,null));
+    }
 
-        return null;
+    public Object getCaseCategory(Integer categoryId){
+        CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
+        cmsCategoryEntityExample.createCriteria().andCategoryParentIdEqualTo(categoryId+"").andDelEqualTo(0);
+        return cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
+    }
+
+    public Object getContenDetail(Integer id){
+        return cmsContentEntityMapper.deleteByPrimaryKey(id);
     }
 }

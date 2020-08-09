@@ -26,14 +26,19 @@ public class IndexController {
         return indexService.index(request);
     }
 
+    @GetMapping("/getCaseCategory")
+    public Object getCaseCategory(Integer categoryId){
+        return indexService.getCaseCategory(categoryId);
+    }
+
     @GetMapping("/getContentList")
-    public Object getContentList(Integer categoryId){
-        return indexService.getcontentByCategory(categoryId);
+    public Object getContentList(Integer categoryId,Integer pageNum,Integer pageSize){
+        return indexService.getcontentByCategory( categoryId, pageNum, pageSize);
     }
 
     @GetMapping("/getContentDetail")
-    public Object getContentDetail(Integer contentId){
-        return indexService.getcontentByCategory(contentId);
+    public Object getContentDetail(Integer id){
+        return indexService.getContenDetail(id);
     }
 
 
