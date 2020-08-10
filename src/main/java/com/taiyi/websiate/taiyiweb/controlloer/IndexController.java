@@ -49,8 +49,8 @@ public class IndexController {
     }
 
     @GetMapping("/getByTags")
-    public Object getByTags(Integer tagsId){
-        return indexService.getcontentByTags(tagsId);
+    public Object getByTags(Integer tagsId,Integer pageNum,Integer pageSize){
+        return indexService.getcontentByTags(tagsId,pageNum,pageSize);
     }
 
     @GetMapping("/getNextAndLast")

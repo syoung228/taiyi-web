@@ -119,14 +119,19 @@ public class IndexService {
         return tagsEntityMapper.selectByExample(new TagsEntityExample());
     }
 
-    public Object getcontentByTags(Integer tagsId){
-        return cmsContentEntityMapper.getByTags(tagsId);
+    public Object getcontentByTags(Integer tagsId,Integer pageNum,Integer pageSize){
+        pageNum=pageNum!=null || pageNum>0?pageNum:1;
+        pageSize=pageSize!=null||pageSize>0?pageSize:10;
+        PageHelper.startPage(pageNum,pageSize);
+        return new PageInfo<>(cmsContentEntityMapper.getByTags(tagsId));
     }
 
     public Object getLastAndNextContent(Integer contentId,Integer categoryId){
         Map<String,Object> result = new HashMap<>();
-        result.put("last",cmsContentEntityMapper.getLastContent(contentId,categoryId));
-        result.put("next",cmsContentEntityMapper.getNextContent(contentId,categoryId));
+        CmsContentEntity next = cmsContentEntityMapper.getNextContent(contentId,categoryId);
+        CmsContentEntity last = cmsContentEntityMapper.getLastContent(contentId,categoryId);
+        result.put("last",last!=null?last:new CmsContentEntity());
+        result.put("next",next!=null?next:new CmsContentEntity());
         return result;
     }
 }

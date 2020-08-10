@@ -51,8 +51,10 @@ public class ProjectProcessService {
 
     public Object getLastAndNextContent(Integer contentId){
         Map<String,Object> result = new HashMap<>();
-        result.put("last",projectProcessEntityMapper.getLastProgress(contentId));
-        result.put("next",projectProcessEntityMapper.getNextProgress(contentId));
+        ProjectProcessEntity last = projectProcessEntityMapper.getLastProgress(contentId);
+        ProjectProcessEntity next = projectProcessEntityMapper.getNextProgress(contentId);
+        result.put("last",last!=null?last:new ProjectProcessEntity());
+        result.put("next",next!=null?next:new ProjectProcessEntity());
         return result;
     }
 
