@@ -57,4 +57,14 @@ public interface CmsContentEntityMapper {
     List<CmsContentEntity> getByCategoryId( @Param("id")Integer id,@Param("regionCode") Integer regionCode);
 
     List<CmsContentEntity> getByCategoryId2( @Param("id")Integer id);
+
+    List<CmsContentEntity> getByRegion(@Param("regionCode") Integer regionCode);
+
+    List<CmsContentEntity> getByMainCategory(Integer categoryId);
+
+    List<CmsContentEntity> getByTags(Integer tagsId);
+
+    CmsContentEntity getNextContent(@Param("contentId")Integer id,@Param("categoryId") Integer categoryId);
+
+    CmsContentEntity getLastContent(@Param("contentId")Integer id,@Param("categoryId") Integer categoryId);
 }

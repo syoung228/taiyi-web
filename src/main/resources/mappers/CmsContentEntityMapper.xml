@@ -661,4 +661,57 @@
     </if>
 
   </select>
+
+  <select id="getByRegion" resultMap="BaseResultMap">
+    select con.id, con.app_id, con.content_title, con.content_category_id, con.content_url, con.content_keyword, con.content_description,
+    con.content_img, con.content_sort, con.content_datetime, con.content_source, con.content_author, con.content_display,
+    con.content_type, con.content_hit, con.del, con.update_date, con.update_by, con.create_date, con.create_by
+    FROM
+    cms_content con
+    LEFT JOIN case_area ar ON ar.case_id = con.id
+    WHERE
+    ar.region_code=#{regionCode}
+  </select>
+
+  <select id="getByMainCategory" resultMap="BaseResultMap">
+    select con.id, con.app_id, con.content_title, con.content_category_id, con.content_url, con.content_keyword, con.content_description,
+    con.content_img, con.content_sort, con.content_datetime, con.content_source, con.content_author, con.content_display,
+    con.content_type, con.content_hit, con.del, con.update_date, con.update_by, con.create_date, con.create_by
+    FROM
+    cms_content con
+    LEFT JOIN cms_category c ON con.content_category_id = c.id
+    WHERE c.category_parent_id = #{categoryId}
+  </select>
+
+  <select id="getByTags" resultMap="BaseResultMap">
+    select con.id, con.app_id, con.content_title, con.content_category_id, con.content_url, con.content_keyword, con.content_description,
+    con.content_img, con.content_sort, con.content_datetime, con.content_source, con.content_author, con.content_display,
+    con.content_type, con.content_hit, con.del, con.update_date, con.update_by, con.create_date, con.create_by
+    FROM
+    cms_content con
+    LEFT JOIN content_tags t ON con.id = t.content_id
+    WHERE t.tag_id =#{tagsId} and con.del=0
+  </select>
+
+  <select id="getLastContent" resultMap="BaseResultMap">
+    select con.id, con.app_id, con.content_title, con.content_category_id, con.content_url, con.content_keyword, con.content_description,
+    con.content_img, con.content_sort, con.content_datetime, con.content_source, con.content_author, con.content_display,
+    con.content_type, con.content_hit, con.del, con.update_date, con.update_by, con.create_date, con.create_by
+    FROM
+    cms_content con
+    where id <![CDATA[ < ]]> #{contentId} and content_category_id = #{categoryId}
+    order by id desc LIMIT 1
+
+  </select>
+
+  <select id="getNextContent" resultMap="BaseResultMap">
+    select con.id, con.app_id, con.content_title, con.content_category_id, con.content_url, con.content_keyword, con.content_description,
+    con.content_img, con.content_sort, con.content_datetime, con.content_source, con.content_author, con.content_display,
+    con.content_type, con.content_hit, con.del, con.update_date, con.update_by, con.create_date, con.create_by
+    FROM
+    cms_content con
+    where id <![CDATA[ >]]> #{contentId} and content_category_id = #{categoryId}
+    order by id ASC LIMIT 1
+
+  </select>
 </mapper>

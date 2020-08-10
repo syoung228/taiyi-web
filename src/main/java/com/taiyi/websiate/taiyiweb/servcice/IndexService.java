@@ -5,12 +5,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taiyi.websiate.taiyiweb.dto.CmsCategoryDto;
-import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntity;
-import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntityExample;
-import com.taiyi.websiate.taiyiweb.entity.CmsContentEntity;
-import com.taiyi.websiate.taiyiweb.entity.CmsContentEntityExample;
+import com.taiyi.websiate.taiyiweb.entity.*;
 import com.taiyi.websiate.taiyiweb.mapper.CmsCategoryEntityMapper;
 import com.taiyi.websiate.taiyiweb.mapper.CmsContentEntityMapper;
+import com.taiyi.websiate.taiyiweb.mapper.TagsEntityMapper;
 import com.taiyi.websiate.taiyiweb.utils.AddressUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +27,9 @@ public class IndexService {
 
     @Autowired
     CmsContentEntityMapper cmsContentEntityMapper;
+
+    @Autowired
+    TagsEntityMapper tagsEntityMapper;
     @Autowired
     ProjectProcessService projectProcessService;
     /**
@@ -62,7 +63,8 @@ public class IndexService {
         }
 
 
-
+        //推荐案例
+        result.put("regionCase",cmsContentEntityMapper.getByRegion(cityCodeInt));
         //案例分类
         result.put("caseCategory",cmsCaseDtos);
         //获取banner
@@ -93,6 +95,8 @@ public class IndexService {
     }
 
     public Object getcontentByCategory(Integer categoryId,Integer pageNum,Integer pageSize){
+        pageNum=pageNum!=null || pageNum>0?pageNum:1;
+        pageSize=pageSize!=null||pageSize>0?pageSize:10;
         PageHelper.startPage(pageNum,pageSize);
         return new PageInfo<>(cmsContentEntityMapper.getByCategoryId(categoryId,null));
     }
@@ -104,6 +108,25 @@ public class IndexService {
     }
 
     public Object getContenDetail(Integer id){
-        return cmsContentEntityMapper.deleteByPrimaryKey(id);
+        return cmsContentEntityMapper.selectByPrimaryKey(id);
+    }
+
+    public Object getNewsByMainCategory(){
+        return cmsContentEntityMapper.getByMainCategory(newsCategory);
+    }
+
+    public Object getTags(){
+        return tagsEntityMapper.selectByExample(new TagsEntityExample());
+    }
+
+    public Object getcontentByTags(Integer tagsId){
+        return cmsContentEntityMapper.getByTags(tagsId);
+    }
+
+    public Object getLastAndNextContent(Integer contentId,Integer categoryId){
+        Map<String,Object> result = new HashMap<>();
+        result.put("last",cmsContentEntityMapper.getLastContent(contentId,categoryId));
+        result.put("next",cmsContentEntityMapper.getNextContent(contentId,categoryId));
+        return result;
     }
 }

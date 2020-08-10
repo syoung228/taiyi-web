@@ -25,7 +25,7 @@ public class ProjectProcessService {
     @Autowired
     ProjectProcessInfoEntityMapper projectProcessInfoEntityMapper;
 
-    List<ProjectDto> getProjectList(){
+    public List<ProjectDto> getProjectList(){
         List<ProjectDto> projectDtos = new ArrayList<>();
         ProjectProcessEntityExample entityExample = new ProjectProcessEntityExample();
         entityExample.createCriteria().andIsDeleteEqualTo(1);
@@ -37,6 +37,14 @@ public class ProjectProcessService {
             projectDtos.add(projectDto);
         }
         return projectDtos;
+    }
+
+    public ProjectDto getProjectDetail(Integer progressId){
+        ProjectProcessEntity entity = projectProcessEntityMapper.selectByPrimaryKey(progressId);
+            ProjectDto projectDto = new ProjectDto();
+            BeanUtils.copyProperties(entity,projectDto);
+            projectDto.setProjectProcessInfo(projectProcessInfoEntityMapper.getByProject(entity.getId()));
+        return projectDto;
     }
 
 }

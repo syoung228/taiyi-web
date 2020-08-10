@@ -20,9 +20,6 @@ public class IndexController {
     IndexService indexService;
     @RequestMapping("/index")
     public Object indexDate(HttpServletRequest request){
-
-        String resultStr = AddressUtils.getCityByIp(request.getRemoteAddr());
-        JSONObject json = JSON.parseObject(resultStr);
         return indexService.index(request);
     }
 
@@ -41,5 +38,24 @@ public class IndexController {
         return indexService.getContenDetail(id);
     }
 
+    @GetMapping("/getNews")
+    public Object getNews(){
+        return indexService.getNewsByMainCategory();
+    }
+
+    @GetMapping("/getTags")
+    public Object getTags(){
+        return indexService.getTags();
+    }
+
+    @GetMapping("/getByTags")
+    public Object getByTags(Integer tagsId){
+        return indexService.getcontentByTags(tagsId);
+    }
+
+    @GetMapping("/getNextAndLast")
+    public Object getNextAndLast(Integer categoryId,Integer currentId){
+        return indexService.getLastAndNextContent(currentId,categoryId);
+    }
 
 }
