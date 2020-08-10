@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Despriction:
@@ -45,6 +47,13 @@ public class ProjectProcessService {
             BeanUtils.copyProperties(entity,projectDto);
             projectDto.setProjectProcessInfo(projectProcessInfoEntityMapper.getByProject(entity.getId()));
         return projectDto;
+    }
+
+    public Object getLastAndNextContent(Integer contentId){
+        Map<String,Object> result = new HashMap<>();
+        result.put("last",projectProcessEntityMapper.getLastProgress(contentId));
+        result.put("next",projectProcessEntityMapper.getNextProgress(contentId));
+        return result;
     }
 
 }

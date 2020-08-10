@@ -58,4 +58,6 @@ public class IndexController {
         return indexService.getLastAndNextContent(currentId,categoryId);
     }
 
+
+
 }

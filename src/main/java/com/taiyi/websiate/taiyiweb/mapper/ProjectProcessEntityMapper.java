@@ -33,4 +33,8 @@ public interface ProjectProcessEntityMapper {
     int updateByPrimaryKeySelective(ProjectProcessEntity record);
 
     int updateByPrimaryKey(ProjectProcessEntity record);
+
+    ProjectProcessEntity getLastProgress(Integer currentId);
+
+    ProjectProcessEntity getNextProgress(Integer currentId);
 }

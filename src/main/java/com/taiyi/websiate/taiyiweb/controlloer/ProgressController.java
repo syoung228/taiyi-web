@@ -27,4 +27,9 @@ public class ProgressController {
         return projectProcessService.getProjectDetail(id);
     }
 
+    @GetMapping("/getNextAndLast")
+    public Object getNextAndLast(Integer currentId){
+        return projectProcessService.getLastAndNextContent(currentId);
+    }
+
 }
