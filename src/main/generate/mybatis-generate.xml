@@ -90,7 +90,11 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="is_delete" javaType="com.medcrab.common.code.contants.IsDeletedEnum" typeHandler="comm.leam.mybatis.handler.CommonEnumTypeHandler"/>
         </table>-->
-        <table tableName="project_process_info" domainObjectName="ProjectProcessInfoEntity">
+<!--        <table tableName="seo_tags" domainObjectName="TagsEntity">-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+        <table tableName="company_info" domainObjectName="CompanyInfoEntity">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
