@@ -94,7 +94,7 @@
 <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
 <!--        </table>-->
 
-        <table tableName="company_info" domainObjectName="CompanyInfoEntity">
+        <table tableName="contact" domainObjectName="ContactEntity">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>

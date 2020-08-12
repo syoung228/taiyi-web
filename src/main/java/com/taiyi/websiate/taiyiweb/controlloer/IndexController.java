@@ -33,6 +33,10 @@ public class IndexController {
         return indexService.getcontentByCategory( categoryId, pageNum, pageSize);
     }
 
+    @GetMapping("/getHeaderList")
+    public Object getHeaderList(){
+        return indexService.headerList();
+    }
     @GetMapping("/getContentDetail")
     public Object getContentDetail(Integer id){
         return indexService.getContenDetail(id);
@@ -58,6 +62,9 @@ public class IndexController {
         return indexService.getLastAndNextContent(currentId,categoryId);
     }
 
-
+    @GetMapping("/getContact")
+    public Object getContact(){
+        return indexService.getContact();
+    }
 
 }

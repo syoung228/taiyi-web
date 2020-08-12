@@ -8,6 +8,7 @@ import com.taiyi.websiate.taiyiweb.dto.CmsCategoryDto;
 import com.taiyi.websiate.taiyiweb.entity.*;
 import com.taiyi.websiate.taiyiweb.mapper.CmsCategoryEntityMapper;
 import com.taiyi.websiate.taiyiweb.mapper.CmsContentEntityMapper;
+import com.taiyi.websiate.taiyiweb.mapper.ContactEntityMapper;
 import com.taiyi.websiate.taiyiweb.mapper.TagsEntityMapper;
 import com.taiyi.websiate.taiyiweb.utils.AddressUtils;
 import org.springframework.beans.BeanUtils;
@@ -32,16 +33,18 @@ public class IndexService {
     TagsEntityMapper tagsEntityMapper;
     @Autowired
     ProjectProcessService projectProcessService;
+    @Autowired
+    ContactEntityMapper contactEntityMapper;
     /**
      * 案例id
      */
-    private Integer caseCategory = 61;
+    private Integer caseCategory = 7;
     /**
      * 首页banner
      */
     private Integer bannerCategory = 147;
 
-    private Integer newsCategory = 59;
+    private Integer newsCategory = 8;
 
     public Object index(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
@@ -133,5 +136,15 @@ public class IndexService {
         result.put("last",last!=null?last:new CmsContentEntity());
         result.put("next",next!=null?next:new CmsContentEntity());
         return result;
+    }
+
+    public Object headerList(){
+        CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
+        cmsCategoryEntityExample.createCriteria().andIdLessThan(10);
+        return cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
+    }
+
+    public Object getContact(){
+        return contactEntityMapper.selectByExample(new ContactEntityExample()).get(0);
     }
 }
