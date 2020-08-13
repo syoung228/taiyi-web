@@ -16,7 +16,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="item_id" jdbcType="INTEGER" property="itemId" />
     <result column="project_id" jdbcType="INTEGER" property="projectId" />
-    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgs" />
     <result column="itemName" jdbcType="VARCHAR" property="itemName" />
     <result column="icon" jdbcType="VARCHAR" property="itemIcon" />
   </resultMap>
@@ -304,13 +304,13 @@
 	pi.item_id,
 	pi.project_id,
 	pi.is_delete,
-	pi.imgs,
-	pi.item_id,
+	pp.img_url,
 	it.icon,
 	it.name itemName
 FROM
 	project_process_info pi
 LEFT JOIN project_process_item it ON pi.item_id = it.id
+LEFT JOIN project_process pp on pp.id = pi.project_id
 WHERE
 	pi.project_id = #{projectId} order by pi.item_id
   </select>
