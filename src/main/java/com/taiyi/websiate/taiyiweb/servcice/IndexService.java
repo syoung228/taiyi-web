@@ -140,7 +140,7 @@ public class IndexService {
 
     public Object headerList(){
         CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
-        cmsCategoryEntityExample.createCriteria().andIdLessThan(10);
+        cmsCategoryEntityExample.createCriteria().andCategoryParentIdIsNull();
         return cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
     }
 
