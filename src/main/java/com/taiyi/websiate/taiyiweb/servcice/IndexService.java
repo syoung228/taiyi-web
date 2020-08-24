@@ -48,9 +48,13 @@ public class IndexService {
 
     public Object index(HttpServletRequest request){
         Map<String,Object> result = new HashMap<>();
-        String resultStr = AddressUtils.getCityByIp(request.getRemoteAddr());
+        String address = AddressUtils.getIPAddress(request);
+        System.out.println("城市真是ip======="+address);
+        String resultStr = AddressUtils.getCityByIp(address);
         JSONObject json = JSON.parseObject(resultStr);
         String cityCode = (String) json.getJSONObject("data").get("city_id");
+        System.out.println(json);
+        System.out.println("城市编码======="+cityCode);
         Integer cityCodeInt =0;
         try{
             cityCodeInt = Integer.parseInt(cityCode);
@@ -61,13 +65,18 @@ public class IndexService {
         List<CmsCategoryDto> cmsCaseDtos = entityToDto(caseCategory);
         for(int i=0;i<cmsCaseDtos.size();i++){
             //获取案例 关联城市
-            List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId(cmsCaseDtos.get(i).getId(),null);
+            List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId2(cmsCaseDtos.get(i).getId());
             cmsCaseDtos.get(i).setCmsContentEntities(cityCmsContent);
+        }
+        //推荐案例
+        List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByRegion(cityCodeInt);
+        if(cmsContentEntities ==null || cmsContentEntities.size()<=0){
+            result.put("regionCase",cmsContentEntityMapper.getByRegion(0));
+        }else{
+            result.put("regionCase",cmsContentEntities);
         }
 
 
-        //推荐案例
-        result.put("regionCase",cmsContentEntityMapper.getByRegion(cityCodeInt));
         //案例分类
         result.put("caseCategory",cmsCaseDtos);
         //获取banner
@@ -101,7 +110,8 @@ public class IndexService {
         pageNum=pageNum!=null || pageNum>0?pageNum:1;
         pageSize=pageSize!=null||pageSize>0?pageSize:10;
         PageHelper.startPage(pageNum,pageSize);
-        return new PageInfo<>(cmsContentEntityMapper.getByCategoryId(categoryId,null));
+        List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByCategoryId2(categoryId);
+        return new PageInfo<>(cmsContentEntities);
     }
 
     public Object getCaseCategory(Integer categoryId){
