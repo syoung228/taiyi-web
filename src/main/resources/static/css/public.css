@@ -442,17 +442,19 @@ footer .ly-foot .ly-bottom p {
   background: #cdcdcd;
   cursor: pointer;
 }
+.ly-layer .ly-layer-btn span a {
+  color: #fff;
+}
 .ly-layer .ly-layer-btn span.ly-btn {
   background: #009933;
   color: #fff;
 }
 .ly-layer .ly-intro {
   width: 620px;
-  height: 410px;
   background: url(../images/layer_bg.png) no-repeat;
   background-size: 100% 100%;
   box-sizing: border-box;
-  padding: 0 15px;
+  padding: 0 15px 20px;
   z-index: 999;
   position: absolute;
   top: 50%;
@@ -561,6 +563,26 @@ footer .ly-foot .ly-bottom p {
   .ly-content .ly-cont-right .ly-list li img {
     width: 100%;
   }
+  .ly-layer .ly-intro {
+    width: 90%;
+    margin-left: 0;
+    left: 5%;
+  }
+  .ly-layer .ly-intro .ly-cont h2 {
+    font-size: 0.7rem;
+    letter-spacing: 0;
+  }
+  .ly-layer .ly-intro .ly-cont .ly-list li {
+    padding-left: 2rem;
+    font-size: 0.8rem;
+  }
+  .ly-layer .ly-intro .ly-cont .ly-list li:before {
+    left: 10px;
+  }
+  .ly-layer .ly-layer-btn span {
+    width: 5.5rem;
+    margin: 0 0.5rem;
+  }
   .ly-title p {
     margin-top: 0;
   }
@@ -626,6 +648,7 @@ footer .ly-foot .ly-bottom p {
   }
   header .ly-content .ly-nav-list .ly-nav li a {
     color: #fff;
+    margin-left: 0;
   }
   header .ly-content .ly-nav-list .ly-nav li a:before {
     background: none !important;

@@ -1,16 +1,21 @@
 package com.taiyi.websiate.taiyiweb.entity;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.List;
+
 /**
  * 表名称：company_info
  * 表注释：
- * 
+ *
  * @author mybites-generater
  * @createtime 2020-08-11 10:42:58
- * 
+ *
  */
 public class CompanyInfoEntity {
     /**
-     * 
+     *
      */
     private Integer id;
 
@@ -53,6 +58,8 @@ public class CompanyInfoEntity {
      * 友情链接
      */
     private String links;
+
+    private JSONArray linkJson;
 
     /**
      * 备案信息
@@ -128,6 +135,7 @@ public class CompanyInfoEntity {
     }
 
     public void setLinks(String links) {
+        this.linkJson = JSONObject.parseArray(links);
         this.links = links == null ? null : links.trim();
     }
 
@@ -137,5 +145,13 @@ public class CompanyInfoEntity {
 
     public void setRecordInfo(String recordInfo) {
         this.recordInfo = recordInfo == null ? null : recordInfo.trim();
+    }
+
+    public JSONArray getLinkJson() {
+        return linkJson;
+    }
+
+    public void setLinkJson(JSONArray linkJson) {
+        this.linkJson = linkJson;
     }
 }

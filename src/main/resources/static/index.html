@@ -106,18 +106,18 @@
                 </div>
                 <!--分类-->
                 <ul class="ly-list-nav ly-case-btn">
-                    <li th:each="item in ${index.caseCategory}">[[${item.categoryTitle}]]</li>
+                    <li th:each="item : ${index.caseCategory}">[[${item.categoryTitle}]]</li>
                 </ul>
             </div>
             <!--分类数据 对应-->
-            <ul class="ly-list ly-case-list" th:each="item in ${index.caseCategory}">
-                <li th:each="item1 in ${item.cmsContentEntities}">
+            <ul class="ly-list ly-case-list" th:each="item : ${index.caseCategory}">
+                <li th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index} < 6">
                     <a href="case_details.html" target="_blank">
                         <div class="ly-img">
                             <img th:src="${item1.contentImg}" alt="img_1.png" class="ly-png" />
                             <div class="ly-intro">
                                 <h4>服务项目：[[${item1.contentTitle}]]</h4>
-                                <p>[[]${item1.contentDescription}]</p>
+                                <p>[[${item1.contentDescription}]]</p>
                                 <img src="/images/icon_hover.png" />
                             </div>
                         </div>
@@ -143,144 +143,23 @@
                 </div>
             </div>
             <ul class="ly-list ly-progress-lists">
-                <li>
+                <li th:each="item : ${index.projects}" th:if="${itemStat.index}<=3">
                     <div class="ly-gress">
-                        <div class="ly-years">2020</div>
-                        <div class="ly-date">07-31</div>
-                        <p class="ly-p">地址：凉山岳西 项目：太阳能提灌</p>
-                        <p class="ly-h2">马拖乡太阳能提灌站项目</h2>
+                        <div class="ly-years">[[${item.year}]]</div>
+                        <div class="ly-date">[[${item.monthDay}]]</div>
+                        <p class="ly-p">地址：[[${item.address}]] 项目：[[${item.des}]]</p>
+                        <p class="ly-h2">[[${item.title}]]</h2>
                     </div>
                     <div class="ly-intro">
-                        <h2>马拖乡太阳能提灌站项目</h2>
-                        <p>地址：凉山岳西 项目：太阳能提灌</p>
+                        <h2>[[${item.title}]]</h2>
+                        <p>地址：[[${item.address}]] 项目：[[${item.des}]]</p>
                         <div class="ly-speed">
-                            <span class="ly-green">
-                              <i class="iconfont icon_bidding"></i>
-                              <em>中标</em>
-                            </span>
-                            <span class="ly-red">
-                              <i class="iconfont icon_approach"></i>
-                              <em>进场</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_construction"></i>
-                              <em>施工</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_checked"></i>
-                              <em>验收</em>
-                            </span>
-                            <span>
-                            <i class="iconfont icon_over"></i>
-                            <em>支付</em>
-                          </span>
-                        </div>
-                        <div class="ly-more-btn"><a href="progress.html" target="_blank">查看详情</a></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ly-gress">
-                        <div class="ly-years">2020</div>
-                        <div class="ly-date">07-31</div>
-                        <p class="ly-p">地址：凉山岳西 项目：太阳能提灌</p>
-                        <p class="ly-h2">马拖乡太阳能提灌站项目</h2>
-                    </div>
-                    <div class="ly-intro">
-                        <h2>马拖乡太阳能提灌站项目</h2>
-                        <p>地址：凉山岳西 项目：太阳能提灌</p>
-                        <div class="ly-speed">
-                            <span class="ly-green">
-                              <i class="iconfont icon_bidding"></i>
-                              <em>中标</em>
-                            </span>
-                            <span class="ly-red">
-                              <i class="iconfont icon_approach"></i>
-                              <em>进场</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_construction"></i>
-                              <em>施工</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_checked"></i>
-                              <em>验收</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_over"></i>
-                              <em>支付</em>
+                            <span th:classappend="${item.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${item.projectProcessInfo}" >
+                              <i th:classappend="${item1.itemIcon}"></i>
+                              <em>[[${item1.itemName}]]</em>
                             </span>
                         </div>
                         <div class="ly-more-btn"><a href="progress.html" target="_blank">查看详情</a></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ly-gress">
-                        <div class="ly-years">2020</div>
-                        <div class="ly-date">07-31</div>
-                        <p class="ly-p">地址：凉山岳西 项目：太阳能提灌</p>
-                        <p class="ly-h2">马拖乡太阳能提灌站项目</h2>
-                    </div>
-                    <div class="ly-intro">
-                        <h2>马拖乡太阳能提灌站项目</h2>
-                        <p>地址：凉山岳西 项目：太阳能提灌</p>
-                        <div class="ly-speed">
-                            <span class="ly-green">
-                              <i class="iconfont icon_bidding"></i>
-                              <em>中标</em>
-                            </span>
-                            <span class="ly-red">
-                              <i class="iconfont icon_approach"></i>
-                              <em>进场</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_construction"></i>
-                              <em>施工</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_checked"></i>
-                              <em>验收</em>
-                            </span>
-                            <span>
-                              <i class="iconfont icon_over"></i>
-                              <em>支付</em>
-                            </span>
-                        </div>
-                        <div class="ly-more-btn"><a href="progress.html">查看详情</a></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ly-gress">
-                        <div class="ly-years">2020</div>
-                        <div class="ly-date">07-31</div>
-                        <p class="ly-p">地址：凉山岳西 项目：太阳能提灌</p>
-                        <p class="ly-h2">马拖乡太阳能提灌站项目</h2>
-                    </div>
-                    <div class="ly-intro">
-                        <h2>马拖乡太阳能提灌站项目</h2>
-                        <p>地址：凉山岳西 项目：太阳能提灌</p>
-                        <div class="ly-speed">
-                            <span class="ly-green">
-                <i class="iconfont icon_bidding"></i>
-                <em>中标</em>
-              </span>
-                            <span class="ly-red">
-                <i class="iconfont icon_approach"></i>
-                <em>进场</em>
-              </span>
-                            <span>
-                <i class="iconfont icon_construction"></i>
-                <em>施工</em>
-              </span>
-                            <span>
-                <i class="iconfont icon_checked"></i>
-                <em>验收</em>
-              </span>
-                            <span>
-                <i class="iconfont icon_over"></i>
-                <em>支付</em>
-              </span>
-                        </div>
-                        <div class="ly-more-btn"><a href="progress.html">查看详情</a></div>
                     </div>
                 </li>
             </ul>
@@ -297,157 +176,34 @@
                 </div>
                 <!--分类-->
                 <ul class="ly-list-nav ly-news-btn">
-                    <li>中标新闻</li>
-                    <li>公司动态</li>
-                    <li>光伏百科</li>
+                    <li th:each="item : ${index.news}">[[${item.categoryTitle}]]</li>
                 </ul>
             </div>
             <!--分类数据 对应-->
-            <div class="ly-list ly-news-list">
-                <div class="ly-left">
+            <div class="ly-list ly-news-list" th:each="item : ${index.news}">
+                <div class="ly-left" th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index}<1">
                     <a href="news_details.html" target="_blank">
                         <div class="ly-img">
-                            <img src="images/img/img_news.png" alt="img_1.png" />
+                            <img th:src="${item1.contentImg}" alt="img_1.png" />
                         </div>
-                        <h2>中标新闻中标新闻中标新闻中标新闻中标新闻中标新闻中标新闻中标新闻</h2>
-                        <h6>2019-08-15</h6>
+                        <h2>[[${item1.contentTitle}]]</h2>
+                        <h6>[[${#dates.format(item1.contentDatetime, 'yyyy-MM-dd')}]]</h6>
                     </a>
                 </div>
                 <ul class="ly-right">
-                    <li>
+                    <li th:each="item1 : ${item.cmsContentEntities}">
                         <a href="news_details.html" target="_blank">
                             <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
+                                <div class="ly-day">[[${#dates.format(item1.contentDatetime, 'MM-dd')}]]</div>
+                                <div class="ly-years">[[${#dates.format(item1.contentDatetime, 'yyyy')}]]</div>
                             </div>
                             <div class="ly-intro">
-                                <h4>光伏技术迭代趋势下的产品可靠性不容忽视光伏技术迭代趋势下的产品可靠性不容忽视</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策...</p>
+                                <h4>[[${item1.contentTitle}]]</h4>
+                                <p>[[${item1.contentDescription}]]</p>
                             </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏发电光伏发电光伏发电光伏发电</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策....</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏发电光伏发电光伏发电光伏发电</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策...</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="ly-list ly-news-list">
-                <div class="ly-left">
-                    <a href="news_details.html" target="_blank">
-                        <div class="ly-img">
-                            <img src="/images/img/img_news.png" alt="img_1.png" />
-                        </div>
-                        <h2>公司动态公司动态公司动态公司动态公司动态公司动态</h2>
-                        <h6>2019-08-15</h6>
-                    </a>
-                </div>
-                <ul class="ly-right">
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏技术迭代趋势下的产品可靠性不容忽视光伏技术迭代趋势下的产品可靠性不容忽视</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策...</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏发电光伏发电光伏发电光伏发电</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策....</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏发电光伏发电光伏发电光伏发电</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策...</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="ly-list ly-news-list">
-                <div class="ly-left">
-                    <a href="news_details.html" target="_blank">
-                        <div class="ly-img">
-                            <img src="/images/img/img_news.png" alt="img_1.png" />
-                        </div>
-                        <h2>光伏百科光伏百科光伏百科光伏百科光伏百科</h2>
-                        <h6>2019-08-15</h6>
-                    </a>
-                </div>
-                <ul class="ly-right">
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏技术迭代趋势下的产品可靠性不容忽视光伏技术迭代趋势下的产品可靠性不容忽视</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策...</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏发电光伏发电光伏发电光伏发电</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策....</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="news_details.html" target="_blank">
-                            <div class="ly-time">
-                                <div class="ly-day">08-16</div>
-                                <div class="ly-years">2019</div>
-                            </div>
-                            <div class="ly-intro">
-                                <h4>光伏发电光伏发电光伏发电光伏发电</h4>
-                                <p>近日“2019年光伏产业链供应论坛”于北京召开。与会专家指出，今年我国光伏行业出台了一些新的政策...</p>
-                            </div>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -473,36 +229,29 @@
         <div class="ly-foot">
             <div class="ly-content">
                 <div class="ly-intro">
-                    <h2>四川太一新能源有限公司</h2>
-                    <p>公司地址：成都市温江区科盛路东段1199号<br/> 服务热线：400-682-6677 <br/> 售后热线：400-652-6677 <br/> 电子邮箱: 2262154845@qq.com<br/>
+                    <h2>[[${footer.companyName}]]</h2>
+                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/>
+                        售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
                     </p>
                 </div>
                 <div class="ly-wechat">
                     <div class="ly-qr">
-                        <img src="/images/img/img_wechat.png" />
+                        <img th:src="${footer.saleWechatUrl}" />
                         <p>销售微信</p>
                     </div>
                     <div class="ly-qr">
-                        <img src="/images/img/img_wechat.png" />
+                        <img th:src="${footer.companyWechatUrl}" />
                         <p>官方微信</p>
                     </div>
                 </div>
                 <div class="ly-line">
                     <h2>友情链接 <span>交换友情链接</span></h2>
                     <div class="ly-list">
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
+                        <a th:href="${link.url}" th:each="link:${footer.linkJson}">[[${link.name}]]</a>
                     </div>
                 </div>
                 <div class="ly-bottom">
-                    <p>备案号：蜀ICP备10021798号-1 Copyright © 2002-2020四川太一新能源 版权所有</p>
+                    <p>备案号：[[${footer.recordInfo}]]</p>
                 </div>
             </div>
         </div>
@@ -513,14 +262,11 @@
             <div class="ly-name">南充周边案例</div>
             <div class="ly-cont">
                 <ul class="ly-list">
-                    <li>南充高平区太阳能路灯案例</li>
-                    <li>南充高平区太阳能路灯案例</li>
-                    <li>南充高平区太阳能路灯案例</li>
-                    <li>南充高平区太阳能路灯案例</li>
+                    <li th:each="item : ${index.regionCase}" th:if="${itemStat.index}<3">[[${item.contentTitle}]]</li>
                 </ul>
                 <h2>立即与项目经理一对一沟通，获取设计与报价！</h2>
                 <div class="ly-layer-btn">
-                    <span class="ly-btn">立即咨询</span>
+                    <span class="ly-btn"><a href="http://p.qiao.baidu.com/cps/chat?siteId=138415&userId=1206681&siteToken=6bdd0ee0df75a67faa567e0a8752d3d8" target="_blank">立即咨询</a></span>
                     <span onclick="closeLayer()">稍后咨询</span>
                 </div>
             </div>

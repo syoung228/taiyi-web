@@ -49,7 +49,7 @@ function closeLayer() {
     setInterval(() => {
         $(".ly-layer").show();
     }, 30000)
-}
+};
 $(".ly-make").click(function() {
     $(".ly-layer").show();
 })

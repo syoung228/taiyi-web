@@ -173,6 +173,7 @@
   }
   .ly-lifting .ly-page .ly-number {
     z-index: 0;
+    display: none;
   }
   .ly-lifting .ly-page .ly-intro {
     position: relative;

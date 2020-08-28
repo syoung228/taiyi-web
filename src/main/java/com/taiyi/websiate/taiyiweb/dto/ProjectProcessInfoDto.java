@@ -40,6 +40,10 @@ public class ProjectProcessInfoDto {
      * 进度项icon
      */
     private String itemIcon;
+    /**
+     * 当前进度
+     */
+    private String processClass;
 
     public Integer getId() {
         return id;
