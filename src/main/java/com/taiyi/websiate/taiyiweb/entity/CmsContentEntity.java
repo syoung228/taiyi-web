@@ -1,18 +1,21 @@
 package com.taiyi.websiate.taiyiweb.entity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
 import java.util.Date;
 
 /**
  * 表名称：cms_content
  * 表注释：文章
- * 
+ *
  * @author mybites-generater
  * @createtime 2020-07-30 19:56:26
- * 
+ *
  */
 public class CmsContentEntity {
     /**
-     * 
+     *
      */
     private Integer id;
 
@@ -177,7 +180,12 @@ public class CmsContentEntity {
     }
 
     public void setContentImg(String contentImg) {
-        this.contentImg = contentImg == null ? null : contentImg.trim();
+        JSONArray json = JSONArray.parseArray(contentImg);
+        if(json.size()>0){
+            this.contentImg  = (String) json.getJSONObject(0).get("path");
+        }else{
+            this.contentImg = null;
+        }
     }
 
     public Integer getContentSort() {

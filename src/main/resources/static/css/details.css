@@ -1,0 +1,405 @@
+.display {
+  display: inline-block;
+  vertical-align: top;
+}
+.box {
+  box-sizing: border-box;
+}
+.ly-page {
+  width: 100%;
+  background: #f2f2f2;
+  padding: 40px 0 60px;
+  font-size: 0;
+}
+.ly-page.ly-run .ly-left .ly-h1 h1 {
+  text-align: center;
+  padding-bottom: 30px;
+}
+.ly-page .ly-progress .ly-intro {
+  width: 100%;
+  background: #fff;
+  padding: 40px 60px;
+  text-align: center;
+}
+.ly-page .ly-progress .ly-intro .ly-img {
+  padding: 10px 0 0;
+  text-align: center;
+}
+.ly-page .ly-progress .ly-intro .ly-img img {
+  width: 100%;
+  display: block;
+}
+.ly-page .ly-progress .ly-intro h1 {
+  font-size: 26px;
+  color: #333;
+  line-height: 40px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.ly-page .ly-progress .ly-intro p {
+  font-size: 18px;
+  color: #666;
+  line-height: 30px;
+}
+.ly-page .ly-progress .ly-intro .ly-speed {
+  width: 100%;
+  height: 150px;
+  font-size: 0;
+  text-align: center;
+  padding: 25px;
+  position: relative;
+}
+.ly-page .ly-progress .ly-intro .ly-speed:before {
+  height: 1px;
+  width: 100%;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: #333;
+  z-index: 1;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span {
+  position: relative;
+  z-index: 3;
+  width: 60px;
+  background: #fff;
+  display: inline-block;
+  vertical-align: top;
+  margin: 27px 25px 0;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span.ly-green i,
+.ly-page .ly-progress .ly-intro .ly-speed span.ly-green em {
+  color: #307900;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span.ly-green i {
+  border: 2px solid #307900;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span.ly-red i,
+.ly-page .ly-progress .ly-intro .ly-speed span.ly-red em {
+  color: #ff0000;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span.ly-red i {
+  border: 2px solid #ff0000;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span i {
+  font-size: 30px;
+  width: 40px;
+  height: 40px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0 auto;
+  border: 2px solid #333;
+  display: block;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span i.icon_checked {
+  font-size: 26px;
+}
+.ly-page .ly-progress .ly-intro .ly-speed span em {
+  font-size: 20px;
+  color: #333;
+  line-height: 40px;
+  display: block;
+  margin-top: 20px;
+}
+.ly-page .ly-progress .ly-list {
+  padding: 50px 90px 20px 150px;
+  width: 100%;
+}
+.ly-page .ly-progress .ly-list li {
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+.ly-page .ly-progress .ly-list li:last-child {
+  border-bottom: none;
+}
+.ly-page .ly-progress .ly-list li .ly-icon {
+  width: 50px;
+  position: absolute;
+  top: 0;
+  left: -60px;
+}
+.ly-page .ly-progress .ly-list li .ly-icon img {
+  width: 100%;
+  display: block;
+}
+.ly-page .ly-progress .ly-list li h2 {
+  font-size: 18px;
+  color: #666;
+  line-height: 40px;
+  margin-bottom: 0;
+}
+.ly-page .ly-progress .ly-list li .ly-img {
+  width: 100%;
+  padding-bottom: 20px;
+}
+.ly-page .ly-progress .ly-list li .ly-img img {
+  width: 200px;
+  margin: 10px;
+  display: inline-block;
+  vertical-align: top;
+  border: 1px solid #e5e5e5;
+}
+.ly-page .ly-left {
+  width: 830px;
+  display: inline-block;
+  vertical-align: top;
+  background: #fff;
+  padding: 20px 15px;
+  box-sizing: border-box;
+}
+.ly-page .ly-left .ly-h1 {
+  width: 100%;
+  padding: 20px 30px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.ly-page .ly-left .ly-h1 h1 {
+  font-size: 24px;
+  color: #333;
+  line-height: 40px;
+}
+.ly-page .ly-left .ly-h1 p {
+  font-size: 14px;
+  color: #808080;
+  line-height: 40px;
+  text-align: right;
+}
+.ly-page .ly-left .ly-cont {
+  width: 100%;
+  padding: 30px;
+}
+.ly-page .ly-left .ly-cont p {
+  font-size: 16px;
+  color: #333;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+.ly-page .ly-left .ly-cont img {
+  max-width: 100%;
+  display: block;
+}
+.ly-page .ly-left .ly-bottom {
+  padding: 30px;
+}
+.ly-page .ly-left .ly-bottom .ly-li {
+  line-height: 40px;
+}
+.ly-page .ly-left .ly-bottom .ly-li h2 {
+  font-size: 18px;
+}
+.ly-page .ly-left .ly-bottom .ly-li a {
+  color: #009933;
+}
+.ly-page .ly-right {
+  width: 340px;
+  margin-left: 30px;
+  display: inline-block;
+  vertical-align: top;
+}
+.ly-page .ly-right .ly-uptop {
+  width: 100%;
+  background: #fff;
+  padding: 35px;
+  margin-bottom: 30px;
+}
+.ly-page .ly-right .ly-uptop h4 {
+  font-size: 20px;
+  color: #333;
+  line-height: 40px;
+}
+.ly-page .ly-right .ly-uptop .ly-list {
+  width: 100%;
+}
+.ly-page .ly-right .ly-uptop .ly-list li {
+  padding: 15px 0;
+  border-bottom: 1px dashed #e5e5e5;
+}
+.ly-page .ly-right .ly-uptop .ly-list li h2 {
+  font-size: 16px;
+  color: #666;
+  line-height: 30px;
+  transition: 0.3s;
+}
+.ly-page .ly-right .ly-uptop .ly-list li h2:hover {
+  color: #009933;
+}
+.ly-page .ly-right .ly-uptop .ly-list li p {
+  font-size: 14px;
+  color: #999;
+  line-height: 30px;
+}
+.ly-page .ly-right .ly-uptop .ly-tids {
+  width: 100%;
+}
+.ly-page .ly-right .ly-uptop .ly-tids a {
+  line-height: 30px;
+  position: relative;
+  transition: 0.3s;
+  font-size: 16px;
+  margin-right: 40px;
+  color: #4c4c4c;
+}
+.ly-page .ly-right .ly-uptop .ly-tids a:hover {
+  color: #009933;
+}
+.ly-page .ly-case {
+  width: 100%;
+}
+.ly-page .ly-case .ly-name {
+  padding: 40px 0 20px;
+}
+.ly-page .ly-case .ly-name h2 {
+  position: relative;
+  color: #000;
+  font-size: 24px;
+  line-height: 40px;
+  padding-bottom: 10px;
+}
+.ly-page .ly-case .ly-name h2:before {
+  width: 40px;
+  height: 3px;
+  content: '';
+  background: #009933;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.ly-page .ly-case .ly-name h2 a {
+  float: right;
+  font-size: 16px;
+  color: #666;
+}
+.ly-page .ly-case .ly-name h2 a:hover {
+  color: #009933;
+}
+.ly-page .ly-case .ly-list {
+  font-size: 0;
+  width: 100%;
+}
+.ly-page .ly-case .ly-list li {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  width: 370px;
+  padding: 5px;
+  background: #fff;
+  margin-right: 45px;
+}
+.ly-page .ly-case .ly-list li:last-child {
+  margin-right: 0;
+}
+.ly-page .ly-case .ly-list li .ly-img {
+  width: 100%;
+  overflow: hidden;
+}
+.ly-page .ly-case .ly-list li .ly-img img {
+  width: 100%;
+  display: block;
+  transition: 0.3s;
+}
+.ly-page .ly-case .ly-list li .ly-img img:hover {
+  transform: scale(1.15);
+}
+.ly-page .ly-case .ly-list li .ly-intro {
+  width: 100%;
+  margin: 10px 0;
+  padding-right: 70px;
+  position: relative;
+}
+.ly-page .ly-case .ly-list li .ly-intro h2 {
+  font-size: 16px;
+  color: #333;
+  line-height: 30px;
+  transition: 0.3s;
+}
+.ly-page .ly-case .ly-list li .ly-intro h2:hover {
+  color: #009933;
+}
+.ly-page .ly-case .ly-list li .ly-intro p {
+  font-size: 14px;
+  color: #666;
+  line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ly-page .ly-case .ly-list li .ly-intro .ly-more {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding-left: 20px;
+  border-left: 1px solid #e5e5e5;
+}
+.ly-page .ly-case .ly-list li .ly-intro .ly-more img {
+  width: 100%;
+  margin-top: 10px;
+}
+@media screen and (max-width: 760px) {
+  .ly-page.ly-run .ly-left .ly-h1 h1 {
+    padding-bottom: 0;
+  }
+  .ly-page .ly-left {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+  .ly-page .ly-left .ly-h1 {
+    padding: 0.5rem 0;
+  }
+  .ly-page .ly-left .ly-h1 h1 {
+    font-size: 1rem;
+  }
+  .ly-page .ly-left .ly-cont {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+  .ly-page .ly-left .ly-bottom {
+    padding: 0 0 1rem;
+  }
+  .ly-page .ly-left .ly-bottom .ly-li h2 {
+    font-size: 0.7rem;
+  }
+  .ly-page .ly-right {
+    width: 100%;
+    margin: 1rem 0 0;
+  }
+  .ly-page .ly-right .ly-uptop {
+    padding: 0.5rem;
+  }
+  .ly-page .ly-case .ly-list {
+    width: 100%;
+  }
+  .ly-page .ly-case .ly-list li {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .ly-page .ly-progress .ly-intro {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+  .ly-page .ly-progress .ly-intro .ly-speed {
+    padding: 0;
+  }
+  .ly-page .ly-progress .ly-intro .ly-speed:before {
+    top: 34%;
+  }
+  .ly-page .ly-progress .ly-intro .ly-speed span {
+    width: 50px;
+    margin: 27px 0.15rem 0;
+  }
+  .ly-page .ly-progress .ly-intro .ly-speed span em {
+    margin-top: 0;
+  }
+  .ly-page .ly-progress .ly-intro .ly-list {
+    padding: 0;
+  }
+  .ly-page .ly-progress .ly-intro .ly-list li .ly-icon {
+    left: 0;
+    position: static;
+  }
+}

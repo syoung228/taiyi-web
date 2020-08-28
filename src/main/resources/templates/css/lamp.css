@@ -1,0 +1,60 @@
+.display {
+  display: inline-block;
+  vertical-align: top;
+}
+.box {
+  box-sizing: border-box;
+}
+.ly-lamp {
+  width: 100%;
+}
+.ly-lamp .ly-content .ly-list {
+  padding: 80px 0 0;
+  width: calc(100% + 20px);
+  margin-left: -10px;
+  font-size: 0;
+}
+.ly-lamp .ly-content .ly-list li {
+  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: 30px;
+  padding: 0 10px;
+}
+.ly-lamp .ly-content .ly-list li:hover h2 {
+  color: #009933;
+}
+.ly-lamp .ly-content .ly-list li .ly-img {
+  width: 100%;
+  overflow: hidden;
+}
+.ly-lamp .ly-content .ly-list li .ly-img img {
+  width: 100%;
+  display: block;
+  transition: 0.3s;
+}
+.ly-lamp .ly-content .ly-list li .ly-img img:hover {
+  transform: scale(1.15);
+}
+.ly-lamp .ly-content .ly-list li h2 {
+  font-size: 18px;
+  color: #4c4c4c;
+  line-height: 40px;
+  padding: 10px 0 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+@media screen and (max-width: 760px) {
+  .ly-lamp .ly-content {
+    padding: 0;
+  }
+  .ly-lamp .ly-content .ly-list {
+    width: 100%;
+    padding: 2rem 0;
+    margin: 0;
+  }
+  .ly-lamp .ly-content .ly-list li {
+    margin: 0;
+    width: 50%;
+  }
+}

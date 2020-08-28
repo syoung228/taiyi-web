@@ -1,0 +1,218 @@
+.display {
+  display: inline-block;
+  vertical-align: top;
+}
+.box {
+  box-sizing: border-box;
+}
+.ly-news-nav {
+  width: 100%;
+  background: #fff;
+  height: 100px;
+  padding: 25px 0;
+  text-align: center;
+}
+.ly-news-nav li {
+  padding: 0 60px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+  line-height: 50px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+.ly-news-nav li:hover,
+.ly-news-nav li.ly-active {
+  background: #009933;
+  color: #fff;
+}
+.ly-news-nav li:hover a,
+.ly-news-nav li.ly-active a {
+  color: #fff;
+}
+.ly-news {
+  background: #f2f2f2;
+  width: 100%;
+}
+.ly-news .ly-list {
+  width: 100%;
+}
+.ly-news .ly-list li {
+  padding: 55px 0 55px 230px;
+  position: relative;
+  border-bottom: 1px solid #9a9a9a;
+}
+.ly-news .ly-list li .ly-time {
+  width: 170px;
+  position: absolute;
+  top: 45px;
+  left: 0;
+  text-align: center;
+}
+.ly-news .ly-list li .ly-time .ly-day {
+  font-size: 55px;
+  color: #666;
+  font-weight: 700;
+  border-bottom: 2px solid #c5c5c5;
+  padding-bottom: 5px;
+}
+.ly-news .ly-list li .ly-time .ly-years {
+  font-size: 16px;
+  color: #999;
+  line-height: 30px;
+}
+.ly-news .ly-list li h2 {
+  font-size: 18px;
+  color: #333;
+  line-height: 50px;
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+.ly-news .ly-list li h2:hover {
+  color: #009933;
+}
+.ly-news .ly-list li p {
+  font-size: 14px;
+  color: #666;
+  line-height: 25px;
+}
+.ly-case {
+  width: 100%;
+  background: #f2f2f2;
+  padding: 30px 0;
+}
+.ly-case .ly-list {
+  font-size: 0;
+  width: 100%;
+}
+.ly-case .ly-list li {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+  width: 390px;
+  padding: 5px;
+  background: #fff;
+  margin-right: 15px;
+  margin-bottom: 20px;
+}
+.ly-case .ly-list li:nth-child(3n) {
+  margin-right: 0;
+}
+.ly-case .ly-list li .ly-img {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.ly-case .ly-list li .ly-img:hover .ly-bg {
+  opacity: 1;
+}
+.ly-case .ly-list li .ly-img:hover .ly-head {
+  transform: scale(1.15);
+}
+.ly-case .ly-list li .ly-img .ly-bg {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background: rgba(54, 147, 57, 0.9);
+  color: #fff;
+  padding: 50px 30px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.ly-case .ly-list li .ly-img .ly-bg p {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 20px;
+}
+.ly-case .ly-list li .ly-img .ly-bg span {
+  text-align: center;
+  font-size: 18px;
+  display: block;
+  margin: 0 auto;
+}
+.ly-case .ly-list li .ly-img .ly-bg img {
+  width: 60px;
+  height: 6px;
+  margin: 20px auto;
+}
+.ly-case .ly-list li .ly-img .ly-head {
+  width: 100%;
+  display: block;
+  transition: 0.3s;
+}
+.ly-case .ly-list li .ly-intro {
+  width: 100%;
+  margin: 10px 0;
+  padding-right: 70px;
+  position: relative;
+}
+.ly-case .ly-list li .ly-intro h2 {
+  font-size: 16px;
+  color: #333;
+  line-height: 30px;
+  transition: 0.3s;
+}
+.ly-case .ly-list li .ly-intro h2:hover {
+  color: #009933;
+}
+.ly-case .ly-list li .ly-intro p {
+  font-size: 14px;
+  color: #666;
+  line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ly-case .ly-list li .ly-intro .ly-more {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding-left: 20px;
+  border-left: 1px solid #e5e5e5;
+}
+.ly-case .ly-list li .ly-intro .ly-more img {
+  width: 100%;
+  margin-top: 10px;
+}
+@media screen and (max-width: 760px) {
+  .ly-news-nav {
+    height: auto;
+    padding: 1rem 0.5rem;
+    font-size: 0;
+  }
+  .ly-news-nav li {
+    width: 50%;
+    padding: 0;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .ly-case .ly-list li {
+    width: 100%;
+    margin: 0 0 1rem;
+    padding: 0.25rem;
+  }
+  .ly-news {
+    padding-top: 1rem;
+  }
+  .ly-news .ly-list li {
+    width: 100%;
+    margin: 0 0 1rem;
+    padding: 0.25rem;
+    background: #fff;
+  }
+  .ly-news .ly-list li .ly-time {
+    z-index: 0;
+    opacity: 0.3;
+  }
+  .ly-news .ly-list li p {
+    position: relative;
+    z-index: 1;
+  }
+}
