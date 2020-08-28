@@ -22,6 +22,7 @@ public class ProgressController {
     private Object getProgressList(){
         return projectProcessService.getProjectList();
     }
+
     @GetMapping("/detail/{id}")
     private Object getProgressDetail(@PathVariable("id") Integer id){
         return projectProcessService.getProjectDetail(id);

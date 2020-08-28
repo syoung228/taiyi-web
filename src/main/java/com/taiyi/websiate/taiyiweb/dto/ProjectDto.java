@@ -1,5 +1,6 @@
 package com.taiyi.websiate.taiyiweb.dto;
 
+import com.alibaba.fastjson.JSONArray;
 import com.taiyi.websiate.taiyiweb.entity.ProjectProcessInfoEntity;
 
 import java.text.SimpleDateFormat;
@@ -104,7 +105,12 @@ public class ProjectDto {
     }
 
     public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+        JSONArray json = JSONArray.parseArray(imgUrl);
+        if(json!=null&&json.size()>0){
+            this.imgUrl  ="http://8.210.152.23"+ (String) json.getJSONObject(0).get("path");
+        }else{
+            this.imgUrl = null;
+        }
     }
 
     public Long getCreateTime() {

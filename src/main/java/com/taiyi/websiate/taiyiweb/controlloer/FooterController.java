@@ -29,7 +29,7 @@ public class FooterController {
         if(entity == null){
             return -1;
         }
-        if(entity.getName()==null||entity.getPhone()==null||entity.getWords()==null){
+        if(entity.getName()==null||entity.getName().length()<=0||entity.getPhone()==null||entity.getPhone().length()<=0||entity.getWords()==null||entity.getWords().length()<=0){
             return -1;
         }
         return footerService.saveFeed(entity);

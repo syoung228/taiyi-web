@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>太一</title>
+    <title>[[${header.categoryFlag}]]</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="keywords" th:attr="content=${header.categoryKeyword}">
+    <meta name="description" th:attr="content=${header.categoryDescrip}">
     <link rel="icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="http://at.alicdn.com/t/font_1977750_2vbn49fc5x5.css" />
     <link rel="stylesheet" href="/css/swiper.min.css" />
@@ -25,32 +27,8 @@
             </div>
             <div class="ly-nav-list">
                 <ul class="ly-nav">
-                    <li class="ly-active">
-                        <a href="/index.html">首 页</a>
-                    </li>
-                    <li>
-                        <a href="/about.html">走进太一</a>
-                    </li>
-                    <li>
-                        <a href="/generation.html">太阳能发电</a>
-                    </li>
-                    <li>
-                        <a href="/lifting.html">太阳能提灌站</a>
-                    </li>
-                    <li>
-                        <a href="/lamp.html">太阳能路灯</a>
-                    </li>
-                    <li>
-                        <a href="/construction.html">在建工地</a>
-                    </li>
-                    <li>
-                        <a href="/case.html">案例中心</a>
-                    </li>
-                    <li>
-                        <a href="/news.html">媒体中心</a>
-                    </li>
-                    <li>
-                        <a href="/contact.html">联系我们</a>
+                    <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
+                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -216,9 +194,9 @@
                 <h2>填写您的项目需求给我们。</h2>
                 <form>
                     <ul class="ly-list">
-                        <li><input type="text" placeholder="称号姓名" /></li>
-                        <li><input type="text" placeholder="联系电话" /></li>
-                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" /></li>
+                        <li><input type="text" placeholder="称号姓名" name="name"/></li>
+                        <li><input type="text" placeholder="联系电话" name="phone"/></li>
+                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words"/></li>
                         <li>
                             <button type="submit">提交项目需求</button>
                         </li>

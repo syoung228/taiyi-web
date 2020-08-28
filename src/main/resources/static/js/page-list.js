@@ -3,7 +3,7 @@ $(function() {
         page: 1, //当前页码，必填
         total: 150, //数据总条数，必填
         pageSize: 10, //每页显示多少条数据，默认10条
-        showTotal: false, //是否显示总条数，默认关闭：false
+        showTotal: true, //是否显示总条数，默认关闭：false
         totalTxt: "共{total}条", //数据总条数文字描述，{total}为占位符，默认"共{total}条"
         noData: false, //没有数据时是否显示分页，默认false不显示，true显示第一页
         showSkip: false, //是否显示跳页，默认关闭：false

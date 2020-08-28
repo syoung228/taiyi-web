@@ -107,8 +107,8 @@ public class IndexService {
     }
 
     public Object getcontentByCategory(Integer categoryId,Integer pageNum,Integer pageSize){
-        pageNum=pageNum!=null || pageNum>0?pageNum:1;
-        pageSize=pageSize!=null||pageSize>0?pageSize:10;
+        pageNum=pageNum==null || pageNum==0?1:pageNum;
+        pageSize=pageSize==null||pageSize==0?10:pageSize;
         PageHelper.startPage(pageNum,pageSize);
         List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByCategoryId2(categoryId);
         return new PageInfo<>(cmsContentEntities);
@@ -120,6 +120,9 @@ public class IndexService {
         return cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
     }
 
+    public CmsCategoryEntity getById(Integer categoryId){
+        return cmsCategoryEntityMapper.selectByPrimaryKey(categoryId);
+    }
     public Object getContenDetail(Integer id){
         return cmsContentEntityMapper.selectByPrimaryKey(id);
     }

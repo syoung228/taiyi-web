@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <title>太一</title>
+    <title>[[${header.categoryFlag}]]</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="stylesheet" href="css/swiper.min.css" />
-    <link rel="stylesheet" href="css/public.css" />
-    <link rel="stylesheet" href="css/contact.css" />
+    <meta name="keywords" th:attr="content=${header.categoryKeyword}">
+    <meta name="description" th:attr="content=${header.categoryDescrip}">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/swiper.min.css" />
+    <link rel="stylesheet" href="/css/public.css" />
+    <link rel="stylesheet" href="/css/contact.css" />
 </head>
 
 <body>
     <header>
         <div class="ly-content">
             <div class="ly-logo">
-                <a href="index.html"><img src="images/logo.png" title="太一"></a>
+                <a href="index.html"><img src="/images/logo.png" title="太一"></a>
             </div>
             <div class="ly-menu" data-id="1">
                 <em></em>
@@ -24,32 +26,8 @@
             </div>
             <div class="ly-nav-list">
                 <ul class="ly-nav">
-                    <li>
-                        <a href="index.html">首 页</a>
-                    </li>
-                    <li>
-                        <a href="about.html">走进太一</a>
-                    </li>
-                    <li>
-                        <a href="generation.html">太阳能发电</a>
-                    </li>
-                    <li>
-                        <a href="lifting.html">太阳能提灌站</a>
-                    </li>
-                    <li>
-                        <a href="lamp.html">太阳能路灯</a>
-                    </li>
-                    <li>
-                        <a href="construction.html">在建工地</a>
-                    </li>
-                    <li>
-                        <a href="case.html">案例中心</a>
-                    </li>
-                    <li>
-                        <a href="news.html">媒体中心</a>
-                    </li>
-                    <li class="ly-active">
-                        <a href="contact.html">联系我们</a>
+                    <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
+                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -57,7 +35,7 @@
     </header>
 
     <div class="ly-banner">
-        <img src="images/img/img_contact_banner.png" class="ly-img" />
+        <img src="/images/img/img_contact_banner.png" class="ly-img" />
     </div>
 
     <div class="ly-contact">
@@ -69,26 +47,26 @@
             </div>
             <ul class="ly-list">
                 <li>
-                    <img src="./images/icon_5.png" />
+                    <img src="/images/icon_5.png" />
                     <h2>业务联系</h2>
-                    <p>电话：18180793262</p>
-                    <p>QQ：2262154845</p>
-                    <p>Email：2262154845@qq.com</p>
+                    <p>电话：[[${contactInfo.businessMobile}]]</p>
+                    <p>QQ：[[${contactInfo.businessQq}]]</p>
+                    <p>Email：[[${contactInfo.businessEmail}]]</p>
                 </li>
                 <li>
-                    <img src="./images/icon_6.png" />
+                    <img src="/images/icon_6.png" />
                     <h2>售后服务</h2>
-                    <p>电话：18180793262</p>
-                    <p>QQ：2262154845</p>
-                    <p>Email：2262154845@qq.com</p>
+                    <p>电话：[[${contactInfo.saleMobile}]]</p>
+                    <p>QQ：[[${contactInfo.saleQq}]]</p>
+                    <p>Email：[[${contactInfo.saleEmail}]]</p>
                 </li>
                 <li>
-                    <img src="./images/icon_7.png" />
+                    <img src="/images/icon_7.png" />
                     <h2>地址</h2>
-                    <p>成都市温江区科盛路东段1199号</p>
+                    <p>[[${contactInfo.adress}]]</p>
                 </li>
                 <li>
-                    <img src="./images/img/img_wechat.png" class="ly-wechat" />
+                    <img th:src="${contactInfo.wechatUrl}" class="ly-wechat" />
                     <h2>二维码</h2>
                 </li>
             </ul>
@@ -102,10 +80,12 @@
                 <h2>填写您的项目需求给我们。</h2>
                 <form>
                     <ul class="ly-list">
-                        <li><input type="text" placeholder="称号姓名" /></li>
-                        <li><input type="text" placeholder="联系电话" /></li>
-                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" /></li>
-                        <li><button type="submit">提交项目需求</button></li>
+                        <li><input type="text" placeholder="称号姓名" name="name"/></li>
+                        <li><input type="text" placeholder="联系电话" name="phone"/></li>
+                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words"/></li>
+                        <li>
+                            <button type="submit">提交项目需求</button>
+                        </li>
                     </ul>
                 </form>
             </div>
@@ -113,36 +93,29 @@
         <div class="ly-foot">
             <div class="ly-content">
                 <div class="ly-intro">
-                    <h2>四川太一新能源有限公司</h2>
-                    <p>公司地址：成都市温江区科盛路东段1199号<br /> 服务热线：400-682-6677 <br /> 售后热线：400-652-6677 <br /> 电子邮箱: 2262154845@qq.com<br />
+                    <h2>[[${footer.companyName}]]</h2>
+                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/>
+                        售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
                     </p>
                 </div>
                 <div class="ly-wechat">
                     <div class="ly-qr">
-                        <img src="./images/img/img_wechat.png" />
+                        <img th:src="${footer.saleWechatUrl}" />
                         <p>销售微信</p>
                     </div>
                     <div class="ly-qr">
-                        <img src="./images/img/img_wechat.png" />
+                        <img th:src="${footer.companyWechatUrl}" />
                         <p>官方微信</p>
                     </div>
                 </div>
                 <div class="ly-line">
                     <h2>友情链接 <span>交换友情链接</span></h2>
                     <div class="ly-list">
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
-                        <a href="#" target="_blank">太阳能路灯</a>
+                        <a th:href="${link.url}" th:each="link:${footer.linkJson}">[[${link.name}]]</a>
                     </div>
                 </div>
                 <div class="ly-bottom">
-                    <p>备案号：蜀ICP备10021798号-1 Copyright © 2002-2020四川太一新能源 版权所有</p>
+                    <p>备案号：[[${footer.recordInfo}]]</p>
                 </div>
             </div>
         </div>
@@ -150,8 +123,8 @@
 
 </body>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=bDrIIHyjK3ENIKQm0yuC278w"></script>
-<script src="js/jquery-1.8.3.min.js"></script>
-<script src="js/public.js"></script>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script src="/js/public.js"></script>
 <script type="text/javascript">
     // 百度地图API功能
     var map = new BMap.Map("map");

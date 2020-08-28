@@ -50,6 +50,22 @@ function closeLayer() {
         $(".ly-layer").show();
     }, 30000)
 };
+$("form").submit(function(e) {
+    let data = $("form").serialize();
+    $.ajax({
+        url: '/footer/feedback',
+        type: 'POST',
+        async : false,
+        data:data,
+        success: function(data) {
+            if(data>0){
+                alert("提交成功！")
+                location.reload()
+            }
+        }
+    });
+    return false;//阻止表单提交
+})
 $(".ly-make").click(function() {
     $(".ly-layer").show();
 })
