@@ -108,7 +108,7 @@ public class IndexService {
 
     public Object getcontentByCategory(Integer categoryId,Integer pageNum,Integer pageSize){
         pageNum=pageNum==null || pageNum==0?1:pageNum;
-        pageSize=pageSize==null||pageSize==0?10:pageSize;
+        pageSize=pageSize==null||pageSize==0?12:pageSize;
         PageHelper.startPage(pageNum,pageSize);
         List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByCategoryId2(categoryId);
         return new PageInfo<>(cmsContentEntities);

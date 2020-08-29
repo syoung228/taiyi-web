@@ -90,7 +90,7 @@
             <!--分类数据 对应-->
             <ul class="ly-list ly-case-list" th:each="item : ${index.caseCategory}">
                 <li th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index} < 6">
-                    <a href="case_details.html" target="_blank">
+                    <a href="contentDetails.html" target="_blank">
                         <div class="ly-img">
                             <img th:src="${item1.contentImg}" alt="img_1.png" class="ly-png" />
                             <div class="ly-intro">
