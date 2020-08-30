@@ -29,7 +29,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
 
                 </ul>
@@ -59,7 +59,7 @@
                             </span>
 
                         </div>
-                        <div class="ly-more-btn"><a href="progress.html" target="_blank">查看详情</a></div>
+                        <div class="ly-more-btn"><a th:href="'progress_'+${item.id}+'.html'" target="_blank">查看详情</a></div>
                     </div>
                 </li>
 

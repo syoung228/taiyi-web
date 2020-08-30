@@ -136,11 +136,16 @@ public class IndexService {
     }
 
     public Object getcontentByTags(Integer tagsId,Integer pageNum,Integer pageSize){
-        pageNum=pageNum!=null || pageNum>0?pageNum:1;
-        pageSize=pageSize!=null||pageSize>0?pageSize:10;
+        pageNum=pageNum==null || pageNum==0?1:pageNum;
+        pageSize=pageSize==null || pageSize==0?10:pageSize;
         PageHelper.startPage(pageNum,pageSize);
-        return new PageInfo<>(cmsContentEntityMapper.getByTags(tagsId));
+        List<CmsContentEntity> entityList = cmsContentEntityMapper.getByTags(tagsId);
+        return new PageInfo<>(entityList);
     }
+    public TagsEntity getTasgById(Integer tagsId){
+        return tagsEntityMapper.selectByPrimaryKey(tagsId);
+    }
+
 
     public Object getLastAndNextContent(Integer contentId,Integer categoryId){
         Map<String,Object> result = new HashMap<>();

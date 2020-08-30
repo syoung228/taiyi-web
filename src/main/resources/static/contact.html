@@ -27,7 +27,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>

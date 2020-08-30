@@ -28,7 +28,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -47,22 +47,22 @@
             <ul class="ly-list">
                 <li>
                     <h2>上市代码</h2>
-                    <h4><em>股票代码</em>00960.HK</h4>
-                    <p><i class="iconfont icon_up"></i>28.850</p>
+                    <h4><em>股票代码</em>838456</h4>
+                    <p><i class="iconfont icon_up"></i>1.75</p>
                 </li>
                 <li>
                     <img src="/images/icon_1.png" />
-                    <h3>太阳能路灯</h3>
+                    <h3><a href="lamp.html" target="_blank">太阳能路灯</a></h3>
                     <h6>Solar street lamp</h6>
                 </li>
                 <li>
                     <img src="/images/icon_2.png" />
-                    <h3>太阳能发电系统</h3>
+                    <h3><a href="generation.html" target="_blank">太阳能发电系统</a></h3>
                     <h6>Solar power system</h6>
                 </li>
                 <li>
                     <img src="/images/icon_3.png" />
-                    <h3>太阳能提灌系统</h3>
+                    <h3><a href="lifting.html" target="_blank">太阳能提灌系统</a></h3>
                     <h6>Solar pumping irrigation system</h6>
                 </li>
                 <li>
@@ -90,7 +90,7 @@
             <!--分类数据 对应-->
             <ul class="ly-list ly-case-list" th:each="item : ${index.caseCategory}">
                 <li th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index} < 6">
-                    <a href="contentDetails.html" target="_blank">
+                    <a th:href="'/contentDetails_'+${item1.id}+'.html'" target="_blank">
                         <div class="ly-img">
                             <img th:src="${item1.contentImg}" alt="img_1.png" class="ly-png" />
                             <div class="ly-intro">
@@ -137,7 +137,7 @@
                               <em>[[${item1.itemName}]]</em>
                             </span>
                         </div>
-                        <div class="ly-more-btn"><a href="progress.html" target="_blank">查看详情</a></div>
+                        <div class="ly-more-btn"><a th:href="'progress_'+${item.id}+'.html'" target="_blank">查看详情</a></div>
                     </div>
                 </li>
             </ul>
@@ -160,7 +160,7 @@
             <!--分类数据 对应-->
             <div class="ly-list ly-news-list" th:each="item : ${index.news}">
                 <div class="ly-left" th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index}<1">
-                    <a href="news_details.html" target="_blank">
+                    <a th:href="'/contentDetails_'+${item1.id}+'.html'" target="_blank">
                         <div class="ly-img">
                             <img th:src="${item1.contentImg}" alt="img_1.png" />
                         </div>
@@ -169,8 +169,8 @@
                     </a>
                 </div>
                 <ul class="ly-right">
-                    <li th:each="item1 : ${item.cmsContentEntities}">
-                        <a href="news_details.html" target="_blank">
+                    <li th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index} <= 3">
+                        <a th:href="'/contentDetails_'+${item1.id}+'.html'" target="_blank">
                             <div class="ly-time">
                                 <div class="ly-day">[[${#dates.format(item1.contentDatetime, 'MM-dd')}]]</div>
                                 <div class="ly-years">[[${#dates.format(item1.contentDatetime, 'yyyy')}]]</div>
@@ -240,7 +240,7 @@
             <div class="ly-name">南充周边案例</div>
             <div class="ly-cont">
                 <ul class="ly-list">
-                    <li th:each="item : ${index.regionCase}" th:if="${itemStat.index}<3">[[${item.contentTitle}]]</li>
+                    <li th:each="item : ${index.regionCase}" th:if="${itemStat.index}<3"><a th:href="'/contentDetails_'+${item.id}+'.html'" target="_blank"> [[${item.contentTitle}]]</a></li>
                 </ul>
                 <h2>立即与项目经理一对一沟通，获取设计与报价！</h2>
                 <div class="ly-layer-btn">

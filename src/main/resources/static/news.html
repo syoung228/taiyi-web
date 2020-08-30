@@ -30,7 +30,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -42,14 +42,14 @@
     </div>
 
     <ul class="ly-news-nav">
-        <li th:each="item:${categoryList}" th:classappend="${categoryId == item.id ?'ly-active':''}"><a th:href="'/news/'+${item.id}+'1_.html'">[[${item.categoryTitle}]]</a></li>
+        <li th:each="item:${categoryList}" th:classappend="${categoryId == item.id ?'ly-active':''}"><a th:href="'/news/'+${item.id}+'_1.html'">[[${item.categoryTitle}]]</a></li>
     </ul>
 
     <div class="ly-news">
         <div class="ly-content">
             <ul class="ly-list">
                 <li th:each="item : ${contentList.list}">
-                    <a th:href="'contentDetails'+${item.id}+'.html'">
+                    <a th:href="'/contentDetails_'+${item.id}+'.html'">
                         <div class="ly-time">
                             <div class="ly-day">[[${#dates.format(item.contentDatetime, 'MM-dd')}]]</div>
                             <div class="ly-years">[[${#dates.format(item.contentDatetime, 'yyyy')}]]</div>
@@ -99,7 +99,7 @@
                     </li>
 
                     <li th:each="index:${#numbers.sequence(1,contentList.pages)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                        <a th:href="@{/users(contentList.pageNum=${index},size=${size})}" class="page-link"  th:text="${index}"></a>
+                        <a th:href="'/news/'+${categoryId}+'_' + ${index}+'.html'"  class="page-link"  th:text="${index}"></a>
                     </li>
 
                     <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
@@ -130,7 +130,7 @@
 
                     <!-- 最后一页与当前页面之差小于等于3 -->
                     <li th:if="${contentList.pages-contentList.pageNum le 3}" class="page-item">
-                        <a  class="page-link" th:href="@{/users(contentList.pageNum=${contentList.pages-5},size=${size})}">...</a>
+                        <a  class="page-link" th:href="'/news/'+${categoryId}+'_' + ${contentList.pages-5}+'.html'">...</a>
                     </li>
                     <li th:if="${contentList.pages - contentList.pageNum le 3}" th:each="index:${#numbers.sequence(contentList.pages - 4,contentList.pages - 1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
                         <a th:href="'/news/'+${categoryId}+'_' + ${index}+'.html'" class="page-link"  th:text="${index}"></a>
@@ -138,7 +138,7 @@
 
                     <!-- 最后一页与当前页面之差大于3 且当前页面大于4 -->
                     <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
-                        <a class="page-link" th:href="@{/users(contentList.pageNum=${contentList.pageNum-2},size=${size})}">...</a>
+                        <a class="page-link" th:href="'/news/'+${categoryId}+'_' + ${contentList.pageNum-2}+'.html'" th:text="${index}" >...</a>
                     </li>
                     <li th:if="${(contentList.pageNum gt 4) && (contentList.pages - contentList.pageNum gt 3)}" th:each="index:${#numbers.sequence(contentList.pageNum-1,contentList.pageNum+1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
                         <a class="page-link" th:href="'/news/'+${categoryId}+'_' + ${index}+'.html'" th:text="${index}"></a>

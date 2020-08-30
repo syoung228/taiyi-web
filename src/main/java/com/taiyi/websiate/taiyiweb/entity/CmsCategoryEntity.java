@@ -157,7 +157,7 @@ public class CmsCategoryEntity {
     public void setCategoryImg(String categoryImg) {
         JSONArray json = JSONArray.parseArray(categoryImg);
         if(json!=null&&json.size()>0){
-            this.categoryImg  ="http://8.210.152.23"+ (String) json.getJSONObject(0).get("path");
+            this.categoryImg  =(String) json.getJSONObject(0).get("path");
         }else{
             this.categoryImg = null;
         }

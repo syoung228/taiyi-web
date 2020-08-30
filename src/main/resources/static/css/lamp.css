@@ -57,4 +57,11 @@
     margin: 0;
     width: 50%;
   }
+  .ly-news-nav {
+    width: 100%;
+    background: #fff;
+    height: 100px;
+    padding: 25px 0;
+    text-align: center;
+  }
 }

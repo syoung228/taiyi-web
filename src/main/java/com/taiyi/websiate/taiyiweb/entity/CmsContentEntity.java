@@ -182,7 +182,7 @@ public class CmsContentEntity {
     public void setContentImg(String contentImg) {
         JSONArray json = JSONArray.parseArray(contentImg);
         if(json!=null&&json.size()>0){
-            this.contentImg  ="http://8.210.152.23"+ (String) json.getJSONObject(0).get("path");
+            this.contentImg  = (String) json.getJSONObject(0).get("path");
         }else{
             this.contentImg = null;
         }

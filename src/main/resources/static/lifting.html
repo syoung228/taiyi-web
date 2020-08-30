@@ -27,7 +27,7 @@
     <div class="ly-nav-list">
       <ul class="ly-nav">
         <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-          <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+          <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
         </li>
       </ul>
     </div>
@@ -161,11 +161,11 @@
   <div class="ly-content">
     <div class="ly-case">
       <div class="ly-name">
-        <h2>相关案例 <a href="case.html">更多+</a></h2>
+        <h2>相关案例 <a href="case/66_1.html">更多+</a></h2>
       </div>
       <ul class="ly-list">
         <li th:each="item:${relateCase.list}">
-          <a href="contentDetails.html">
+          <a th:href="'contentDetails_'+${item.id}+'.html'">
             <div class="ly-img"><img th:src="${item.contentImg}"/></div>
             <div class="ly-intro">
               <h2>[[${item.contentTitle}]]</h2>

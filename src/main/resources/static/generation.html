@@ -28,7 +28,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -48,7 +48,7 @@
         <div class="ly-content">
             <ul class="ly-list">
                 <li th:each="item : ${generationList.list}">
-                    <a th:href="'details'+${item.id+'.html'}">
+                    <a th:href="'/details_'+${item.id}+'.html'">
                         <div class="ly-img"><img th:src="${item.contentImg}" /></div>
                         <h2>[[${item.contentTitle}]]</h2>
                         <p>[[${item.contentDescription}]]

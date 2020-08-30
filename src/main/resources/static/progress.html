@@ -29,7 +29,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -67,11 +67,11 @@
                 <div class="ly-bottom">
                     <div class="ly-li">
                         <h2>上一条：
-                            <a th:href="'/progress/'+${lastAndNextProgress.last.id}+'.html'">[[${lastAndNextProgress.last.title}]]</a></h2>
+                            <a th:href="'/progress_'+${lastAndNextProgress.last.id}+'.html'">[[${lastAndNextProgress.last.title}]]</a></h2>
                     </div>
                     <div class="ly-li">
                         <h2>下一条：
-                            <a th:href="'/progress/'+${lastAndNextProgress.next.id}+'.html'">[[${lastAndNextProgress.next.title}]]</a></h2>
+                            <a th:href="'/progress_'+${lastAndNextProgress.next.id}+'.html'">[[${lastAndNextProgress.next.title}]]</a></h2>
                     </div>
                 </div>
             </div>

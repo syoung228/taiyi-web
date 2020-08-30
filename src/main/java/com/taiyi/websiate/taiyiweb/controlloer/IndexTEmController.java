@@ -48,7 +48,6 @@ public class IndexTEmController {
         List<CmsCategoryEntity> cmsCategoryEntities = (List<CmsCategoryEntity>) indexService.getCaseCategory(categoryId);
         mv.addObject("contentIntelligenceIdResult",indexService.getcontentByCategory(cmsCategoryEntities.get(0).getId(),null,null));
         mv.addObject("contentResponsibilityIdResult",indexService.getcontentByCategory(cmsCategoryEntities.get(1).getId(),null,null));
-
         mv.setViewName("about");
         return mv;
     }
@@ -62,20 +61,7 @@ public class IndexTEmController {
         return mv;
     }
 
-    @RequestMapping("/details/{categoryId}/{id}")
-    public ModelAndView detailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
-        mv.addObject("header",indexService.getById(categoryId));
-        mv.addObject("headerList",indexService.headerList());
-        mv.addObject("footer",footerService.getCompany());
-        mv.addObject("details",indexService.getContenDetail(id));
-        mv.addObject("lastAndNextProgress",indexService.getLastAndNextContent(id,categoryId));
-        mv.addObject("tags",indexService.getTags());
-        mv.addObject("news",indexService.getNewsByMainCategory());
-        mv.addObject("relateCase65",indexService.getcontentByCategory(65,1,3));
-        mv.addObject("relateCase67",indexService.getcontentByCategory(67,1,3));
-        mv.setViewName("details");
-        return mv;
-    }
+
 
     @RequestMapping("/progress/{categoryId}/{id}")
     public ModelAndView progressData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
@@ -125,6 +111,7 @@ public class IndexTEmController {
     public ModelAndView lableData(HttpServletRequest request, ModelAndView mv, @PathVariable("tagId") Integer tagId, @PathVariable("pageNum") Integer pageNum){
         mv.addObject("headerList",indexService.headerList());
         mv.addObject("footer",footerService.getCompany());
+        mv.addObject("tag",indexService.getTasgById(tagId));
         mv.addObject("contentList",indexService.getcontentByTags(tagId,pageNum,null));
         mv.setViewName("lable");
         return mv;
@@ -182,5 +169,27 @@ public class IndexTEmController {
         mv.setViewName("contentDetails");
         return mv;
     }
+
+    @RequestMapping("/details/{categoryId}/{id}")
+    public ModelAndView detailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
+        CmsCategoryEntity entity = indexService.getById(categoryId);
+        if(entity.getCategoryParentId()!=null&& !entity.getCategoryParentId().equals("0")){
+            mv.addObject("header",indexService.getById(Integer.parseInt(entity.getCategoryParentId())));
+        }else{
+            mv.addObject("header",indexService.getById(categoryId));
+        }
+
+        mv.addObject("headerList",indexService.headerList());
+        mv.addObject("footer",footerService.getCompany());
+        mv.addObject("details",indexService.getContenDetail(id));
+        mv.addObject("lastAndNextProgress",indexService.getLastAndNextContent(id,categoryId));
+        mv.addObject("tags",indexService.getTags());
+        mv.addObject("news",indexService.getNewsByMainCategory());
+        mv.addObject("relateCase65",indexService.getcontentByCategory(65,1,3));
+        mv.addObject("relateCase67",indexService.getcontentByCategory(67,1,3));
+        mv.setViewName("details");
+        return mv;
+    }
+
 
 }

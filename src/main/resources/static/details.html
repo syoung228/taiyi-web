@@ -28,7 +28,7 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -51,12 +51,14 @@
                 </div>
                 <div class="ly-bottom">
                     <div class="ly-li">
-                        <h2>上一条：
-                            <a th:href="'/detail/'+${lastAndNextProgress.last.id}+'.html'">[[${lastAndNextProgress.last.title}]]</a></h2>
+                        <h2 >上一条：
+                            <a th:href="'/details_'+${lastAndNextProgress.last.id}+'.html'" th:if="${not #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >[[${lastAndNextProgress.last.contentTitle}]]</a>
+                            <a href="#" th:if="${ #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >没有了</a></h2>
                     </div>
                     <div class="ly-li">
                         <h2>下一条：
-                            <a th:href="'/detail/'+${lastAndNextProgress.next.id}+'.html'">[[${lastAndNextProgress.next.title}]]</a></h2>
+                            <a th:href="'/details_'+${lastAndNextProgress.next.id}+'.html'" th:if="${not #strings.isEmpty(lastAndNextProgress.next.contentTitle)}">[[${lastAndNextProgress.next.contentTitle}]]</a>
+                            <a href="#" th:if="${ #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >没有了</a></h2>
                     </div>
                 </div>
             </div>
@@ -65,7 +67,7 @@
                     <h4>推荐新闻</h4>
                     <ul class="ly-list">
                         <li th:each="item:${news}" th:if="${itemStat.index <10}">
-                            <a th:href="'/news_details'+${item.id}+'.html'">
+                            <a th:href="'contentDetails_'+${item.id}+'.html'">
                                 <h2>[[${item.contentTitle}]]</h2>
                                 <p>[[${#dates.format(item.contentDatetime, 'yyyy-MM-dd')}]] &nbsp; &nbsp;| &nbsp; &nbsp; 阅读：[[${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*100),1,0)}]]</p>
                             </a>
@@ -81,10 +83,10 @@
                 </div>
             </div>
 
-            </div>
+
             <div class="ly-case" th:if="${header.id} eq 5">
                 <div class="ly-name">
-                    <h2>相关案例 <a href="/case/67.html">更多+</a></h2>
+                    <h2>相关案例 <a href="/case/67_1.html">更多+</a></h2>
                 </div>
                 <ul class="ly-list" >
                     <li th:each="item:${relateCase67.list}" >
@@ -104,11 +106,11 @@
             </div>
         <div class="ly-case" th:if="${header.id} eq 3">
             <div class="ly-name">
-                <h2>相关案例 <a href="/case/65.html">更多+</a></h2>
+                <h2>相关案例 <a href="/case/65_1.html">更多+</a></h2>
             </div>
             <ul class="ly-list" >
                 <li th:each="item:${relateCase65.list}" >
-                    <a href="contentDetails.html">
+                    <a th:href="'contentDetails_'+${item.id}+'.html'">
                         <div class="ly-img"><img th:src="${item.contentImg}"/></div>
                         <div class="ly-intro">
                             <h2>[[${item.contentTitle}]]</h2>
@@ -120,7 +122,7 @@
                     </a>
                 </li>
             </ul>
-
+        </div>
         </div>
         </div>
     </div>

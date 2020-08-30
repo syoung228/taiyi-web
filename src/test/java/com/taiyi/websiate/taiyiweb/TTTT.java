@@ -30,12 +30,12 @@ public class TTTT {
       FileOutputStream fileOutputStream;//字节输出流
       OutputStreamWriter outputStreamWriter;//将字节输出流转换成字符输出流
 
-      URL wangyi = new URL("http://localhost:8082/index/indexData");
+      URL wangyi = new URL("http://localhost:8082/toHtml/index/1");
       inputStream = wangyi.openStream();
       inputStreamReader = new InputStreamReader(inputStream);
       bufferedReader = new BufferedReader(inputStreamReader);
       String s;
-      File dest = new File("E:\\bbb\\wangyi.html");
+      File dest = new File("E:\\bbb\\index.html");
       fileOutputStream = new FileOutputStream(dest);
       outputStreamWriter = new OutputStreamWriter(fileOutputStream);
       while ((s = bufferedReader.readLine()) != null) {

@@ -29,7 +29,7 @@
         <div class="ly-nav-list">
             <ul class="ly-nav">
                 <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                    <a th:href="${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                    <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                 </li>
             </ul>
         </div>
@@ -42,36 +42,23 @@
 
 <div class="ly-page ly-progress">
     <div class="ly-content">
-        <div class="ly-left ly-progress">
-            <div class="ly-intro">
-                <h1>[[${progressResult.title}]]</h1>
-                <p>地址：[[${progressResult.address}]] 项目：[[${progressResult.des}]]</p>
-                <div class="ly-img">
-                    <img th:src="${progressResult.imgUrl}">
-                </div>
-                <div class="ly-speed">
-                        <span th:classappend="${progressResult.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${progressResult.projectProcessInfo}" >
-                              <i th:classappend="${item1.itemIcon}"></i>
-                              <em>[[${item1.itemName}]]</em>
-                            </span>
-                </div>
-                <ul class="ly-list">
-                    <li th:each="item : ${progressResult.projectProcessInfo}" th:if="${item.itemId <= progressResult.status}">
-                        <div class="ly-icon">
-                            <i th:classappend="${item.itemIcon}"></i>
-                        </div>
-                        <div  th:utext="${item.content}"></div>
-                    </li>
-                </ul>
+        <div class="ly-left">
+            <div class="ly-h1">
+                <h1>[[${contentResult.contentTitle}]]</h1>
+            </div>
+            <div class="ly-cont" th:utext="${contentResult.contentDetails}">
+
             </div>
             <div class="ly-bottom">
                 <div class="ly-li">
                     <h2>上一条：
-                        <a th:href="'/contentDetails/'+${lastAndNextProgress.last.id}+'.html'">[[${lastAndNextProgress.last.title}]]</a></h2>
+                    <a th:href="'/contentDetails_'+${lastAndNextProgress.last.id}+'.html'" th:if="${not #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >[[${lastAndNextProgress.last.contentTitle}]]</a>
+                        <a href="#" th:if="${ #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >没有了</a></h2>
                 </div>
                 <div class="ly-li">
                     <h2>下一条：
-                        <a th:href="'/contentDetails/'+${lastAndNextProgress.next.id}+'.html'">[[${lastAndNextProgress.next.title}]]</a></h2>
+                        <a th:href="'/contentDetails_'+${lastAndNextProgress.next.id}+'.html'" th:if="${not #strings.isEmpty(lastAndNextProgress.next.contentTitle)}">[[${lastAndNextProgress.next.contentTitle}]]</a>
+                        <a href="#" th:if="${ #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >没有了</a></h2>
                 </div>
             </div>
         </div>
@@ -80,7 +67,7 @@
                 <h4>推荐新闻</h4>
                 <ul class="ly-list">
                     <li th:each="item:${news}" th:if="${itemStat.index <10}">
-                        <a th:href="'/contentDetails'+${item.id}+'.html'">
+                        <a th:href="'/contentDetails_'+${item.id}+'.html'">
                             <h2>[[${item.contentTitle}]]</h2>
                             <p>[[${#dates.format(item.contentDatetime, 'yyyy-MM-dd')}]] &nbsp; &nbsp;| &nbsp; &nbsp; 阅读：[[${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*100),1,0)}]]</p>
                         </a>
@@ -91,7 +78,7 @@
             <div class="ly-uptop">
                 <h4>标签</h4>
                 <ul class="ly-tids">
-                    <a th:href="'/lable/'+${item.id}+'.html'" th:each="item:${tags}">[[${item.tagName}]]</a>
+                    <a th:href="'/lable/'+${item.id}+'_1.html'" th:each="item:${tags}">[[${item.tagName}]]</a>
                 </ul>
             </div>
         </div>
