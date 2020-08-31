@@ -178,7 +178,6 @@ public class IndexTEmController {
         }else{
             mv.addObject("header",indexService.getById(categoryId));
         }
-
         mv.addObject("headerList",indexService.headerList());
         mv.addObject("footer",footerService.getCompany());
         mv.addObject("details",indexService.getContenDetail(id));

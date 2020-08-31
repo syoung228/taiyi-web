@@ -7,6 +7,7 @@ import com.taiyi.websiate.taiyiweb.dto.ProjectDto;
 import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntity;
 import com.taiyi.websiate.taiyiweb.entity.CmsContentEntity;
 import com.taiyi.websiate.taiyiweb.entity.TagsEntity;
+import com.taiyi.websiate.taiyiweb.servcice.FooterService;
 import com.taiyi.websiate.taiyiweb.servcice.IndexService;
 import com.taiyi.websiate.taiyiweb.servcice.ProjectProcessService;
 import com.taiyi.websiate.taiyiweb.utils.TemplateStaticUtil;
@@ -26,7 +27,9 @@ import java.util.List;
 @RequestMapping("/generate")
 public class TemplateStaticController {
     @Autowired
-    private IndexService indexService;
+    IndexService indexService;
+    @Autowired
+    FooterService footerService;
     @Autowired
     private ProjectProcessService projectProcessService;
 
@@ -306,7 +309,7 @@ public class TemplateStaticController {
                                 PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
                                 int lampTotalPages = lampPages.getPages();
                                 if(lampTotalPages>0){
-                                    TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+lampCategoryId+"/1","E:\\html\\lamp.html");
+
                                     for (int i=1;i<=lampTotalPages;i++){
                                         url = "http://localhost:8082/toHtml/lamp/"+lampCategoryId+"/"+i;
                                         TemplateStaticUtil.urlToHtml(url,"E:\\html\\lamp\\"+lampCategoryId+"_"+i+".html");
@@ -347,7 +350,6 @@ public class TemplateStaticController {
                                 PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
                                 int lampTotalPages = lampPages.getPages();
                                 if(lampTotalPages>0){
-                                    TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+lampCategoryId+"/1","E:\\html\\case.html");
                                     for (int i=1;i<=lampTotalPages;i++){
                                         url = "http://localhost:8082/toHtml/case/"+lampCategoryId+"/"+i;
                                         TemplateStaticUtil.urlToHtml(url,"E:\\html\\case\\"+lampCategoryId+"_"+i+".html");
@@ -388,7 +390,6 @@ public class TemplateStaticController {
                                 PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
                                 int lampTotalPages = lampPages.getPages();
                                 if(lampTotalPages>0){
-                                    TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+lampCategoryId+"/1","E:\\html\\news.html");
                                     for (int i=1;i<=lampTotalPages;i++){
                                         url = "http://localhost:8082/toHtml/news/"+lampCategoryId+"/"+i;
                                         TemplateStaticUtil.urlToHtml(url,"E:\\html\\news\\"+lampCategoryId+"_"+i+".html");
@@ -423,11 +424,13 @@ public class TemplateStaticController {
     @RequestMapping("/{CategoryId}/genernateContent")
     @ResponseBody
     public void genernateContent(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) throws IOException {
+        List<CmsContentEntity> headerList = (List<CmsContentEntity>) indexService.headerList();
         if(CategoryId>0){
             //获取当前页面
             CmsCategoryEntity cmsCategoryEntity = (CmsCategoryEntity) indexService.getCaseCategory(CategoryId);
             if(cmsCategoryEntity.getCategoryParentId()!=null||!("0").equals(cmsCategoryEntity.getCategoryParentId())){
                 //只更新子栏目
+
             }
         }
 
