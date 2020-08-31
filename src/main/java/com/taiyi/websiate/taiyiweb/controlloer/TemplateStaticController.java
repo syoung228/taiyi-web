@@ -29,6 +29,7 @@ public class TemplateStaticController {
     private IndexService indexService;
     @Autowired
     private ProjectProcessService projectProcessService;
+
     @RequestMapping("/generateTags")
     @ResponseBody
     public void generateTags() throws IOException {
@@ -63,66 +64,69 @@ public class TemplateStaticController {
         // 如果栏目id小于0则更新所有的栏目，否则只更新选中的栏目
         if (CategoryId>0) {
             CmsCategoryEntity cmsCategoryEntity = (CmsCategoryEntity) indexService.getCaseCategory(CategoryId);
-            String categoryList = cmsCategoryEntity.getCategoryListUrl().split(".")[0];
-            String template = cmsCategoryEntity.getCategoryUrl().split(".")[0];
+            String template = cmsCategoryEntity.getCategoryUrl().substring(0,cmsCategoryEntity.getCategoryUrl().length()-5);
+            String categoryList = cmsCategoryEntity.getCategoryListUrl().substring(0,cmsCategoryEntity.getCategoryListUrl().length()-5);
             switch (template){
                 case "index":
                     url = "http://localhost:8082/toHtml/index/"+CategoryId;
                     TemplateStaticUtil.urlToHtml(url,"E:\\html\\index.html");
+                    break;
                 case "about":
-                    if (cmsCategoryEntity.getCategoryParentId()!=null||!cmsCategoryEntity.getCategoryParentId().equals("0")){
+                    if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
                         url = "http://localhost:8082/toHtml/about/"+cmsCategoryEntity.getCategoryParentId();
                         TemplateStaticUtil.urlToHtml(url,"E:\\html\\about.html");
 
                     }else{
-                        url = "http://localhost:8082/toHtml/about/"+CategoryId;
+                        url = "http://localhost:8082/toHtml/about/"+cmsCategoryEntity.getId();
                         TemplateStaticUtil.urlToHtml(url,"E:\\html\\about.html");
                     }
-
+                    break;
                 case "generation":
-                    url = "http://localhost:8082/toHtml/generation/"+CategoryId;
+                    url = "http://localhost:8082/toHtml/generation/"+cmsCategoryEntity.getId();
                     TemplateStaticUtil.urlToHtml(url,"E:\\html\\generation.html");
-                    PageInfo<CmsContentEntity> pages= (PageInfo<CmsContentEntity>) indexService.getcontentByCategory(CategoryId,1,200);
+                    PageInfo<CmsContentEntity> pages= (PageInfo<CmsContentEntity>) indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,200);
                     for (CmsContentEntity contentItem:pages.getList()
-                         ) {
+                    ) {
 
-                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+CategoryId+"/"+contentItem.getId(),"E:\\html\\generation\\"+categoryList+"_"+contentItem.getId()+".html");
+                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"E:\\html\\"+categoryList+"_"+contentItem.getId()+".html");
                     }
+                    break;
                 case "lifting":
-                    url = "http://localhost:8082/toHtml/lifting/"+CategoryId;
+                    url = "http://localhost:8082/toHtml/lifting/"+cmsCategoryEntity.getId();
                     TemplateStaticUtil.urlToHtml(url,"E:\\html\\lifting.html");
-
+                    break;
                 case "construction":
-                    url = "http://localhost:8082/toHtml/construction/"+CategoryId;
+                    url = "http://localhost:8082/toHtml/construction/"+cmsCategoryEntity.getId();
                     TemplateStaticUtil.urlToHtml(url,"E:\\html\\construction.html");
                     List<ProjectDto> projectDtos = projectProcessService.getProjectList();
                     for (ProjectDto projectItem:projectDtos
-                         ) {
-                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/progress/"+CategoryId+"/"+projectItem.getId(),"E:\\html\\progress_"+projectItem.getId()+".html");
+                    ) {
+                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/progress/"+cmsCategoryEntity.getId()+"/"+projectItem.getId(),"E:\\html\\progress_"+projectItem.getId()+".html");
                     }
+                    break;
                 case "lamp":
-                    if (cmsCategoryEntity.getCategoryParentId()!=null||!cmsCategoryEntity.getCategoryParentId().equals("0")){
-                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(CategoryId,1,null);
+                    if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,null);
                         int lampTotalPages = lampPages.getPages();
                         if(lampTotalPages>0){
-                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+CategoryId+"/1","E:\\html\\lamp.html");
+                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntity.getId()+"/1","E:\\html\\lamp.html");
                             for (int i=1;i<=lampTotalPages;i++){
                                 url = "http://localhost:8082/toHtml/lamp/"+CategoryId+"/"+i;
-                                TemplateStaticUtil.urlToHtml(url,"E:\\html\\lamp\\"+CategoryId+"_"+i+".html");
-                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(CategoryId,i,null);
+                                TemplateStaticUtil.urlToHtml(url,"E:\\html\\lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),i,null);
                                 for (CmsContentEntity contentItem:lampDetailsPages.getList()
                                 ) {
 
-                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+CategoryId+"/"+contentItem.getId(),"E:\\html\\details_"+contentItem.getId()+".html");
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"E:\\html\\details_"+contentItem.getId()+".html");
                                 }
                             }
                         }
                     }else{
-                        url = "http://localhost:8082/toHtml/about/"+CategoryId;
-                        List<CmsCategoryEntity> cmsCategoryEntities = (List<CmsCategoryEntity>) indexService.getCaseCategory(CategoryId);
-                        TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntities.get(0).getId()+"/1","E:\\html\\lamp.html");
-                        for (CmsCategoryEntity lampCategory:cmsCategoryEntities
-                             ) {
+                        url = "http://localhost:8082/toHtml/about/"+cmsCategoryEntity.getId();
+                        List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                        TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntities2.get(0).getId()+"/1","E:\\html\\lamp.html");
+                        for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
+                        ) {
                             int lampCategoryId = lampCategory.getId();
                             PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
                             int lampTotalPages = lampPages.getPages();
@@ -135,33 +139,34 @@ public class TemplateStaticController {
                                     for (CmsContentEntity contentItem:lampDetailsPages.getList()
                                     ) {
 
-                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+lampCategoryId+"/"+contentItem.getId(),"E:\\html\\details_"+contentItem.getId()+".html");
+                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+lampCategoryId+"/"+contentItem.getId(),"E:\\html\\details_"+contentItem.getId()+".html");
                                     }
                                 }
                             }
                         }
                     }
+                    break;
                 case "case":
-                    if (cmsCategoryEntity.getCategoryParentId()!=null||!cmsCategoryEntity.getCategoryParentId().equals("0")){
-                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(CategoryId,1,null);
+                    if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,null);
                         int lampTotalPages = lampPages.getPages();
                         if(lampTotalPages>0){
-                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+CategoryId+"/1","E:\\html\\case.html");
+                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+cmsCategoryEntity.getId()+"/1","E:\\html\\case.html");
                             for (int i=1;i<=lampTotalPages;i++){
                                 url = "http://localhost:8082/toHtml/case/"+CategoryId+"/"+i;
-                                TemplateStaticUtil.urlToHtml(url,"E:\\html\\case\\"+CategoryId+"_"+i+".html");
-                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(CategoryId,i,null);
+                                TemplateStaticUtil.urlToHtml(url,"E:\\html\\case\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),i,null);
                                 for (CmsContentEntity contentItem:lampDetailsPages.getList()
                                 ) {
 
-                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+CategoryId+"/"+contentItem.getId(),"E:\\html\\contentDetails_"+contentItem.getId()+".html");
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"E:\\html\\contentDetails_"+contentItem.getId()+".html");
                                 }
                             }
                         }
                     }else{
-                        List<CmsCategoryEntity> cmsCategoryEntities = (List<CmsCategoryEntity>) indexService.getCaseCategory(CategoryId);
-                        TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+cmsCategoryEntities.get(0).getId()+"/1","E:\\html\\case.html");
-                        for (CmsCategoryEntity lampCategory:cmsCategoryEntities
+                        List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                        TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+cmsCategoryEntities2.get(0).getId()+"/1","E:\\html\\case.html");
+                        for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
                             PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
@@ -181,27 +186,28 @@ public class TemplateStaticController {
                             }
                         }
                     }
+                    break;
                 case "news":
-                    if (cmsCategoryEntity.getCategoryParentId()!=null||!cmsCategoryEntity.getCategoryParentId().equals("0")){
-                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(CategoryId,1,null);
+                    if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,null);
                         int lampTotalPages = lampPages.getPages();
                         if(lampTotalPages>0){
-                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+CategoryId+"/1","E:\\html\\news.html");
+                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+cmsCategoryEntity.getId()+"/1","E:\\html\\news.html");
                             for (int i=1;i<=lampTotalPages;i++){
-                                url = "http://localhost:8082/toHtml/news/"+CategoryId+"/"+i;
-                                TemplateStaticUtil.urlToHtml(url,"E:\\html\\news\\"+CategoryId+"_"+i+".html");
-                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(CategoryId,i,null);
+                                url = "http://localhost:8082/toHtml/news/"+cmsCategoryEntity.getId()+"/"+i;
+                                TemplateStaticUtil.urlToHtml(url,"E:\\html\\news\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),i,null);
                                 for (CmsContentEntity contentItem:lampDetailsPages.getList()
                                 ) {
 
-                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+CategoryId+"/"+contentItem.getId(),"E:\\html\\contentDetails_"+contentItem.getId()+".html");
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"E:\\html\\contentDetails_"+contentItem.getId()+".html");
                                 }
                             }
                         }
                     }else{
-                        List<CmsCategoryEntity> cmsCategoryEntities = (List<CmsCategoryEntity>) indexService.getCaseCategory(CategoryId);
-                        TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+cmsCategoryEntities.get(0).getId()+"/1","E:\\html\\news.html");
-                        for (CmsCategoryEntity lampCategory:cmsCategoryEntities
+                        List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                        TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+cmsCategoryEntities2.get(0).getId()+"/1","E:\\html\\news.html");
+                        for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
                             PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
@@ -221,8 +227,9 @@ public class TemplateStaticController {
                             }
                         }
                     }
+                    break;
                 case "contact":
-                    url = "http://localhost:8082/toHtml/contact/"+CategoryId;
+                    url = "http://localhost:8082/toHtml/contact/"+cmsCategoryEntity.getId();
                     TemplateStaticUtil.urlToHtml(url,"E:\\html\\contact.html");
             }
 
@@ -406,5 +413,23 @@ public class TemplateStaticController {
 
     }
 
+    /**
+     * 生成列表的静态页面
+     *
+     * @param request
+     * @param response
+     * @param CategoryId
+     */
+    @RequestMapping("/{CategoryId}/genernateContent")
+    @ResponseBody
+    public void genernateContent(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) throws IOException {
+        if(CategoryId>0){
+            //获取当前页面
+            CmsCategoryEntity cmsCategoryEntity = (CmsCategoryEntity) indexService.getCaseCategory(CategoryId);
+            if(cmsCategoryEntity.getCategoryParentId()!=null||!("0").equals(cmsCategoryEntity.getCategoryParentId())){
+                //只更新子栏目
+            }
+        }
 
+    }
 }
