@@ -308,7 +308,7 @@ public class TemplateStaticController {
                                 }
                             }
                         }else{
-                            url = "http://localhost:8082/toHtml/about/"+categoryItem.getId();
+                            url = "http://localhost:8082/toHtml/lamp/"+categoryItem.getId();
                             List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(categoryItem.getId());
                             TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntities2.get(0).getId()+"/1","lamp.html");
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
@@ -518,8 +518,12 @@ public class TemplateStaticController {
                     break;
                 case "lamp":
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
-                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,null);
-                        int lampTotalPages = lampPages.getPages();
+                        //获取分类下所有文字
+                        List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                        //获取分类所有同级分类
+                        List<CmsCategoryEntity> cmsContentEntities = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                        ThymeleafViewObject.categoryList.set(cmsContentEntities);
+                        int lampTotalPages = lampPages.size()%12>0 ? lampPages.size()/12+1:lampPages.size()/12;
                         if(lampTotalPages>0){
                             TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntity.getId()+"/1","lamp.html");
                             for (int i=1;i<=lampTotalPages;i++){
@@ -645,6 +649,10 @@ public class TemplateStaticController {
                     TemplateStaticUtil.urlToHtml(url,"contact.html");
             }
 
+        }else {
+            for (CmsCategoryEntity categoryItem:headerList) {
+
+            }
         }
 
     }
