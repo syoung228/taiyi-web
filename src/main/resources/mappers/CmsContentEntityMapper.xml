@@ -645,6 +645,7 @@
     FROM
     cms_content con
     where con.content_category_id = #{id}
+    order by con.create_date desc
   </select>
 
   <select id="getByCategoryId" resultMap="BaseResultMap">

@@ -1,9 +1,14 @@
 package com.taiyi.websiate.taiyiweb.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.*;
 import java.net.URL;
 
 public class TemplateStaticUtil {
+
+    @Value("${template.root}")
+    private static String rootPath;
 
     public  static void urlToHtml(String url,String path) throws IOException {
         InputStream inputStream;//接收字节输入流
@@ -17,7 +22,7 @@ public class TemplateStaticUtil {
         inputStreamReader = new InputStreamReader(inputStream);
         bufferedReader = new BufferedReader(inputStreamReader);
         String s;
-        File dest = new File(path);
+        File dest = new File(rootPath+path);
         fileOutputStream = new FileOutputStream(dest);
         outputStreamWriter = new OutputStreamWriter(fileOutputStream);
         while ((s = bufferedReader.readLine()) != null) {

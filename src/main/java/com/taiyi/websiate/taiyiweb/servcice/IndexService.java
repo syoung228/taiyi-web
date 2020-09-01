@@ -54,7 +54,6 @@ public class IndexService {
         JSONObject json = JSON.parseObject(resultStr);
         String cityCode = (String) json.getJSONObject("data").get("city_id");
         System.out.println(json);
-        System.out.println("城市编码======="+cityCode);
         Integer cityCodeInt =0;
         try{
             cityCodeInt = Integer.parseInt(cityCode);
@@ -112,6 +111,10 @@ public class IndexService {
         PageHelper.startPage(pageNum,pageSize);
         List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByCategoryId2(categoryId);
         return new PageInfo<>(cmsContentEntities);
+    }
+    public Object getcontentByCategory(Integer categoryId){
+        List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByCategoryId2(categoryId);
+        return cmsContentEntities;
     }
 
     public Object getCaseCategory(Integer categoryId){
