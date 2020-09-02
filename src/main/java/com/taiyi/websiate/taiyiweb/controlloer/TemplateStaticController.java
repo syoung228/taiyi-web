@@ -41,6 +41,9 @@ public class TemplateStaticController {
     @Value("${template.root}")
     private String rootPath;
 
+    @Value("${template.pageSize}")
+    private Integer pageSize;
+
     @RequestMapping("/generateTags")
     @ResponseBody
     public void generateTags() throws IOException {
@@ -242,6 +245,9 @@ public class TemplateStaticController {
                 case "contact":
                     url = "http://localhost:8082/toHtml/contact/"+cmsCategoryEntity.getId();
                     TemplateStaticUtil.urlToHtml(url,"contact.html");
+                    break;
+                default:
+                    break;
             }
 
 
@@ -415,6 +421,9 @@ public class TemplateStaticController {
                     case "contact":
                         url = "http://localhost:8082/toHtml/contact/"+categoryItem.getId();
                         TemplateStaticUtil.urlToHtml(url,"contact.html");
+                        break;
+                    default:
+                        break;
                 }
             }
 
@@ -431,7 +440,7 @@ public class TemplateStaticController {
      */
     @RequestMapping("/{CategoryId}/genernateContent")
     @ResponseBody
-    public void genernateContent(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) throws IOException {
+    public void genernateContent(HttpServletRequest request, HttpServletResponse response, @PathVariable Integer CategoryId) throws IOException {
         List<CmsCategoryEntity> headerList = (List<CmsCategoryEntity>) indexService.headerList();
         ThymeleafViewObject.footer.set(footerService.getCompany());
         ThymeleafViewObject.headerList.set(headerList);
@@ -441,7 +450,7 @@ public class TemplateStaticController {
             CmsCategoryEntity cmsCategoryEntity = (CmsCategoryEntity) indexService.getCaseCategory(CategoryId);
             if(cmsCategoryEntity.getCategoryParentId()!=null||!("0").equals(cmsCategoryEntity.getCategoryParentId())){
                 //只更新子栏目
-                 header = indexService.getById(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                header = indexService.getById(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
                 ThymeleafViewObject.header.set(header);
             }else{
                 header = indexService.getById(CategoryId);
@@ -517,66 +526,108 @@ public class TemplateStaticController {
                     }
                     break;
                 case "lamp":
+                    ThymeleafViewObject.tags.set(indexService.getTags());
+                    ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
+                    ThymeleafViewObject.relateCase65.set(indexService.getcontentByCategory(65,1,3));
+                    ThymeleafViewObject.relateCase67.set(indexService.getcontentByCategory(67,1,3));
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
-                        //获取分类下所有文字
+                        //获取分类下所有文章
                         List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                         //获取分类所有同级分类
-                        List<CmsCategoryEntity> cmsContentEntities = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
-                        ThymeleafViewObject.categoryList.set(cmsContentEntities);
-                        int lampTotalPages = lampPages.size()%12>0 ? lampPages.size()/12+1:lampPages.size()/12;
-                        if(lampTotalPages>0){
+                        List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                        if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
                             TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntity.getId()+"/1","lamp.html");
-                            for (int i=1;i<=lampTotalPages;i++){
-                                url = "http://localhost:8082/toHtml/lamp/"+CategoryId+"/"+i;
-                                TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
-                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),i,null);
-                                for (CmsContentEntity contentItem:lampDetailsPages.getList()
-                                ) {
-
-                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"details_"+contentItem.getId()+".html");
+                        }
+                        ThymeleafViewObject.categoryList.set(cmsCategoryEntity);
+                        int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                        if(lampTotalPages>0){
+                           for (int i=1;i<=lampTotalPages;i++){
+                               ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                               url = "http://localhost:8082/toHtml/lamp/"+CategoryId+"/"+i;
+                               TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                            }
+                            for (int i=0;i<lampPages.size();i++){
+                                if(i==0){
+                                    result.put("last",new CmsContentEntity());
+                                }else{
+                                    result.put("last",lampPages.get(i-1));
                                 }
+                                if(i==lampPages.size()-1){
+                                    result.put("next",new CmsContentEntity());
+                                }else{
+                                    result.put("next",lampPages.get(i+1));
+                                }
+                                ThymeleafViewObject.lastAndNextProgress.set(result);
+                                ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
                             }
                         }
                     }else{
-                        url = "http://localhost:8082/toHtml/about/"+cmsCategoryEntity.getId();
                         List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
                         TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntities2.get(0).getId()+"/1","lamp.html");
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
-                            PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
-                            int lampTotalPages = lampPages.getPages();
+                            List<CmsContentEntity> lampPages= (List<CmsContentEntity>) (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
+                            int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(lampTotalPages>0){
-                                TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+lampCategoryId+"/1","lamp.html");
                                 for (int i=1;i<=lampTotalPages;i++){
-                                    url = "http://localhost:8082/toHtml/lamp/"+lampCategoryId+"/"+i;
+                                    ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                    url = "http://localhost:8082/toHtml/lamp/"+CategoryId+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"lamp\\"+lampCategoryId+"_"+i+".html");
-                                    PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,i,null);
-                                    for (CmsContentEntity contentItem:lampDetailsPages.getList()
-                                    ) {
-
-                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+lampCategoryId+"/"+contentItem.getId(),"details_"+contentItem.getId()+".html");
+                                }
+                                for (int i=0;i<lampPages.size();i++){
+                                    if(i==0){
+                                        result.put("last",new CmsContentEntity());
+                                    }else{
+                                        result.put("last",lampPages.get(i-1));
                                     }
+                                    if(i==lampPages.size()-1){
+                                        result.put("next",new CmsContentEntity());
+                                    }else{
+                                        result.put("next",lampPages.get(i+1));
+                                    }
+                                    ThymeleafViewObject.lastAndNextProgress.set(result);
+                                    ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
                                 }
                             }
                         }
                     }
                     break;
                 case "case":
+                    ThymeleafViewObject.tags.set(indexService.getTags());
+                    ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
-                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,null);
-                        int lampTotalPages = lampPages.getPages();
-                        if(lampTotalPages>0){
+                        //获取分类下所有文章
+                        List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                        //获取分类所有同级分类
+                        List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                        if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
                             TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+cmsCategoryEntity.getId()+"/1","case.html");
+                        }
+                        ThymeleafViewObject.categoryList.set(cmsCategoryEntity);
+                        int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                        if(lampTotalPages>0){
                             for (int i=1;i<=lampTotalPages;i++){
+                                ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
                                 url = "http://localhost:8082/toHtml/case/"+CategoryId+"/"+i;
-                                TemplateStaticUtil.urlToHtml(url,"case\\"+cmsCategoryEntity.getId()+"_"+i+".html");
-                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),i,null);
-                                for (CmsContentEntity contentItem:lampDetailsPages.getList()
-                                ) {
-
-                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"contentDetails_"+contentItem.getId()+".html");
+                                TemplateStaticUtil.urlToHtml(url,"case/"+cmsCategoryEntity.getId()+"_"+i+".html");
+                            }
+                            for (int i=0;i<lampPages.size();i++){
+                                if(i==0){
+                                    result.put("last",new CmsContentEntity());
+                                }else{
+                                    result.put("last",lampPages.get(i-1));
                                 }
+                                if(i==lampPages.size()-1){
+                                    result.put("next",new CmsContentEntity());
+                                }else{
+                                    result.put("next",lampPages.get(i+1));
+                                }
+                                ThymeleafViewObject.lastAndNextProgress.set(result);
+                                ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
                             }
                         }
                     }else{
@@ -585,39 +636,66 @@ public class TemplateStaticController {
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
-                            PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
-                            int lampTotalPages = lampPages.getPages();
+                            List<CmsContentEntity> lampPages= (List<CmsContentEntity>) (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
+                            int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(lampTotalPages>0){
-                                TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+lampCategoryId+"/1","case.html");
                                 for (int i=1;i<=lampTotalPages;i++){
-                                    url = "http://localhost:8082/toHtml/case/"+lampCategoryId+"/"+i;
+                                    ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                    url = "http://localhost:8082/toHtml/case/"+CategoryId+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"case\\"+lampCategoryId+"_"+i+".html");
-                                    PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,i,null);
-                                    for (CmsContentEntity contentItem:lampDetailsPages.getList()
-                                    ) {
-
-                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+lampCategoryId+"/"+contentItem.getId(),"contentDetails_"+contentItem.getId()+".html");
+                                }
+                                for (int i=0;i<lampPages.size();i++){
+                                    if(i==0){
+                                        result.put("last",new CmsContentEntity());
+                                    }else{
+                                        result.put("last",lampPages.get(i-1));
                                     }
+                                    if(i==lampPages.size()-1){
+                                        result.put("next",new CmsContentEntity());
+                                    }else{
+                                        result.put("next",lampPages.get(i+1));
+                                    }
+                                    ThymeleafViewObject.lastAndNextProgress.set(result);
+                                    ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
                                 }
                             }
                         }
                     }
                     break;
                 case "news":
+                    ThymeleafViewObject.tags.set(indexService.getTags());
+                    ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
-                        PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),1,null);
-                        int lampTotalPages = lampPages.getPages();
-                        if(lampTotalPages>0){
+                        //获取分类下所有文章
+                        List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                        //获取分类所有同级分类
+                        List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                        if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
                             TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+cmsCategoryEntity.getId()+"/1","news.html");
+                        }
+                        ThymeleafViewObject.categoryList.set(cmsCategoryEntity);
+                        int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                        if(lampTotalPages>0){
                             for (int i=1;i<=lampTotalPages;i++){
-                                url = "http://localhost:8082/toHtml/news/"+cmsCategoryEntity.getId()+"/"+i;
-                                TemplateStaticUtil.urlToHtml(url,"news\\"+cmsCategoryEntity.getId()+"_"+i+".html");
-                                PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId(),i,null);
-                                for (CmsContentEntity contentItem:lampDetailsPages.getList()
-                                ) {
-
-                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+contentItem.getId(),"contentDetails_"+contentItem.getId()+".html");
+                                ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                url = "http://localhost:8082/toHtml/news/"+CategoryId+"/"+i;
+                                TemplateStaticUtil.urlToHtml(url,"news/"+cmsCategoryEntity.getId()+"_"+i+".html");
+                            }
+                            for (int i=0;i<lampPages.size();i++){
+                                if(i==0){
+                                    result.put("last",new CmsContentEntity());
+                                }else{
+                                    result.put("last",lampPages.get(i-1));
                                 }
+                                if(i==lampPages.size()-1){
+                                    result.put("next",new CmsContentEntity());
+                                }else{
+                                    result.put("next",lampPages.get(i+1));
+                                }
+                                ThymeleafViewObject.lastAndNextProgress.set(result);
+                                ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
                             }
                         }
                     }else{
@@ -626,19 +704,28 @@ public class TemplateStaticController {
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
-                            PageInfo<CmsContentEntity> lampPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,1,null);
-                            int lampTotalPages = lampPages.getPages();
+                            List<CmsContentEntity> lampPages= (List<CmsContentEntity>) (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
+                            int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(lampTotalPages>0){
-                                TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+lampCategoryId+"/1","news.html");
                                 for (int i=1;i<=lampTotalPages;i++){
-                                    url = "http://localhost:8082/toHtml/news/"+lampCategoryId+"/"+i;
+                                    ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                    url = "http://localhost:8082/toHtml/news/"+CategoryId+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"news\\"+lampCategoryId+"_"+i+".html");
-                                    PageInfo<CmsContentEntity> lampDetailsPages= (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId,i,null);
-                                    for (CmsContentEntity contentItem:lampDetailsPages.getList()
-                                    ) {
-
-                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+lampCategoryId+"/"+contentItem.getId(),"contentDetails_"+contentItem.getId()+".html");
+                                }
+                                for (int i=0;i<lampPages.size();i++){
+                                    if(i==0){
+                                        result.put("last",new CmsContentEntity());
+                                    }else{
+                                        result.put("last",lampPages.get(i-1));
                                     }
+                                    if(i==lampPages.size()-1){
+                                        result.put("next",new CmsContentEntity());
+                                    }else{
+                                        result.put("next",lampPages.get(i+1));
+                                    }
+                                    ThymeleafViewObject.lastAndNextProgress.set(result);
+                                    ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
                                 }
                             }
                         }
@@ -647,12 +734,315 @@ public class TemplateStaticController {
                 case "contact":
                     url = "http://localhost:8082/toHtml/contact/"+cmsCategoryEntity.getId();
                     TemplateStaticUtil.urlToHtml(url,"contact.html");
+                    break;
+                default:
+                    break;
             }
 
         }else {
             for (CmsCategoryEntity categoryItem:headerList) {
+                //获取当前页面
+                CmsCategoryEntity cmsCategoryEntity = (CmsCategoryEntity) indexService.getCaseCategory(categoryItem.getId());
+                if(cmsCategoryEntity.getCategoryParentId()!=null||!("0").equals(cmsCategoryEntity.getCategoryParentId())){
+                    //只更新子栏目
+                    header = indexService.getById(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                    ThymeleafViewObject.header.set(header);
+                }else{
+                    header = indexService.getById(categoryItem.getId());
+                    ThymeleafViewObject.header.set(header);
+                }
+                String url = "";
+                String template = cmsCategoryEntity.getCategoryUrl().substring(0,cmsCategoryEntity.getCategoryUrl().length()-5);
+                String categoryList = cmsCategoryEntity.getCategoryListUrl().substring(0,cmsCategoryEntity.getCategoryListUrl().length()-5);
+                Map<String,Object> result = new HashMap<>();
+                switch (template){
+                    case "index":
+                        url = "http://localhost:8082/toHtml/index/"+categoryItem.getId();
+                        TemplateStaticUtil.urlToHtml(url,"index.html");
+                        break;
+                    case "about":
+                        if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            url = "http://localhost:8082/toHtml/about/"+cmsCategoryEntity.getCategoryParentId();
+                            TemplateStaticUtil.urlToHtml(url,"about.html");
 
+                        }else{
+                            url = "http://localhost:8082/toHtml/about/"+cmsCategoryEntity.getId();
+                            TemplateStaticUtil.urlToHtml(url,"about.html");
+                        }
+                        break;
+                    case "generation":
+                        url = "http://localhost:8082/toHtml/generation/"+cmsCategoryEntity.getId();
+                        TemplateStaticUtil.urlToHtml(url,"generation.html");
+                        ThymeleafViewObject.tags.set(indexService.getTags());
+                        ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
+                        ThymeleafViewObject.relateCase65.set(indexService.getcontentByCategory(65,1,3));
+                        ThymeleafViewObject.relateCase67.set(indexService.getcontentByCategory(67,1,3));
+                        List<CmsContentEntity> pages= (List<CmsContentEntity>) indexService.getcontentByCategory(cmsCategoryEntity.getId());
+
+                        for (int i=0;i<pages.size();i++){
+                            if(i==0){
+                                result.put("last",new CmsContentEntity());
+                            }else{
+                                result.put("last",pages.get(i-1));
+                            }
+                            if(i==pages.size()-1){
+                                result.put("next",new CmsContentEntity());
+                            }else{
+                                result.put("next",pages.get(i+1));
+                            }
+                            ThymeleafViewObject.lastAndNextProgress.set(result);
+                            ThymeleafViewObject.contentResult.set(pages.get(i));
+                            TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+pages.get(i).getId(),""+categoryList+"_"+pages.get(i).getId()+".html");
+                        }
+
+                        break;
+                    case "lifting":
+                        url = "http://localhost:8082/toHtml/lifting/"+cmsCategoryEntity.getId();
+                        TemplateStaticUtil.urlToHtml(url,"lifting.html");
+                        break;
+                    case "construction":
+                        url = "http://localhost:8082/toHtml/construction/"+cmsCategoryEntity.getId();
+                        TemplateStaticUtil.urlToHtml(url,"construction.html");
+                        List<ProjectDto> projectDtos = projectProcessService.getProjectList();
+                        for (int i=0;i<projectDtos.size();i++){
+                            if(i==0){
+                                result.put("last",new ProjectProcessEntity());
+                            }else{
+                                result.put("last",projectDtos.get(i-1));
+                            }
+                            if(i==projectDtos.size()-1){
+                                result.put("next",new ProjectProcessEntity());
+                            }else{
+                                result.put("next",projectDtos.get(i+1));
+                            }
+                            ThymeleafViewObject.lastAndNextProgress.set(result);
+                            ThymeleafViewObject.contentResult.set(projectDtos.get(i));
+                            TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/progress/"+cmsCategoryEntity.getId()+"/"+projectDtos.get(i).getId(),"progress_"+projectDtos.get(i).getId()+".html");
+                        }
+                        break;
+                    case "lamp":
+                        ThymeleafViewObject.tags.set(indexService.getTags());
+                        ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
+                        ThymeleafViewObject.relateCase65.set(indexService.getcontentByCategory(65,1,3));
+                        ThymeleafViewObject.relateCase67.set(indexService.getcontentByCategory(67,1,3));
+                        if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            //获取分类下所有文章
+                            List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                            //获取分类所有同级分类
+                            List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                            if(lampCategoryEntity.get(0).getId().equals(categoryItem.getId())){
+                                TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntity.getId()+"/1","lamp.html");
+                            }
+                            ThymeleafViewObject.categoryList.set(cmsCategoryEntity);
+                            int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                            if(lampTotalPages>0){
+                                for (int i=1;i<=lampTotalPages;i++){
+                                    ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                    url = "http://localhost:8082/toHtml/lamp/"+categoryItem.getId()+"/"+i;
+                                    TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                }
+                                for (int i=0;i<lampPages.size();i++){
+                                    if(i==0){
+                                        result.put("last",new CmsContentEntity());
+                                    }else{
+                                        result.put("last",lampPages.get(i-1));
+                                    }
+                                    if(i==lampPages.size()-1){
+                                        result.put("next",new CmsContentEntity());
+                                    }else{
+                                        result.put("next",lampPages.get(i+1));
+                                    }
+                                    ThymeleafViewObject.lastAndNextProgress.set(result);
+                                    ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
+                                }
+                            }
+                        }else{
+                            List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/lamp/"+cmsCategoryEntities2.get(0).getId()+"/1","lamp.html");
+                            for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
+                            ) {
+                                int lampCategoryId = lampCategory.getId();
+                                List<CmsContentEntity> lampPages= (List<CmsContentEntity>) (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
+                                int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                                if(lampTotalPages>0){
+                                    for (int i=1;i<=lampTotalPages;i++){
+                                        ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                        url = "http://localhost:8082/toHtml/lamp/"+lampCategoryId+"/"+i;
+                                        TemplateStaticUtil.urlToHtml(url,"lamp\\"+lampCategoryId+"_"+i+".html");
+                                    }
+                                    for (int i=0;i<lampPages.size();i++){
+                                        if(i==0){
+                                            result.put("last",new CmsContentEntity());
+                                        }else{
+                                            result.put("last",lampPages.get(i-1));
+                                        }
+                                        if(i==lampPages.size()-1){
+                                            result.put("next",new CmsContentEntity());
+                                        }else{
+                                            result.put("next",lampPages.get(i+1));
+                                        }
+                                        ThymeleafViewObject.lastAndNextProgress.set(result);
+                                        ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/details/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "case":
+                        ThymeleafViewObject.tags.set(indexService.getTags());
+                        ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
+                        if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            //获取分类下所有文章
+                            List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                            //获取分类所有同级分类
+                            List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                            if(lampCategoryEntity.get(0).getId().equals(categoryItem.getId())){
+                                TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+cmsCategoryEntity.getId()+"/1","case.html");
+                            }
+                            ThymeleafViewObject.categoryList.set(cmsCategoryEntity);
+                            int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                            if(lampTotalPages>0){
+                                for (int i=1;i<=lampTotalPages;i++){
+                                    ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                    url = "http://localhost:8082/toHtml/case/"+cmsCategoryEntity.getId()+"/"+i;
+                                    TemplateStaticUtil.urlToHtml(url,"case/"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                }
+                                for (int i=0;i<lampPages.size();i++){
+                                    if(i==0){
+                                        result.put("last",new CmsContentEntity());
+                                    }else{
+                                        result.put("last",lampPages.get(i-1));
+                                    }
+                                    if(i==lampPages.size()-1){
+                                        result.put("next",new CmsContentEntity());
+                                    }else{
+                                        result.put("next",lampPages.get(i+1));
+                                    }
+                                    ThymeleafViewObject.lastAndNextProgress.set(result);
+                                    ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
+                                }
+                            }
+                        }else{
+                            List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/case/"+cmsCategoryEntities2.get(0).getId()+"/1","case.html");
+                            for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
+                            ) {
+                                int lampCategoryId = lampCategory.getId();
+                                List<CmsContentEntity> lampPages= (List<CmsContentEntity>) (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
+                                int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                                if(lampTotalPages>0){
+                                    for (int i=1;i<=lampTotalPages;i++){
+                                        ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                        url = "http://localhost:8082/toHtml/case/"+lampCategoryId+"/"+i;
+                                        TemplateStaticUtil.urlToHtml(url,"case\\"+lampCategoryId+"_"+i+".html");
+                                    }
+                                    for (int i=0;i<lampPages.size();i++){
+                                        if(i==0){
+                                            result.put("last",new CmsContentEntity());
+                                        }else{
+                                            result.put("last",lampPages.get(i-1));
+                                        }
+                                        if(i==lampPages.size()-1){
+                                            result.put("next",new CmsContentEntity());
+                                        }else{
+                                            result.put("next",lampPages.get(i+1));
+                                        }
+                                        ThymeleafViewObject.lastAndNextProgress.set(result);
+                                        ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "news":
+                        ThymeleafViewObject.tags.set(indexService.getTags());
+                        ThymeleafViewObject.news.set(indexService.getNewsByMainCategory());
+                        if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            //获取分类下所有文章
+                            List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                            //获取分类所有同级分类
+                            List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
+                            if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
+                                TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+cmsCategoryEntity.getId()+"/1","news.html");
+                            }
+                            ThymeleafViewObject.categoryList.set(cmsCategoryEntity);
+                            int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                            if(lampTotalPages>0){
+                                for (int i=1;i<=lampTotalPages;i++){
+                                    ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                    url = "http://localhost:8082/toHtml/news/"+cmsCategoryEntity.getId()+"/"+i;
+                                    TemplateStaticUtil.urlToHtml(url,"news/"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                }
+                                for (int i=0;i<lampPages.size();i++){
+                                    if(i==0){
+                                        result.put("last",new CmsContentEntity());
+                                    }else{
+                                        result.put("last",lampPages.get(i-1));
+                                    }
+                                    if(i==lampPages.size()-1){
+                                        result.put("next",new CmsContentEntity());
+                                    }else{
+                                        result.put("next",lampPages.get(i+1));
+                                    }
+                                    ThymeleafViewObject.lastAndNextProgress.set(result);
+                                    ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                    TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
+                                }
+                            }
+                        }else{
+                            List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                            TemplateStaticUtil.urlToHtml( "http://localhost:8082/toHtml/news/"+cmsCategoryEntities2.get(0).getId()+"/1","news.html");
+                            for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
+                            ) {
+                                int lampCategoryId = lampCategory.getId();
+                                List<CmsContentEntity> lampPages= (List<CmsContentEntity>) (PageInfo<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
+                                int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
+                                if(lampTotalPages>0){
+                                    for (int i=1;i<=lampTotalPages;i++){
+                                        ThymeleafViewObject.contentList.set(getByPage(lampPages,i,lampTotalPages));
+                                        url = "http://localhost:8082/toHtml/news/"+lampCategoryId+"/"+i;
+                                        TemplateStaticUtil.urlToHtml(url,"news\\"+lampCategoryId+"_"+i+".html");
+                                    }
+                                    for (int i=0;i<lampPages.size();i++){
+                                        if(i==0){
+                                            result.put("last",new CmsContentEntity());
+                                        }else{
+                                            result.put("last",lampPages.get(i-1));
+                                        }
+                                        if(i==lampPages.size()-1){
+                                            result.put("next",new CmsContentEntity());
+                                        }else{
+                                            result.put("next",lampPages.get(i+1));
+                                        }
+                                        ThymeleafViewObject.lastAndNextProgress.set(result);
+                                        ThymeleafViewObject.contentResult.set(lampPages.get(i));
+                                        TemplateStaticUtil.urlToHtml("http://localhost:8082/toHtml/contentDetails/"+cmsCategoryEntity.getId()+"/"+lampPages.get(i).getId(),""+categoryList+"_"+lampPages.get(i).getId()+".html");
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case "contact":
+                        url = "http://localhost:8082/toHtml/contact/"+cmsCategoryEntity.getId();
+                        TemplateStaticUtil.urlToHtml(url,"contact.html");
+                        break;
+                    default:
+                        break;
+                }
             }
+        }
+
+    }
+
+    private List<CmsContentEntity> getByPage(List<CmsContentEntity> contentEntities,Integer pageNum,Integer totalPages){
+        if(pageNum<totalPages){
+            return contentEntities.subList((pageNum-1)*pageSize,pageNum*pageSize-1);
+        }else{
+            return contentEntities.subList((pageNum-1)*pageSize,contentEntities.size()-1);
         }
 
     }

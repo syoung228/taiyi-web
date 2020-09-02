@@ -104,10 +104,9 @@ public class TemplateTohtmlController {
 
     @RequestMapping("/case/{categoryId}/{pageNum}")
     public ModelAndView caseData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId, @PathVariable("pageNum") Integer pageNum){
-        CmsCategoryEntity entity = indexService.getById(categoryId);
         mvAddObject(mv);
-        mv.addObject("contentList",indexService.getcontentByCategory(categoryId,pageNum,null));
-        mv.addObject("categoryList",indexService.getCaseCategory(Integer.parseInt(entity.getCategoryParentId())));
+        mv.addObject("contentList",ThymeleafViewObject.contentList.get());
+        mv.addObject("categoryList",ThymeleafViewObject.categoryList.get());
         mv.addObject("categoryId",categoryId);
         mv.setViewName("case");
         return mv;
@@ -117,8 +116,8 @@ public class TemplateTohtmlController {
     public ModelAndView newsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId, @PathVariable("pageNum") Integer pageNum){
         CmsCategoryEntity entity = indexService.getById(categoryId);
         mvAddObject(mv);
-        mv.addObject("contentList",indexService.getcontentByCategory(categoryId,pageNum,null));
-        mv.addObject("categoryList",indexService.getCaseCategory(Integer.parseInt(entity.getCategoryParentId())));
+        mv.addObject("contentList",ThymeleafViewObject.contentList.get());
+        mv.addObject("categoryList",ThymeleafViewObject.categoryList.get());
         mv.addObject("categoryId",categoryId);
         mv.setViewName("news");
         return mv;
@@ -126,10 +125,9 @@ public class TemplateTohtmlController {
 
     @RequestMapping("/lamp/{categoryId}/{pageNum}")
     public ModelAndView lampData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId, @PathVariable("pageNum") Integer pageNum){
-        CmsCategoryEntity entity = indexService.getById(categoryId);
         mvAddObject(mv);
-        mv.addObject("contentList",indexService.getcontentByCategory(categoryId,pageNum,null));
-        mv.addObject("categoryList",indexService.getCaseCategory(Integer.parseInt(entity.getCategoryParentId())));
+        mv.addObject("contentList",ThymeleafViewObject.contentList.get());
+        mv.addObject("categoryList",ThymeleafViewObject.categoryList.get());
         mv.addObject("categoryId",categoryId);
         mv.setViewName("lamp");
         return mv;

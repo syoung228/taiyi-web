@@ -33,6 +33,10 @@ public class ThymeleafViewObject {
      */
     public static ThreadLocal<Object> contentResult= new ThreadLocal<>();
     /**
+     * 文章列表
+     */
+    public static ThreadLocal<Object> contentList= new ThreadLocal<>();
+    /**
      * 相关标签
      */
     public static ThreadLocal<Object> tags= new ThreadLocal<>();
