@@ -136,8 +136,8 @@ public class TemplateTohtmlController {
     @RequestMapping("/contentDetails/{categoryId}/{id}")
     public ModelAndView contentDetailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
         mvAddObject(mv);
-        mv.addObject("contentResult",indexService.getContenDetail(id));
-        mv.addObject("lastAndNextProgress",indexService.getLastAndNextContent(id,categoryId));
+        mv.addObject("contentResult",ThymeleafViewObject.contentResult.get());
+        mv.addObject("lastAndNextProgress", ThymeleafViewObject.lastAndNextProgress.get());
         mv.addObject("tags",indexService.getTags());
         mv.addObject("news",indexService.getNewsByMainCategory());
         mv.setViewName("contentDetails");
