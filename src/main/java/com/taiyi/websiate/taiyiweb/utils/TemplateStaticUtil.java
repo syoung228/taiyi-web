@@ -7,8 +7,7 @@ import java.net.URL;
 
 public class TemplateStaticUtil {
 
-    @Value("${template.root}")
-    private static String rootPath;
+    private static String rootPath = "E:\\html1\\";
 
     public  static void urlToHtml(String url,String path) throws IOException {
         InputStream inputStream;//接收字节输入流

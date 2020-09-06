@@ -47,7 +47,7 @@
     <div class="ly-gen">
         <div class="ly-content">
             <ul class="ly-list">
-                <li th:each="item : ${generationList.list}">
+                <li th:each="item : ${generationList}">
                     <a th:href="'/details_'+${item.id}+'.html'">
                         <div class="ly-img"><img th:src="${item.contentImg}" /></div>
                         <h2>[[${item.contentTitle}]]</h2>

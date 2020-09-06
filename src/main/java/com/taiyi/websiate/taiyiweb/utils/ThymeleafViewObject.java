@@ -3,6 +3,7 @@ package com.taiyi.websiate.taiyiweb.utils;
 import com.taiyi.websiate.taiyiweb.entity.CmsCategoryEntity;
 import com.taiyi.websiate.taiyiweb.entity.CompanyInfoEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,50 +16,50 @@ public class ThymeleafViewObject {
     /**
      * 关键词 title等
      */
-    public static ThreadLocal<CmsCategoryEntity> header = new ThreadLocal<>();
+    public static CmsCategoryEntity header = new CmsCategoryEntity();
     /**
      * header 导航
      */
-    public static ThreadLocal<List<CmsCategoryEntity>> headerList= new ThreadLocal<>();
+    public static List<CmsCategoryEntity> headerList =new ArrayList<>();
     /**
      * footer信息
      */
-    public static ThreadLocal<CompanyInfoEntity> footer= new ThreadLocal<>();
+    public static CompanyInfoEntity footer = new CompanyInfoEntity();
     /**
      *  详情页 上一条 下一条
      */
-    public static ThreadLocal<Object> lastAndNextProgress= new ThreadLocal<>();
+    public static Object lastAndNextProgress  = new Object();
     /**
      * 详情页详情
      */
-    public static ThreadLocal<Object> contentResult= new ThreadLocal<>();
+    public static Object contentResult = new Object();
     /**
      * 文章列表
      */
-    public static ThreadLocal<Object> contentList= new ThreadLocal<>();
+    public static Object contentList = new Object();
     /**
      * 相关标签
      */
-    public static ThreadLocal<Object> tags= new ThreadLocal<>();
+    public static Object tags = new Object();
     /**
      * 相关新闻
      */
-    public static ThreadLocal<Object> news= new ThreadLocal<>();
+    public static Object news = new Object();
     /**
      * 分类列表
      */
-    public static ThreadLocal<Object> categoryList= new ThreadLocal<>();
+    public static Object categoryList = new Object();
     /**
      * 相关案例 id为65
      */
-    public static ThreadLocal<Object> relateCase65= new ThreadLocal<>();
+    public static Object relateCase65 = new Object();
     /**
      *相关案例 id为66
      */
-    public static ThreadLocal<Object> relateCase66= new ThreadLocal<>();
+    public static Object relateCase66 = new Object();
     /**
      * 相关案例 id为67
      */
-    public static ThreadLocal<Object> relateCase67= new ThreadLocal<>();
+    public static Object relateCase67 = new Object();
 
 }

@@ -61,9 +61,9 @@ public class TemplateTohtmlController {
     public ModelAndView progressData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
         mvAddObject(mv);
         mv.addObject("progressResult",projectProcessService.getProjectDetail(id));
-        mv.addObject("lastAndNextProgress",ThymeleafViewObject.lastAndNextProgress.get());
-        mv.addObject("tags", ThymeleafViewObject.tags.get());
-        mv.addObject("news",ThymeleafViewObject.news.get());
+        mv.addObject("lastAndNextProgress",ThymeleafViewObject.lastAndNextProgress);
+        mv.addObject("tags", ThymeleafViewObject.tags);
+        mv.addObject("news",ThymeleafViewObject.news);
         mv.setViewName("progress");
         return mv;
     }
@@ -105,8 +105,8 @@ public class TemplateTohtmlController {
     @RequestMapping("/case/{categoryId}/{pageNum}")
     public ModelAndView caseData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId, @PathVariable("pageNum") Integer pageNum){
         mvAddObject(mv);
-        mv.addObject("contentList",ThymeleafViewObject.contentList.get());
-        mv.addObject("categoryList",ThymeleafViewObject.categoryList.get());
+        mv.addObject("contentList",ThymeleafViewObject.contentList);
+        mv.addObject("categoryList",ThymeleafViewObject.categoryList);
         mv.addObject("categoryId",categoryId);
         mv.setViewName("case");
         return mv;
@@ -114,10 +114,9 @@ public class TemplateTohtmlController {
 
     @RequestMapping("/news/{categoryId}/{pageNum}")
     public ModelAndView newsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId, @PathVariable("pageNum") Integer pageNum){
-        CmsCategoryEntity entity = indexService.getById(categoryId);
         mvAddObject(mv);
-        mv.addObject("contentList",ThymeleafViewObject.contentList.get());
-        mv.addObject("categoryList",ThymeleafViewObject.categoryList.get());
+        mv.addObject("contentList",ThymeleafViewObject.contentList);
+        mv.addObject("categoryList",ThymeleafViewObject.categoryList);
         mv.addObject("categoryId",categoryId);
         mv.setViewName("news");
         return mv;
@@ -126,8 +125,8 @@ public class TemplateTohtmlController {
     @RequestMapping("/lamp/{categoryId}/{pageNum}")
     public ModelAndView lampData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId, @PathVariable("pageNum") Integer pageNum){
         mvAddObject(mv);
-        mv.addObject("contentList",ThymeleafViewObject.contentList.get());
-        mv.addObject("categoryList",ThymeleafViewObject.categoryList.get());
+        mv.addObject("contentList",ThymeleafViewObject.contentList);
+        mv.addObject("categoryList",ThymeleafViewObject.categoryList);
         mv.addObject("categoryId",categoryId);
         mv.setViewName("lamp");
         return mv;
@@ -136,10 +135,10 @@ public class TemplateTohtmlController {
     @RequestMapping("/contentDetails/{categoryId}/{id}")
     public ModelAndView contentDetailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
         mvAddObject(mv);
-        mv.addObject("contentResult",ThymeleafViewObject.contentResult.get());
-        mv.addObject("lastAndNextProgress", ThymeleafViewObject.lastAndNextProgress.get());
-        mv.addObject("tags",indexService.getTags());
-        mv.addObject("news",indexService.getNewsByMainCategory());
+        mv.addObject("contentResult",ThymeleafViewObject.contentResult);
+        mv.addObject("lastAndNextProgress", ThymeleafViewObject.lastAndNextProgress);
+        mv.addObject("tags",ThymeleafViewObject.tags);
+        mv.addObject("news",ThymeleafViewObject.news);
         mv.setViewName("contentDetails");
         return mv;
     }
@@ -147,19 +146,19 @@ public class TemplateTohtmlController {
     @RequestMapping("/details/{categoryId}/{id}")
     public ModelAndView detailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
         mvAddObject(mv);
-        mv.addObject("details",ThymeleafViewObject.contentResult.get());
-        mv.addObject("lastAndNextProgress",ThymeleafViewObject.lastAndNextProgress.get());
-        mv.addObject("tags", ThymeleafViewObject.tags.get());
-        mv.addObject("news",ThymeleafViewObject.news.get());
-        mv.addObject("relateCase65",ThymeleafViewObject.relateCase65.get());
-        mv.addObject("relateCase67",ThymeleafViewObject.relateCase67.get());
+        mv.addObject("details",ThymeleafViewObject.contentResult);
+        mv.addObject("lastAndNextProgress",ThymeleafViewObject.lastAndNextProgress);
+        mv.addObject("tags", ThymeleafViewObject.tags);
+        mv.addObject("news",ThymeleafViewObject.news);
+        mv.addObject("relateCase65",ThymeleafViewObject.relateCase65);
+        mv.addObject("relateCase67",ThymeleafViewObject.relateCase67);
         mv.setViewName("details");
         return mv;
     }
 
     private void mvAddObject(ModelAndView mv){
-        mv.addObject("header", ThymeleafViewObject.header.get());
-        mv.addObject("headerList",ThymeleafViewObject.headerList.get());
-        mv.addObject("footer",ThymeleafViewObject.footer.get());
+        mv.addObject("header", ThymeleafViewObject.header);
+        mv.addObject("headerList",ThymeleafViewObject.headerList);
+        mv.addObject("footer",ThymeleafViewObject.footer);
     }
 }
