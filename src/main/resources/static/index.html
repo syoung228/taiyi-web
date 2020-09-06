@@ -239,7 +239,7 @@
         <div class="ly-intro">
             <div class="ly-name">南充周边案例</div>
             <div class="ly-cont">
-                <ul class="ly-list">
+                <ul class="ly-list" id="region_case">
                     <li th:each="item : ${index.regionCase}" th:if="${itemStat.index}<3"><a th:href="'/contentDetails_'+${item.id}+'.html'" target="_blank"> [[${item.contentTitle}]]</a></li>
                 </ul>
                 <h2>立即与项目经理一对一沟通，获取设计与报价！</h2>
@@ -266,5 +266,37 @@
             return val
         }
     }
+    $(function(){
+        $.ajax({
+                type:"get",    //请求方式
+                 async:true,    //是否异步
+                 url:"localhost:8082/getRegionCase",
+                 dataType:"jsonp",    //跨域json请求一定是jsonp
+             beforeSend: function() {
+                     //请求前的处理
+                 },
+
+             success: function(data) {
+                     //请求成功处理，和本地回调完全一样
+                 var datas = JSON.stringify(data);
+                 alert(datas)
+                 var content = "";
+                 for(var i =0;i<datas.size();i++){
+                     if(i<3){
+                         content +='<li><a href=\"/contentDetails_'+datas.get(i).id+'.html\"  target=\"_blank\">'+datas.get(i).contentTitle+'</a></li>';
+                     }
+                     $("#region_case").html(content)
+                 }
+                 },
+
+             complete: function() {
+                     //请求完成的处理
+                 },
+
+             error: function() {
+                     //请求出错处理
+               }
+        });
+    });
 </script>
 </html>

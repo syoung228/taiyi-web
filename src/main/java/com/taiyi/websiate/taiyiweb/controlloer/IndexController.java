@@ -20,7 +20,7 @@ public class IndexController {
     IndexService indexService;
     @RequestMapping("/index")
     public Object indexDate(HttpServletRequest request){
-        return indexService.index(request);
+        return indexService.index();
     }
 
     @GetMapping("/getCaseCategory")
@@ -66,5 +66,11 @@ public class IndexController {
     public Object getContact(){
         return indexService.getContact();
     }
+
+    @GetMapping("/getRegionCase")
+    public Object getRegionCase(HttpServletRequest request){
+        return indexService.getCaseRegion(request);
+    }
+
 
 }

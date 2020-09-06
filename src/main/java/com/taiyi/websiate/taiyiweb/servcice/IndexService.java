@@ -46,8 +46,7 @@ public class IndexService {
 
     private Integer newsCategory = 8;
 
-    public Object index(HttpServletRequest request){
-        Map<String,Object> result = new HashMap<>();
+    public Object getCaseRegion(HttpServletRequest request){
         String address = AddressUtils.getIPAddress(request);
         System.out.println("城市真是ip======="+address);
         String resultStr = AddressUtils.getCityByIp(address);
@@ -60,6 +59,16 @@ public class IndexService {
         }catch (Exception e){
 
         }
+        //推荐案例
+        List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByRegion(cityCodeInt);
+        if(cmsContentEntities ==null || cmsContentEntities.size()<=0){
+            return cmsContentEntityMapper.getByRegion(0);
+        }else{
+            return cmsContentEntities;
+        }
+    }
+    public Object index(){
+        Map<String,Object> result = new HashMap<>();
 
         List<CmsCategoryDto> cmsCaseDtos = entityToDto(caseCategory);
         for(int i=0;i<cmsCaseDtos.size();i++){
@@ -67,13 +76,7 @@ public class IndexService {
             List<CmsContentEntity> cityCmsContent = cmsContentEntityMapper.getByCategoryId2(cmsCaseDtos.get(i).getId());
             cmsCaseDtos.get(i).setCmsContentEntities(cityCmsContent);
         }
-        //推荐案例
-        List<CmsContentEntity> cmsContentEntities = cmsContentEntityMapper.getByRegion(cityCodeInt);
-        if(cmsContentEntities ==null || cmsContentEntities.size()<=0){
-            result.put("regionCase",cmsContentEntityMapper.getByRegion(0));
-        }else{
-            result.put("regionCase",cmsContentEntities);
-        }
+
 
 
         //案例分类
