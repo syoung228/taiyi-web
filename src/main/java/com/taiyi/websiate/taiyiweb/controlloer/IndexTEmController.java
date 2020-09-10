@@ -35,7 +35,7 @@ public class IndexTEmController {
     public ModelAndView indexData(HttpServletRequest request, ModelAndView mv,@PathVariable("categoryId") Integer categoryId){
         mv.addObject("header",indexService.getById(categoryId));
         mv.addObject("headerList",indexService.headerList());
-        mv.addObject("index",indexService.index(request));
+        mv.addObject("index",indexService.index());
         mv.addObject("footer",footerService.getCompany());
         mv.setViewName("index");
         return mv;

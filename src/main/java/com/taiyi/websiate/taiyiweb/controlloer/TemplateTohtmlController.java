@@ -33,7 +33,7 @@ public class TemplateTohtmlController {
     @RequestMapping("/index/{categoryId}")
     public ModelAndView indexData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId){
         mvAddObject(mv);
-        mv.addObject("index",indexService.index(request));
+        mv.addObject("index",indexService.index());
         mv.setViewName("index");
         return mv;
     }

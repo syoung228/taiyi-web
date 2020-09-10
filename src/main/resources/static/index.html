@@ -46,23 +46,23 @@
         <div class="ly-content">
             <ul class="ly-list">
                 <li>
-                    <h2>上市代码</h2>
+                    <div class="ly-h2">上市代码</div>
                     <h4><em>股票代码</em>838456</h4>
                     <p><i class="iconfont icon_up"></i>1.75</p>
                 </li>
                 <li>
                     <img src="/images/icon_1.png" />
-                    <h3><a href="lamp.html" target="_blank">太阳能路灯</a></h3>
+                    <h3><a style="color: #fff;" href="lamp.html" target="_blank">太阳能路灯</a></h3>
                     <h6>Solar street lamp</h6>
                 </li>
                 <li>
                     <img src="/images/icon_2.png" />
-                    <h3><a href="generation.html" target="_blank">太阳能发电系统</a></h3>
+                    <h3><a style="color: #fff;" href="generation.html" target="_blank">太阳能发电系统</a></h3>
                     <h6>Solar power system</h6>
                 </li>
                 <li>
                     <img src="/images/icon_3.png" />
-                    <h3><a href="lifting.html" target="_blank">太阳能提灌系统</a></h3>
+                    <h3><a style="color: #fff;" href="lifting.html" target="_blank">太阳能提灌系统</a></h3>
                     <h6>Solar pumping irrigation system</h6>
                 </li>
                 <li>
@@ -100,7 +100,7 @@
                             </div>
                         </div>
 
-                        <h2>[[${item.categoryTitle} ]]<span> <img src="/images/icon_label.png"/>[[${item.categoryKeyword}]]</span></h2>
+                        <div class="ly-h2">[[${item.categoryTitle} ]]<span> <img src="/images/icon_label.png"/>[[${item.categoryKeyword}]]</span></div>
                     </a>
                 </li>
             </ul>
@@ -126,13 +126,13 @@
                         <div class="ly-years">[[${item.year}]]</div>
                         <div class="ly-date">[[${item.monthDay}]]</div>
                         <p class="ly-p">地址：[[${item.address}]] 项目：[[${item.des}]]</p>
-                        <p class="ly-h2">[[${item.title}]]</h2>
+                        <p class="ly-h2">[[${item.title}]]</p>
                     </div>
                     <div class="ly-intro">
-                        <h2>[[${item.title}]]</h2>
+                        <div class="ly-h2">[[${item.title}]]</div>
                         <p>地址：[[${item.address}]] 项目：[[${item.des}]]</p>
                         <div class="ly-speed">
-                            <span th:classappend="${item.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${item.projectProcessInfo}" >
+                            <span th:classappend="${item.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${item.projectProcessInfo}">
                               <i th:classappend="${item1.itemIcon}"></i>
                               <em>[[${item1.itemName}]]</em>
                             </span>
@@ -164,7 +164,7 @@
                         <div class="ly-img">
                             <img th:src="${item1.contentImg}" alt="img_1.png" />
                         </div>
-                        <h2>[[${item1.contentTitle}]]</h2>
+                        <div class="ly-h2">[[${item1.contentTitle}]]</div>
                         <h6>[[${#dates.format(item1.contentDatetime, 'yyyy-MM-dd')}]]</h6>
                     </a>
                 </div>
@@ -194,9 +194,9 @@
                 <h2>填写您的项目需求给我们。</h2>
                 <form>
                     <ul class="ly-list">
-                        <li><input type="text" placeholder="称号姓名" name="name"/></li>
-                        <li><input type="text" placeholder="联系电话" name="phone"/></li>
-                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words"/></li>
+                        <li><input type="text" placeholder="称号姓名" name="name" /></li>
+                        <li><input type="text" placeholder="联系电话" name="phone" /></li>
+                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words" /></li>
                         <li>
                             <button type="submit">提交项目需求</button>
                         </li>
@@ -208,8 +208,7 @@
             <div class="ly-content">
                 <div class="ly-intro">
                     <h2>[[${footer.companyName}]]</h2>
-                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/>
-                        售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
+                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/> 售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
                     </p>
                 </div>
                 <div class="ly-wechat">
@@ -240,7 +239,6 @@
             <div class="ly-name">南充周边案例</div>
             <div class="ly-cont">
                 <ul class="ly-list" id="region_case">
-                    <li th:each="item : ${index.regionCase}" th:if="${itemStat.index}<3"><a th:href="'/contentDetails_'+${item.id}+'.html'" target="_blank"> [[${item.contentTitle}]]</a></li>
                 </ul>
                 <h2>立即与项目经理一对一沟通，获取设计与报价！</h2>
                 <div class="ly-layer-btn">
@@ -256,47 +254,32 @@
 <script src="/js/public.js"></script>
 <script src="/js/index.js"></script>
 <script>
-    function imgFilter(val){
-        try{
+    function imgFilter(val) {
+        try {
             console.log(val);
             var imgUrl = JSON.parse(val)[0].path
             console.log(JSON.parse(val));
             return imgUrl
-        }catch (e) {
+        } catch (e) {
             return val
         }
     }
-    $(function(){
+
+
+    $(function () {
         $.ajax({
-                type:"get",    //请求方式
-                 async:true,    //是否异步
-                 url:"localhost:8082/getRegionCase",
-                 dataType:"jsonp",    //跨域json请求一定是jsonp
-             beforeSend: function() {
-                     //请求前的处理
-                 },
-
-             success: function(data) {
-                     //请求成功处理，和本地回调完全一样
-                 var datas = JSON.stringify(data);
-                 alert(datas)
-                 var content = "";
-                 for(var i =0;i<datas.size();i++){
-                     if(i<3){
-                         content +='<li><a href=\"/contentDetails_'+datas.get(i).id+'.html\"  target=\"_blank\">'+datas.get(i).contentTitle+'</a></li>';
-                     }
-                     $("#region_case").html(content)
-                 }
-                 },
-
-             complete: function() {
-                     //请求完成的处理
-                 },
-
-             error: function() {
-                     //请求出错处理
-               }
+            url: '/web/getRegionCase', type: 'GET', async: false, success: function (datas) {
+                alert(datas)
+                var content = "";
+                for (var i = 0; i < datas.length; i++) {
+                    if (i < 3) {
+                        content += '<li><a href=\"/contentDetails_' + datas[i].id + '.html\"  target=\"_blank\">' + datas[i].contentTitle + '</a></li>';
+                    }
+                    $("#region_case").html(content)
+                }
+            }
         });
-    });
+    })
 </script>
+
 </html>

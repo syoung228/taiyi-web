@@ -8,7 +8,7 @@
     <meta name="keywords" th:attr="content=${header.categoryKeyword}">
     <meta name="description" th:attr="content=${header.categoryDescrip}">
     <link rel="icon" href="/images/favicon.ico">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/swiper.min.css" />
     <link rel="stylesheet" href="/css/public.css" />
     <link rel="stylesheet" href="/css/page.css" />
@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="ly-intro">
-                            <h2>[[${item.contentTitle}]]</h2>
+                            <div class="ly-h2">[[${item.contentTitle}]]</div>
                             <p>[[${item.contentDescription}]]</p>
                             <div class="ly-more">
                                 <img src="/images/icon_8.png" />
@@ -77,7 +77,7 @@
                     </li>
 
                     <li th:each="index:${#numbers.sequence(1,contentList.pages)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                        <a  th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'"  class="page-link"  th:text="${index}"></a>
+                        <a th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'" class="page-link" th:text="${index}"></a>
                     </li>
 
                     <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
@@ -100,39 +100,39 @@
 
                     <!-- 当前页面小于等于4 -->
                     <li th:if="${contentList.pageNum le 4}" th:each="index:${#numbers.sequence(2,5)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                        <a th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'" class="page-link"  th:text="${index}"></a>
+                        <a th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'" class="page-link" th:text="${index}"></a>
                     </li>
                     <li th:if="${contentList.pageNum le 4}" class="page-item">
-                        <a  class="page-link" th:href="'/case/'+${categoryId}+'_6.html'">...</a>
+                        <a class="page-link" th:href="'/case/'+${categoryId}+'_6.html'">...</a>
                     </li>
 
                     <!-- 最后一页与当前页面之差小于等于3 -->
                     <li th:if="${contentList.pages-contentList.pageNum le 3}" class="page-item">
-                        <a  class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pages-5}+'.html'" >...</a>
+                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pages-5}+'.html'">...</a>
                     </li>
                     <li th:if="${contentList.pages - contentList.pageNum le 3}" th:each="index:${#numbers.sequence(contentList.pages - 4,contentList.pages - 1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                        <a th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'" class="page-link"  th:text="${index}"></a>
+                        <a th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'" class="page-link" th:text="${index}"></a>
                     </li>
 
                     <!-- 最后一页与当前页面之差大于3 且当前页面大于4 -->
                     <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
-                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pageNum -2}+'.html'" >...</a>
+                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pageNum -2}+'.html'">...</a>
                     </li>
                     <li th:if="${(contentList.pageNum gt 4) && (contentList.pages - contentList.pageNum gt 3)}" th:each="index:${#numbers.sequence(contentList.pageNum-1,contentList.pageNum+1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
                         <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${index}+'.html'" th:text="${index}"></a>
                     </li>
                     <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
-                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pageNum +2}+'.html'" >...</a>
+                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pageNum +2}+'.html'">...</a>
                     </li>
 
                     <!-- 尾页 -->
                     <li th:classappend="${contentList.pageNum eq contentList.pages}?'active'" class="page-item">
-                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pages}+'.html'"  th:text="${contentList.pages}">尾页</a>
+                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pages}+'.html'" th:text="${contentList.pages}">尾页</a>
                     </li>
 
                     <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
                     <li th:if="${contentList.pageNum lt contentList.pages}" class="page-item">
-                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pageNum}+'.html'" >下一页</a>
+                        <a class="page-link" th:href="'/case/'+${categoryId}+'_' + ${contentList.pageNum}+'.html'">下一页</a>
                     </li>
                 </ul>
             </div>
@@ -146,9 +146,9 @@
                 <h2>填写您的项目需求给我们。</h2>
                 <form>
                     <ul class="ly-list">
-                        <li><input type="text" placeholder="称号姓名" name="name"/></li>
-                        <li><input type="text" placeholder="联系电话" name="phone"/></li>
-                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words"/></li>
+                        <li><input type="text" placeholder="称号姓名" name="name" /></li>
+                        <li><input type="text" placeholder="联系电话" name="phone" /></li>
+                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words" /></li>
                         <li>
                             <button type="submit">提交项目需求</button>
                         </li>
@@ -160,8 +160,7 @@
             <div class="ly-content">
                 <div class="ly-intro">
                     <h2>[[${footer.companyName}]]</h2>
-                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/>
-                        售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
+                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/> 售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
                     </p>
                 </div>
                 <div class="ly-wechat">

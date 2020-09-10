@@ -38,7 +38,7 @@
     </header>
 
     <div class="ly-banner">
-        <img src="/images/img/img_peneration_banner.png" class="ly-img" />
+        <img src="/images/img/construction.png" class="ly-img" />
     </div>
 
 
@@ -53,7 +53,7 @@
                         <h2>[[${item.title}]]</h2>
                         <p>地址：[[${item.address}]] 项目：[[${item.des}]]</p>
                         <div class="ly-speed">
-                            <span th:classappend="${item.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${item.projectProcessInfo}" >
+                            <span th:classappend="${item.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${item.projectProcessInfo}">
                               <i th:classappend="${item1.itemIcon}"></i>
                               <em>[[${item1.itemName}]]</em>
                             </span>
@@ -74,9 +74,9 @@
                 <h2>填写您的项目需求给我们。</h2>
                 <form>
                     <ul class="ly-list">
-                        <li><input type="text" placeholder="称号姓名" name="name"/></li>
-                        <li><input type="text" placeholder="联系电话" name="phone"/></li>
-                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words"/></li>
+                        <li><input type="text" placeholder="称号姓名" name="name" /></li>
+                        <li><input type="text" placeholder="联系电话" name="phone" /></li>
+                        <li><input class="ly-text" type="text" placeholder="请您在这里描述您的需求！" name="words" /></li>
                         <li>
                             <button type="submit">提交项目需求</button>
                         </li>
@@ -88,8 +88,7 @@
             <div class="ly-content">
                 <div class="ly-intro">
                     <h2>[[${footer.companyName}]]</h2>
-                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/>
-                        售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
+                    <p>公司地址：[[${footer.companyAdress}]]<br/> 服务热线：[[${footer.serverMobile}]] <br/> 售后热线：[[${footer.saleMobile}]] <br/> 电子邮箱： [[${footer.email}]]<br/>
                     </p>
                 </div>
                 <div class="ly-wechat">
