@@ -117,7 +117,7 @@
             <div class="ly-title ly-green">
                 <div class="ly-name">
                     <div class="ly-en">progress</div>
-                    <div class="ly-cn">工程进度</div>
+                    <div class="ly-cn">在建工地</div>
                 </div>
             </div>
             <ul class="ly-list ly-progress-lists">
@@ -150,7 +150,7 @@
             <div class="ly-title">
                 <div class="ly-name">
                     <div class="ly-en">Qualifications</div>
-                    <div class="ly-cn">新闻中心</div>
+                    <div class="ly-cn">媒体中心</div>
                 </div>
                 <!--分类-->
                 <ul class="ly-list-nav ly-news-btn">
@@ -236,11 +236,11 @@
 
     <div class="ly-layer">
         <div class="ly-intro">
-            <div class="ly-name">南充周边案例</div>
+            <div class="ly-name">周边案例</div>
             <div class="ly-cont">
                 <ul class="ly-list" id="region_case">
                 </ul>
-                <h2>立即与项目经理一对一沟通，获取设计与报价！</h2>
+                <h2 style="text-align: center">立即与项目经理一对一沟通，获取设计与报价！</h2>
                 <div class="ly-layer-btn">
                     <span class="ly-btn"><a href="http://p.qiao.baidu.com/cps/chat?siteId=138415&userId=1206681&siteToken=6bdd0ee0df75a67faa567e0a8752d3d8" target="_blank">立即咨询</a></span>
                     <span onclick="closeLayer()">稍后咨询</span>
@@ -254,22 +254,11 @@
 <script src="/js/public.js"></script>
 <script src="/js/index.js"></script>
 <script>
-    function imgFilter(val) {
-        try {
-            console.log(val);
-            var imgUrl = JSON.parse(val)[0].path
-            console.log(JSON.parse(val));
-            return imgUrl
-        } catch (e) {
-            return val
-        }
-    }
 
 
     $(function () {
         $.ajax({
-            url: '/web/getRegionCase', type: 'GET', async: false, success: function (datas) {
-                alert(datas)
+            url: 'http://www.sctaiyi.com//web/getRegionCase', type: 'GET', async: false, success: function (datas) {
                 var content = "";
                 for (var i = 0; i < datas.length; i++) {
                     if (i < 3) {
