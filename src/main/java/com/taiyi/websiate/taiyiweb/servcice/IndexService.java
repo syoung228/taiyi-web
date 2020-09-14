@@ -122,6 +122,7 @@ public class IndexService {
 
     public Object getCaseCategory(Integer categoryId){
         CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
+        cmsCategoryEntityExample.setOrderByClause(" category_sort desc");
         cmsCategoryEntityExample.createCriteria().andCategoryParentIdEqualTo(categoryId+"").andDelEqualTo(0);
         return cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
     }
@@ -165,6 +166,7 @@ public class IndexService {
     public Object headerList(){
         CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
         cmsCategoryEntityExample.createCriteria().andCategoryParentIdIsNull();
+        cmsCategoryEntityExample.setOrderByClause(" category_sort desc");
         return cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
     }
 
