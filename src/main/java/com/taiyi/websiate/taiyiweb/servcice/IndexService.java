@@ -94,6 +94,7 @@ public class IndexService {
 
     private List<CmsCategoryDto> entityToDto(Integer categoryId){
         CmsCategoryEntityExample cmsCategoryEntityExample = new CmsCategoryEntityExample();
+        cmsCategoryEntityExample.setOrderByClause(" category_sort desc");
         cmsCategoryEntityExample.createCriteria().andCategoryParentIdEqualTo(categoryId+"").andDelEqualTo(0);
         List<CmsCategoryEntity> caseCategories =  cmsCategoryEntityMapper.selectByExample(cmsCategoryEntityExample);
         List<CmsCategoryDto> cmsCategoryDtos = new ArrayList<>();

@@ -171,7 +171,7 @@ public class TemplateStaticController {
                         //获取分类所有同级分类
                         List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
 
-                        ThymeleafViewObject.categoryList=cmsCategoryEntity;
+                        ThymeleafViewObject.categoryList=lampCategoryEntity;
                         int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                         if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
                             ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
@@ -180,7 +180,7 @@ public class TemplateStaticController {
                         if(lampTotalPages>0){
                            for (int i=1;i<=lampTotalPages;i++){
                                ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                               url = "http://localhost:8081/toHtml/lamp/"+CategoryId+"/"+i;
+                               url = "http://localhost:8081/toHtml/lamp/"+cmsCategoryEntity.getId()+"/"+i;
                                TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
                             }
                             for (int i=0;i<lampPages.size();i++){
@@ -201,7 +201,8 @@ public class TemplateStaticController {
                         }
                     }else{
                         List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
-                        TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/lamp/"+cmsCategoryEntities2.get(0).getId()+"/1","lamp.html");
+                        ThymeleafViewObject.categoryList=cmsCategoryEntities2;
+
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
@@ -214,7 +215,7 @@ public class TemplateStaticController {
                             if(lampTotalPages>0){
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                                    url = "http://localhost:8081/toHtml/lamp/"+CategoryId+"/"+i;
+                                    url = "http://localhost:8081/toHtml/lamp/"+lampCategoryId+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"lamp\\"+lampCategoryId+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
@@ -242,8 +243,7 @@ public class TemplateStaticController {
                         List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                         //获取分类所有同级分类
                         List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
-
-                        ThymeleafViewObject.categoryList=cmsCategoryEntity;
+                        ThymeleafViewObject.categoryList=lampCategoryEntity;
                         int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
 
                         if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
@@ -253,7 +253,7 @@ public class TemplateStaticController {
                         if(lampTotalPages>0){
                             for (int i=1;i<=lampTotalPages;i++){
                                 ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                                url = "http://localhost:8081/toHtml/case/"+CategoryId+"/"+i;
+                                url = "http://localhost:8081/toHtml/case/"+cmsCategoryEntity.getId()+"/"+i;
                                 TemplateStaticUtil.urlToHtml(url,"case/"+cmsCategoryEntity.getId()+"_"+i+".html");
                             }
                             for (int i=0;i<lampPages.size();i++){
@@ -274,20 +274,21 @@ public class TemplateStaticController {
                         }
                     }else{
                         List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
-                        TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/case/"+cmsCategoryEntities2.get(0).getId()+"/1","case.html");
+                        ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
+
                             int lampCategoryId = lampCategory.getId();
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(cmsCategoryEntities2.get(0).getId().equals(lampCategoryId)){
-                                ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
+                                ThymeleafViewObject.contentList= getByPage(lampPages,1,lampTotalPages);
                                 TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/case/"+lampCategoryId+"/1","case.html");
                             }
                             if(lampTotalPages>0){
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                                    url = "http://localhost:8081/toHtml/case/"+CategoryId+"/"+i;
+                                    url = "http://localhost:8081/toHtml/case/"+lampCategoryId+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"case\\"+lampCategoryId+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
@@ -315,7 +316,7 @@ public class TemplateStaticController {
                         List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                         //获取分类所有同级分类
                         List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
-                        ThymeleafViewObject.categoryList=cmsCategoryEntity;
+                        ThymeleafViewObject.categoryList=lampCategoryEntity;
                         int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                         if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
                             ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
@@ -324,7 +325,7 @@ public class TemplateStaticController {
                         if(lampTotalPages>0){
                             for (int i=1;i<=lampTotalPages;i++){
                                 ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                                url = "http://localhost:8081/toHtml/news/"+CategoryId+"/"+i;
+                                url = "http://localhost:8081/toHtml/news/"+cmsCategoryEntity.getId()+"/"+i;
                                 TemplateStaticUtil.urlToHtml(url,"news/"+cmsCategoryEntity.getId()+"_"+i+".html");
                             }
                             for (int i=0;i<lampPages.size();i++){
@@ -345,7 +346,7 @@ public class TemplateStaticController {
                         }
                     }else{
                         List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
-                        TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/news/"+cmsCategoryEntities2.get(0).getId()+"/1","news.html");
+                        ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
                             int lampCategoryId = lampCategory.getId();
@@ -353,12 +354,12 @@ public class TemplateStaticController {
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(cmsCategoryEntities2.get(0).getId().equals(lampCategoryId)){
                                 ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
-                                TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/case/"+lampCategoryId+"/1","case.html");
+                                TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/case/"+lampCategoryId+"/1","news.html");
                             }
                             if(lampTotalPages>0){
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                                    url = "http://localhost:8081/toHtml/news/"+CategoryId+"/"+i;
+                                    url = "http://localhost:8081/toHtml/news/"+lampCategoryId+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"news\\"+lampCategoryId+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
@@ -484,7 +485,7 @@ public class TemplateStaticController {
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                             //获取分类所有同级分类
                             List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
-
+                            ThymeleafViewObject.categoryList=lampCategoryEntity;
 
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(lampCategoryEntity.get(0).getId().equals(categoryItem.getId())){
@@ -494,7 +495,7 @@ public class TemplateStaticController {
                             if(lampTotalPages>0){
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
-                                    url = "http://localhost:8081/toHtml/lamp/"+categoryItem.getId()+"/"+i;
+                                    url = "http://localhost:8081/toHtml/lamp/"+cmsCategoryEntity.getId()+"/"+i;
                                     TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
@@ -515,6 +516,7 @@ public class TemplateStaticController {
                             }
                         }else{
                             List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                            ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                             PageInfo<CmsContentEntity> pageInfo = new PageInfo<>();
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                             ) {
@@ -559,7 +561,7 @@ public class TemplateStaticController {
                             //获取分类所有同级分类
                             List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
 
-                            ThymeleafViewObject.categoryList=cmsCategoryEntity;
+                            ThymeleafViewObject.categoryList=lampCategoryEntity;
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(lampCategoryEntity.get(0).getId().equals(categoryItem.getId())){
                                 ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
@@ -589,10 +591,10 @@ public class TemplateStaticController {
                             }
                         }else{
                             List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
+                            ThymeleafViewObject.categoryList=cmsCategoryEntities2;
+
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                             ) {
-
-
                                 int lampCategoryId = lampCategory.getId();
                                 List<CmsContentEntity> lampPages= (List<CmsContentEntity>) indexService.getcontentByCategory(lampCategoryId);
                                 int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
@@ -632,7 +634,7 @@ public class TemplateStaticController {
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                             //获取分类所有同级分类
                             List<CmsCategoryEntity> lampCategoryEntity = (List<CmsCategoryEntity>) indexService.getCaseCategory(Integer.parseInt(cmsCategoryEntity.getCategoryParentId()));
-                            ThymeleafViewObject.categoryList=cmsCategoryEntity;
+                            ThymeleafViewObject.categoryList=lampCategoryEntity;
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
                             if(lampCategoryEntity.get(0).getId().equals(CategoryId)){
                                 ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
@@ -663,7 +665,7 @@ public class TemplateStaticController {
                             }
                         }else{
                             List<CmsCategoryEntity> cmsCategoryEntities2 = (List<CmsCategoryEntity>) indexService.getCaseCategory(cmsCategoryEntity.getId());
-                            TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/news/"+cmsCategoryEntities2.get(0).getId()+"/1","news.html");
+                            ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                             ) {
                                 int lampCategoryId = lampCategory.getId();
