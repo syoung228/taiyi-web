@@ -43,11 +43,11 @@ public class TemplateStaticUtil {
         //获得字节缓冲流
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
         FileOutputStream fileOutputStream = new FileOutputStream(rootPath+path);
-        byte[] bytes = new byte[255];
-        int total_number;
-        while((total_number = bufferedInputStream.read(bytes)) != -1) {
+        byte[] bytes = new byte[1024];
+        int total_number=0;
+        while((total_number = inputStream.read(bytes,0,1024)) >0) {
             //写入文件
-            fileOutputStream.write(bytes);
+            fileOutputStream.write(bytes,0,total_number);
         }
         fileOutputStream.close();
     }
