@@ -59,7 +59,7 @@
                     <div class="ly-li">
                         <h2>下一条：
                             <a th:href="'/details_'+${lastAndNextProgress.next.id}+'.html'" th:if="${not #strings.isEmpty(lastAndNextProgress.next.contentTitle)}">[[${lastAndNextProgress.next.contentTitle}]]</a>
-                            <a href="#" th:if="${ #strings.isEmpty(lastAndNextProgress.last.contentTitle)}" >没有了</a></h2>
+                            <a href="#" th:if="${ #strings.isEmpty(lastAndNextProgress.next.contentTitle)}" >没有了</a></h2>
                     </div>
                 </div>
             </div>
