@@ -18,7 +18,7 @@
     <header>
         <div class="ly-content">
             <div class="ly-logo">
-                <a href="index.html"><img src="/images/logo.png" title="太一"></a>
+                <a href="/"><img src="/images/logo.png" title="太一"></a>
             </div>
             <div class="ly-menu" data-id="1">
                 <em></em>
@@ -28,7 +28,8 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:if="${item.categoryUrl eq 'index.html'}" href="/">[[${item.categoryTitle}]]</a>
+                        <a th:unless="${item.categoryUrl eq 'index.html'}" th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>

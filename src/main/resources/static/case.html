@@ -19,7 +19,7 @@
     <header>
         <div class="ly-content">
             <div class="ly-logo">
-                <a href="index.html"><img src="/images/logo.png" title="太一"></a>
+                <a href="/"><img src="/images/logo.png" title="太一"></a>
             </div>
             <div class="ly-menu" data-id="1">
                 <em></em>
@@ -29,7 +29,8 @@
             <div class="ly-nav-list">
                 <ul class="ly-nav">
                     <li th:each="item : ${headerList}" th:classappend="${header.id == item.id ?'ly-active':''}">
-                        <a th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
+                        <a th:if="${item.categoryUrl eq 'index.html'}" href="/">[[${item.categoryTitle}]]</a>
+                        <a th:unless="${item.categoryUrl eq 'index.html'}" th:href="'/'+${item.categoryUrl}">[[${item.categoryTitle}]]</a>
                     </li>
                 </ul>
             </div>
@@ -171,12 +172,6 @@
                     <div class="ly-qr">
                         <img th:src="${footer.companyWechatUrl}" />
                         <p>官方微信</p>
-                    </div>
-                </div>
-                <div class="ly-line">
-                    <h2>友情链接 <span>交换友情链接</span></h2>
-                    <div class="ly-list">
-                        <a th:href="${link.url}" th:each="link:${footer.linkJson}">[[${link.name}]]</a>
                     </div>
                 </div>
                 <div class="ly-bottom">
