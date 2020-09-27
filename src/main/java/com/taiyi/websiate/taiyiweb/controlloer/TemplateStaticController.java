@@ -38,8 +38,6 @@ public class TemplateStaticController {
     @Autowired
     private ProjectProcessService projectProcessService;
 
-    @Value("${template.root}")
-    private String rootPath;
 
     @Value("${template.pageSize}")
     private Integer pageSize;
@@ -56,7 +54,7 @@ public class TemplateStaticController {
             if(tagTotalPages>0){
                 for (int i=1;i<=tagTotalPages;i++){
                     url = "http://localhost:8081/toHtml/lable/"+tag.getId()+"/"+i;
-                    TemplateStaticUtil.urlToHtml(url,"lable\\"+tag.getId()+"_"+i+".html");
+                    TemplateStaticUtil.urlToHtml(url,"lable/"+tag.getId()+"_"+i+".html");
                 }
             }
         }
@@ -802,7 +800,7 @@ public class TemplateStaticController {
                 }
             }
         }
-
+        generateTags();
     }
 
     private PageInfo<CmsContentEntity> getByPage(List<CmsContentEntity> contentEntities,Integer pageNum,Integer totalPages){
