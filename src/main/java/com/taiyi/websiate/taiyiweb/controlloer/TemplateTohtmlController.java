@@ -50,7 +50,7 @@ public class TemplateTohtmlController {
     @RequestMapping("/generation/{categoryId}")
     public ModelAndView generationtData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId){
         mvAddObject(mv);
-        mv.addObject("generationList",indexService.getcontentByCategory(categoryId));
+        mv.addObject("generationList",ThymeleafViewObject.contentList);
         mv.setViewName("generation");
         return mv;
     }

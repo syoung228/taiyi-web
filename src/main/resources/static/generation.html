@@ -59,6 +59,74 @@
                 </li>
 
             </ul>
+            <div class="modal-footer no-margin-top">
+                <!-- 处理页数小于等于7 的情况 -->
+                <ul th:if="${(contentList.pages le 7)&&(contentList.pages gt 0)}" class="pagination pull-center no-margin">
+                    <li th:if="${contentList.pageNum eq 1}" class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+                    <li th:if="${contentList.pageNum gt 1}" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.prePage}+'.html'">上一页</a>
+                    </li>
+
+                    <li th:each="index:${#numbers.sequence(1,contentList.pages)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
+                        <a th:href="'/generation_' + ${index}+'.html'"  class="page-link"  th:text="${index}"></a>
+                    </li>
+
+                    <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                    <li th:if="${contentList.pageNum lt contentList.pages}" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.nextPage}+'.html'">下一页</a>
+                    </li>
+                </ul>
+
+                <!-- 处理页数大于7 的情况 -->
+                <ul th:if="${contentList.pages gt 7}" class="pagination pull-center no-margin">
+                    <li th:if="${contentList.pageNum eq 1}" class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
+                    <li th:if="${contentList.pageNum gt 1}" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.prePage}+'.html'">上一页</a>
+                    </li>
+
+                    <!-- 首页 -->
+                    <li th:classappend="${contentList.pageNum eq 1}?'active'" class="page-item">
+                        <a class="page-link" th:href="'/generation.html'">1</a>
+                    </li>
+
+                    <!-- 当前页面小于等于4 -->
+                    <li th:if="${contentList.pageNum le 4}" th:each="index:${#numbers.sequence(2,5)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
+                        <a th:href="'/generation_' + ${index}+'.html'" class="page-link"  th:text="${index}"></a>
+                    </li>
+                    <li th:if="${contentList.pageNum le 4}" class="page-item">
+                        <a  class="page-link" th:href="'/generation_6.html'">...</a>
+                    </li>
+
+                    <!-- 最后一页与当前页面之差小于等于3 -->
+                    <li th:if="${contentList.pages-contentList.pageNum le 3}" class="page-item">
+                        <a  class="page-link" th:href="'/generation_' + ${contentList.pages-5}+'.html'" >...</a>
+                    </li>
+                    <li th:if="${contentList.pages - contentList.pageNum le 3}" th:each="index:${#numbers.sequence(contentList.pages - 4,contentList.pages - 1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
+                        <a th:href="'/generation_' + ${index}+'.html'" class="page-link"  th:text="${index}"></a>
+                    </li>
+
+                    <!-- 最后一页与当前页面之差大于3 且当前页面大于4 -->
+                    <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.pageNum-2}+'.html'" >...</a>
+                    </li>
+                    <li th:if="${(contentList.pageNum gt 4) && (contentList.pages - contentList.pageNum gt 3)}" th:each="index:${#numbers.sequence(contentList.pageNum-1,contentList.pageNum+1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${index}+'.html'" th:text="${index}"></a>
+                    </li>
+                    <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.pageNum +2}+'.html'" >...</a>
+                    </li>
+
+                    <!-- 尾页 -->
+                    <li th:classappend="${contentList.pageNum eq contentList.pages}?'active'" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.pages}+'.html'"  th:text="${contentList.pages}">尾页</a>
+                    </li>
+
+                    <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                    <li th:if="${contentList.pageNum lt contentList.pages}" class="page-item">
+                        <a class="page-link" th:href="'/generation_' + ${contentList.pageNum}+'.html'" >下一页</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 

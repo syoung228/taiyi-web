@@ -118,21 +118,30 @@ public class TemplateStaticController {
                     ThymeleafViewObject.news=indexService.getNewsByMainCategory();
                     ThymeleafViewObject.relateCase65=indexService.getcontentByCategory(65,1,3);
                     ThymeleafViewObject.relateCase67=indexService.getcontentByCategory(67,1,3);
-                    List<CmsContentEntity> pages= (List<CmsContentEntity>) indexService.getcontentByCategory(cmsCategoryEntity.getId());
-                    for (int i=0;i<pages.size();i++){
+                    List<CmsContentEntity> genPages= (List<CmsContentEntity>) indexService.getcontentByCategory(cmsCategoryEntity.getId());
+                    int genTotalPages = genPages.size()%pageSize>0 ? genPages.size()/pageSize+1:genPages.size()/pageSize;
+                    for (int i=1;i<=genTotalPages;i++){
+                        ThymeleafViewObject.contentList=getByPage(genPages,i,genTotalPages);
+                        url = "http://localhost:8081/toHtml/generation/"+cmsCategoryEntity.getId();
+                        if(i==1){
+                            TemplateStaticUtil.urlToHtml(url,"generation.html");
+                        }
+                        TemplateStaticUtil.urlToHtml(url,"generation_"+i+".html");
+                    }
+                    for (int i=0;i<genPages.size();i++){
                         if(i==0){
                             result.put("last",new CmsContentEntity());
                         }else{
-                            result.put("last",pages.get(i-1));
+                            result.put("last",genPages.get(i-1));
                         }
-                        if(i==pages.size()-1){
+                        if(i==genPages.size()-1){
                             result.put("next",new CmsContentEntity());
                         }else{
-                            result.put("next",pages.get(i+1));
+                            result.put("next",genPages.get(i+1));
                         }
                         ThymeleafViewObject.lastAndNextProgress=result;
-                        ThymeleafViewObject.contentResult=pages.get(i);
-                        TemplateStaticUtil.urlToHtml("http://localhost:8081/toHtml/details/"+cmsCategoryEntity.getId()+"/"+pages.get(i).getId(),""+categoryList+"_"+pages.get(i).getId()+".html");
+                        ThymeleafViewObject.contentResult=genPages.get(i);
+                        TemplateStaticUtil.urlToHtml("http://localhost:8081/toHtml/details/"+cmsCategoryEntity.getId()+"/"+genPages.get(i).getId(),""+categoryList+"_"+genPages.get(i).getId()+".html");
                     }
 
                     break;
@@ -193,7 +202,7 @@ public class TemplateStaticController {
                            for (int i=1;i<=lampTotalPages;i++){
                                ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                url = "http://localhost:8081/toHtml/lamp/"+cmsCategoryEntity.getId()+"/"+i;
-                               TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                               TemplateStaticUtil.urlToHtml(url,"lamp/"+cmsCategoryEntity.getId()+"_"+i+".html");
                             }
                             for (int i=0;i<lampPages.size();i++){
                                 if(i==0){
@@ -235,7 +244,7 @@ public class TemplateStaticController {
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                     url = "http://localhost:8081/toHtml/lamp/"+lampCategoryId+"/"+i;
-                                    TemplateStaticUtil.urlToHtml(url,"lamp\\"+lampCategoryId+"_"+i+".html");
+                                    TemplateStaticUtil.urlToHtml(url,"lamp/"+lampCategoryId+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
                                     if(i==0){
@@ -322,7 +331,7 @@ public class TemplateStaticController {
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                     url = "http://localhost:8081/toHtml/case/"+lampCategoryId+"/"+i;
-                                    TemplateStaticUtil.urlToHtml(url,"case\\"+lampCategoryId+"_"+i+".html");
+                                    TemplateStaticUtil.urlToHtml(url,"case/"+lampCategoryId+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
                                     if(i==0){
@@ -408,7 +417,7 @@ public class TemplateStaticController {
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                     url = "http://localhost:8081/toHtml/news/"+lampCategoryId+"/"+i;
-                                    TemplateStaticUtil.urlToHtml(url,"news\\"+lampCategoryId+"_"+i+".html");
+                                    TemplateStaticUtil.urlToHtml(url,"news/"+lampCategoryId+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
                                     if(i==0){
@@ -551,7 +560,7 @@ public class TemplateStaticController {
                                 for (int i=1;i<=lampTotalPages;i++){
                                     ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                     url = "http://localhost:8081/toHtml/lamp/"+cmsCategoryEntity.getId()+"/"+i;
-                                    TemplateStaticUtil.urlToHtml(url,"lamp\\"+cmsCategoryEntity.getId()+"_"+i+".html");
+                                    TemplateStaticUtil.urlToHtml(url,"lamp/"+cmsCategoryEntity.getId()+"_"+i+".html");
                                 }
                                 for (int i=0;i<lampPages.size();i++){
                                     if(i==0){
@@ -595,7 +604,7 @@ public class TemplateStaticController {
                                     for (int i=1;i<=lampTotalPages;i++){
                                         ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                         url = "http://localhost:8081/toHtml/lamp/"+lampCategoryId+"/"+i;
-                                        TemplateStaticUtil.urlToHtml(url,"lamp\\"+lampCategoryId+"_"+i+".html");
+                                        TemplateStaticUtil.urlToHtml(url,"lamp/"+lampCategoryId+"_"+i+".html");
                                     }
                                     for (int i=0;i<lampPages.size();i++){
                                         if(i==0){
@@ -683,7 +692,7 @@ public class TemplateStaticController {
                                     for (int i=1;i<=lampTotalPages;i++){
                                         ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                         url = "http://localhost:8081/toHtml/case/"+lampCategoryId+"/"+i;
-                                        TemplateStaticUtil.urlToHtml(url,"case\\"+lampCategoryId+"_"+i+".html");
+                                        TemplateStaticUtil.urlToHtml(url,"case/"+lampCategoryId+"_"+i+".html");
                                     }
                                     for (int i=0;i<lampPages.size();i++){
                                         if(i==0){
@@ -770,7 +779,7 @@ public class TemplateStaticController {
                                     for (int i=1;i<=lampTotalPages;i++){
                                         ThymeleafViewObject.contentList=getByPage(lampPages,i,lampTotalPages);
                                         url = "http://localhost:8081/toHtml/news/"+lampCategoryId+"/"+i;
-                                        TemplateStaticUtil.urlToHtml(url,"news\\"+lampCategoryId+"_"+i+".html");
+                                        TemplateStaticUtil.urlToHtml(url,"news/"+lampCategoryId+"_"+i+".html");
                                     }
                                     for (int i=0;i<lampPages.size();i++){
                                         if(i==0){
