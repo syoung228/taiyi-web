@@ -65,16 +65,16 @@
             <ul th:if="${(contentList.pages le 7)&&(contentList.pages gt 0)}" class="pagination pull-center no-margin">
                 <li th:if="${contentList.pageNum eq 1}" class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
                 <li th:if="${contentList.pageNum gt 1}" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.prePage}+'.html'">上一页</a>
+                    <a class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${contentList.prePage}+'.html'">上一页</a>
                 </li>
 
                 <li th:each="index:${#numbers.sequence(1,contentList.pages)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                    <a th:href="'/lamp/'+ ${tag.id}+'_'+${index}+'.html'"  class="page-link"  th:text="${index}"></a>
+                    <a th:href="'/lable/'+ ${tag.id}+'_'+${index}+'.html'"  class="page-link"  th:text="${index}"></a>
                 </li>
 
                 <li th:if="${contentList.isLastPage}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
                 <li th:if="${!contentList.isLastPage}" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.nextPage}+'.html'">下一页</a>
+                    <a class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${contentList.nextPage}+'.html'">下一页</a>
                 </li>
             </ul>
 
@@ -82,49 +82,49 @@
             <ul th:if="${contentList.pages gt 7}" class="pagination pull-center no-margin">
                 <li th:if="${contentList.pageNum eq 1}" class="page-item disabled"><a class="page-link" href="#">上一页</a></li>
                 <li th:if="${contentList.pageNum gt 1}" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.prePage}+'.html'">上一页</a>
+                    <a class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${contentList.prePage}+'.html'">上一页</a>
                 </li>
 
                 <!-- 首页 -->
                 <li th:classappend="${contentList.pageNum eq 1}?'active'" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+${tag.id}+'_'+${categoryId}+'_1.html'">1</a>
+                    <a class="page-link" th:href="'/lable/'+${tag.id}+'_'+${categoryId}+'_1.html'">1</a>
                 </li>
 
                 <!-- 当前页面小于等于4 -->
                 <li th:if="${contentList.pageNum le 4}" th:each="index:${#numbers.sequence(2,5)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                    <a th:href="'/lamp/'+ ${tag.id}+'_'+${index}+'.html'" class="page-link"  th:text="${index}"></a>
+                    <a th:href="'/lable/'+ ${tag.id}+'_'+${index}+'.html'" class="page-link"  th:text="${index}"></a>
                 </li>
                 <li th:if="${contentList.pageNum le 4}" class="page-item">
-                    <a  class="page-link" th:href="'/lamp/'+${tag.id}+'_'+${categoryId}+'_6.html'">...</a>
+                    <a  class="page-link" th:href="'/lable/'+${tag.id}+'_'+${categoryId}+'_6.html'">...</a>
                 </li>
 
                 <!-- 最后一页与当前页面之差小于等于3 -->
                 <li th:if="${contentList.pages - contentList.pageNum le 3}" class="page-item">
-                    <a  class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.pages-5}+'.html'" >...</a>
+                    <a  class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${contentList.pages-5}+'.html'" >...</a>
                 </li>
                 <li th:if="${contentList.pages - contentList.pageNum le 3}" th:each="index:${#numbers.sequence(contentList.pages - 4,contentList.pages - 1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                    <a th:href="'/lamp/'+ ${tag.id}+'_'+${index}+'.html'" class="page-link"  th:text="${index}"></a>
+                    <a th:href="'/lable/'+ ${tag.id}+'_'+${index}+'.html'" class="page-link"  th:text="${index}"></a>
                 </li>
 
                 <!-- 最后一页与当前页面之差大于3 且当前页面大于4 -->
                 <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.pages-2}+'.html'">...</a>
+                    <a class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${contentList.pages-2}+'.html'">...</a>
                 </li>
                 <li th:if="${(contentList.pageNum gt 4) && (contentList.pages - contentList.pageNum gt 3)}" th:each="index:${#numbers.sequence(contentList.pageNum-1,contentList.pageNum+1)}" th:classappend="${index eq contentList.pageNum}?'active'" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${index}+'.html'" th:text="${index}"></a>
+                    <a class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${index}+'.html'" th:text="${index}"></a>
                 </li>
                 <li th:if="${(contentList.pageNum gt 4) && (contentList.pages-contentList.pageNum gt 3)}" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.pageNum +2}+'.html'" >...</a>
+                    <a class="page-link" th:href="'/lable/'+ ${tag.id}+'_'+${contentList.pageNum +2}+'.html'" >...</a>
                 </li>
 
                 <!-- 尾页 -->
                 <li th:classappend="${contentList.pageNum eq contentList.pages}?'active'" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+${tag.id}+'_'+ ${contentList.pages}+'.html'"  th:text="${contentList.pages}">尾页</a>
+                    <a class="page-link" th:href="'/lable/'+${tag.id}+'_'+ ${contentList.pages}+'.html'"  th:text="${contentList.pages}">尾页</a>
                 </li>
 
                 <li th:if="${contentList.isLastPage}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
                 <li th:if="${!contentList.isLastPage}" class="page-item">
-                    <a class="page-link" th:href="'/lamp/'+${tag.id}+'_'+ ${contentList.pageNum}+'.html'" >下一页</a>
+                    <a class="page-link" th:href="'/lable/'+${tag.id}+'_'+ ${contentList.pageNum}+'.html'" >下一页</a>
                 </li>
             </ul>
         </div>

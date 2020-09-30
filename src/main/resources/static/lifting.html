@@ -166,7 +166,7 @@
       <ul class="ly-list">
         <li th:each="item:${relateCase.list}">
           <a th:href="'contentDetails_'+${item.id}+'.html'">
-            <div class="ly-img"><img th:src="${item.contentImg}"/></div>
+            <div class="ly-img"><img th:src="${item.contentImg}" th:alt="${item.contentTitle}"/></div>
             <div class="ly-intro">
               <h2>[[${item.contentTitle}]]</h2>
               <p>[[${item.contentDescription}]]</p>

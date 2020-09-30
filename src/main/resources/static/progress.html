@@ -48,7 +48,7 @@
                     <h1>[[${progressResult.title}]]</h1>
                     <p>地址：[[${progressResult.address}]] 项目：[[${progressResult.des}]]</p>
                     <div class="ly-img">
-                        <img th:src="${progressResult.imgUrl}">
+                        <img th:src="${progressResult.imgUrl}" th:alt="${progressResult.title}"/>
                     </div>
                     <div class="ly-speed">
                         <span th:classappend="${progressResult.status >= item1.itemId} ? 'ly-green':''" th:each="item1 : ${progressResult.projectProcessInfo}" >

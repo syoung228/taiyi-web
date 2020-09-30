@@ -51,7 +51,7 @@
                 <li th:each="item:${contentList.list}">
                     <a th:href="'/contentDetails_'+${item.id}+'.html'">
                         <div class="ly-img">
-                            <img th:src="${item.contentImg}" class="ly-head" />
+                            <img th:src="${item.contentImg}" class="ly-head" th:alt="${item.contentTitle}"/>
                             <div class="ly-bg">
                                 <p>[[${item.contentDescription}]]</p>
                                 <span>查看更多</span>

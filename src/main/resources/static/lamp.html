@@ -52,7 +52,7 @@
                 <li th:each="item : ${contentList.list}">
                     <a th:href="'/details_'+${item.id}+'.html'">
                         <div class="ly-img">
-                            <img th:src="${item.contentImg}" />
+                            <img th:src="${item.contentImg}" th:alt="${item.contentTitle}"/>
                         </div>
                         <h2>[[${item.contentTitle}]]</h2>
                     </a>

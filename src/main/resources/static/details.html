@@ -79,7 +79,7 @@
                 <div class="ly-uptop">
                     <h4>标签</h4>
                     <ul class="ly-tids">
-                        <a th:href="'/lable/'+${item.id}+'.html'" th:each="item:${tags}">[[${item.tagName}]]</a>
+                        <a th:href="'/lable/'+${item.id}+'_1.html'" th:each="item:${tags}">[[${item.tagName}]]</a>
                     </ul>
                 </div>
             </div>
@@ -112,7 +112,7 @@
             <ul class="ly-list" >
                 <li th:each="item:${relateCase65.list}" >
                     <a th:href="'contentDetails_'+${item.id}+'.html'">
-                        <div class="ly-img"><img th:src="${item.contentImg}"/></div>
+                        <div class="ly-img"><img th:src="${item.contentImg}" th:alt="${item.contentTitle}"/></div>
                         <div class="ly-intro">
                             <h2>[[${item.contentTitle}]]</h2>
                             <p>[[${item.contentDescription}]]</p>

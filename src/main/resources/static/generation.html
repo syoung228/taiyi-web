@@ -8,6 +8,7 @@
     <meta name="keywords" th:attr="content=${header.categoryKeyword}">
     <meta name="description" th:attr="content=${header.categoryDescrip}">
     <link rel="icon" href="/images/favicon.ico">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/swiper.min.css" />
     <link rel="stylesheet" href="/css/public.css" />
     <link rel="stylesheet" href="/css/page.css" />
@@ -50,7 +51,7 @@
             <ul class="ly-list">
                 <li th:each="item : ${contentList.list}">
                     <a th:href="'/details_'+${item.id}+'.html'">
-                        <div class="ly-img"><img th:src="${item.contentImg}" /></div>
+                        <div class="ly-img"><img th:src="${item.contentImg}" th:alt="${item.contentTitle}"/></div>
                         <h2>[[${item.contentTitle}]]</h2>
                         <p>[[${item.contentDescription}]]
                         </p>

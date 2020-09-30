@@ -10,7 +10,7 @@
     <link rel="icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="/css/swiper.min.css" />
     <link rel="stylesheet" href="/css/public.css" />
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1977750_2vbn49fc5x5.css" />
+    <link rel="stylesheet" href="/at.alicdn.com/t/font_1977750_2vbn49fc5x5.css" />
     <link rel="stylesheet" href="/css/page.css" />
     <link rel="stylesheet" href="/css/construction.css" />
 </head>
@@ -48,7 +48,7 @@
             <ul class="ly-list">
                 <li th:each="item:${projectList}">
                     <div class="ly-img">
-                        <img th:src="${item.imgUrl}" />
+                        <img th:src="${item.imgUrl}" th:alt="${item.title}"/>
                     </div>
                     <div class="ly-intro">
                         <h2>[[${item.title}]]</h2>
@@ -101,7 +101,7 @@
                         <img th:src="${footer.companyWechatUrl}" />
                         <p>官方微信</p>
                     </div>
-
+                </div>
                 <div class="ly-bottom">
                     <p>备案号：[[${footer.recordInfo}]]</p>
                 </div>

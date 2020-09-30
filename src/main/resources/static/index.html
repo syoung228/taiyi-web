@@ -95,7 +95,7 @@
                 <li th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index} < 6">
                     <a th:href="'/contentDetails_'+${item1.id}+'.html'" target="_blank">
                         <div class="ly-img">
-                            <img th:src="${item1.contentImg}" alt="img_1.png" class="ly-png" />
+                            <img th:src="${item1.contentImg}" th:alt="${item1.contentTitle}" class="ly-png" />
                             <div class="ly-intro">
                                 <h4>服务项目：[[${item1.contentTitle}]]</h4>
                                 <p>[[${item1.contentDescription}]]</p>
@@ -165,7 +165,7 @@
                 <div class="ly-left" th:each="item1 : ${item.cmsContentEntities}" th:if="${item1Stat.index}<1">
                     <a th:href="'/contentDetails_'+${item1.id}+'.html'" target="_blank">
                         <div class="ly-img">
-                            <img th:src="${item1.contentImg}" alt="img_1.png" />
+                            <img th:src="${item1.contentImg}" th:alt="${item1.contentTitle}" />
                         </div>
                         <div class="ly-h2">[[${item1.contentTitle}]]</div>
                         <h6>[[${#dates.format(item1.contentDatetime, 'yyyy-MM-dd')}]]</h6>
