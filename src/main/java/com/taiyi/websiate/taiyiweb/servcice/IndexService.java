@@ -148,6 +148,15 @@ public class IndexService {
         pageSize=pageSize==null || pageSize==0?10:pageSize;
         PageHelper.startPage(pageNum,pageSize);
         List<CmsContentEntity> entityList = cmsContentEntityMapper.getByTags(tagsId);
+        for (CmsContentEntity item : entityList) {
+            String detailUrl = cmsCategoryEntityMapper.selectByPrimaryKey(Integer.parseInt(item.getContentCategoryId())).getCategoryListUrl();
+            if("contentDetails.html".equals(detailUrl)){
+                item.setContentUrl("contentDetails");
+            }
+            if("details.html".equals(detailUrl)){
+                item.setContentUrl("details");
+            }
+        }
         return new PageInfo<>(entityList);
     }
     public TagsEntity getTasgById(Integer tagsId){

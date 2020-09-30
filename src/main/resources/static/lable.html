@@ -47,7 +47,7 @@
     <div class="ly-content">
         <ul class="ly-list">
             <li th:each="item : ${contentList.list}">
-                <a th:href="'contentDetails'+${item.id}+'.html'">
+                <a th:href="'/contentDetails'+${item.id}+'.html'">
                     <div class="ly-time">
                         <div class="ly-day">[[${#dates.format(item.contentDatetime, 'MM-dd')}]]</div>
                         <div class="ly-years">[[${#dates.format(item.contentDatetime, 'yyyy')}]]</div>
