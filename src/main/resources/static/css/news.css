@@ -103,6 +103,7 @@
 }
 .ly-case .ly-list li .ly-img {
   width: 100%;
+
   overflow: hidden;
   position: relative;
 }
@@ -143,6 +144,7 @@
 .ly-case .ly-list li .ly-img .ly-head {
   width: 100%;
   display: block;
+  height: 380px;
   transition: 0.3s;
 }
 .ly-case .ly-list li .ly-intro {

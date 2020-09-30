@@ -112,8 +112,6 @@ public class TemplateStaticController {
                     }
                     break;
                 case "generation":
-                    url = "http://localhost:8081/toHtml/generation/"+cmsCategoryEntity.getId();
-                    TemplateStaticUtil.urlToHtml(url,"generation.html");
                     ThymeleafViewObject.tags=indexService.getTags();
                     ThymeleafViewObject.news=indexService.getNewsByMainCategory();
                     ThymeleafViewObject.relateCase65=indexService.getcontentByCategory(65,1,3);
@@ -411,7 +409,7 @@ public class TemplateStaticController {
                             }
                             if(cmsCategoryEntities2.get(0).getId().equals(lampCategoryId)){
                                 ThymeleafViewObject.contentList=getByPage(lampPages,1,lampTotalPages);
-                                TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/case/"+lampCategoryId+"/1","news.html");
+                                TemplateStaticUtil.urlToHtml( "http://localhost:8081/toHtml/news/"+lampCategoryId+"/1","news.html");
                             }
                             if(lampTotalPages>0){
                                 for (int i=1;i<=lampTotalPages;i++){

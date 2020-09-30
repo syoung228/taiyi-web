@@ -8,7 +8,7 @@ import java.net.URLConnection;
 
 public class TemplateStaticUtil {
 
-  private static String rootPath = "D:/html/";
+  private static String rootPath = "/taiyi/html/";
 
    /* public  static void urlToHtml(String url,String path) throws IOException {
         InputStream inputStream;//接收字节输入流

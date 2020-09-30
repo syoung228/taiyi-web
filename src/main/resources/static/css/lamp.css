@@ -30,6 +30,7 @@
 }
 .ly-lamp .ly-content .ly-list li .ly-img img {
   width: 100%;
+  height: 380px;
   display: block;
   transition: 0.3s;
 }

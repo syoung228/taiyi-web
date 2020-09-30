@@ -72,8 +72,8 @@
                     <a th:href="'/lamp/'+ ${tag.id}+'_'+${index}+'.html'"  class="page-link"  th:text="${index}"></a>
                 </li>
 
-                <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
-                <li th:if="${contentList.pageNum lt contentList.pages}" class="page-item">
+                <li th:if="${contentList.isLastPage}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                <li th:if="${!contentList.isLastPage}" class="page-item">
                     <a class="page-link" th:href="'/lamp/'+ ${tag.id}+'_'+${contentList.nextPage}+'.html'">下一页</a>
                 </li>
             </ul>
@@ -122,8 +122,8 @@
                     <a class="page-link" th:href="'/lamp/'+${tag.id}+'_'+ ${contentList.pages}+'.html'"  th:text="${contentList.pages}">尾页</a>
                 </li>
 
-                <li th:if="${contentList.pageNum eq contentList.pages}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
-                <li th:if="${contentList.pageNum lt contentList.pages}" class="page-item">
+                <li th:if="${contentList.isLastPage}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
+                <li th:if="${!contentList.isLastPage}" class="page-item">
                     <a class="page-link" th:href="'/lamp/'+${tag.id}+'_'+ ${contentList.pageNum}+'.html'" >下一页</a>
                 </li>
             </ul>
