@@ -124,7 +124,7 @@
 
                     <li th:if="${contentList.isLastPage}" class="page-item disabled"><a class="page-link" href="#">下一页</a></li>
                     <li th:if="${!contentList.isLastPage}" class="page-item">
-                        <a class="page-link" th:href="'/generation_' + ${contentList.pageNum}+'.html'" >下一页</a>
+                        <a class="page-link" th:href="'/generation_' + ${contentList.nextPage}+'.html'" >下一页</a>
                     </li>
                 </ul>
             </div>
