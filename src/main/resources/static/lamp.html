@@ -50,7 +50,7 @@
         <div class="ly-content">
             <ul class="ly-list">
                 <li th:each="item : ${contentList.list}">
-                    <a th:href="'/'+${item.contentUrl}+'_'+${item.id}+'.html'">
+                    <a th:href="'/details_'+${item.id}+'.html'">
                         <div class="ly-img">
                             <img th:src="${item.contentImg}" th:alt="${item.contentTitle}"/>
                         </div>

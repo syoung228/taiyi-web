@@ -227,7 +227,7 @@
                 <div class="ly-line">
                     <h2>友情链接 <span>交换友情链接</span></h2>
                     <div class="ly-list">
-                        <a th:href="${link.url}" th:each="link:${footer.linkJson}">[[${link.name}]]</a>
+                        <a th:href="${link.url}" th:each="link:${footer.linkJson}" rel="nofollow">[[${link.name}]]</a>
                     </div>
                 </div>
                 <div class="ly-bottom">
