@@ -821,6 +821,7 @@ public class TemplateStaticController {
         PageInfo<CmsContentEntity> pageInfo = new PageInfo<>();
         pageInfo.setPages(totalPages);
         pageInfo.setPageSize(pageSize);
+        pageInfo.setPageNum(pageNum);
         pageInfo.setTotal(contentEntities.size());
         if(pageNum<totalPages){
             if(pageNum != 1){
