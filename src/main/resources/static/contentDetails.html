@@ -46,8 +46,8 @@
         <div style="width:1200px;margin:0 auto;font-size:10px;">
             <ul class="breadcrumb">
                 <li><a th:href="'/'+${header.categoryUrl}">[[${header.categoryTitle}]]</a></li>
-                <li><a th:href="${}">2013</a></li>
-                <li class="active">十一月</li>
+                <li th:if="${header.id != secondMenu.id} "><a th:href="'/'+${#strings.replace(header.categoryUrl,'.html','/')}+${secondMenu.id}+'_1.html'">[[${secondMenu.categoryTitle}]]</a></li>
+                <li class="active">[[${contentResult.contentTitle}]]</li>
             </ul>
         </div>
         <div class="ly-left">

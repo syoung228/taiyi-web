@@ -682,6 +682,7 @@
     cms_content con
     LEFT JOIN cms_category c ON con.content_category_id = c.id
     WHERE c.category_parent_id = #{categoryId}
+    order by con.content_datetime desc
   </select>
 
   <select id="getByTags" resultMap="BaseResultMap">

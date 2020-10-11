@@ -103,6 +103,7 @@ public class IndexService {
             BeanUtils.copyProperties(entity,cmsCategoryDto);
             CmsContentEntityExample cmsContentEntityExample = new CmsContentEntityExample();
             cmsContentEntityExample.createCriteria().andContentCategoryIdEqualTo(entity.getId()+"").andDelEqualTo(0);
+            cmsContentEntityExample.setOrderByClause(" content_datetime desc");
             cmsCategoryDto.setCmsContentEntities(cmsContentEntityMapper.selectByExample(cmsContentEntityExample));
             cmsCategoryDtos.add(cmsCategoryDto);
         }

@@ -61,5 +61,9 @@ public class ThymeleafViewObject {
      * 相关案例 id为67
      */
     public static Object relateCase67 = new Object();
+    /**
+     * 面包屑导航
+     */
+    public static Object secondMenu = new Object();
 
 }

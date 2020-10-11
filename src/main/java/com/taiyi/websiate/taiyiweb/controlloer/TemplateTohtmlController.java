@@ -136,6 +136,7 @@ public class TemplateTohtmlController {
     public ModelAndView contentDetailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
         mvAddObject(mv);
         mv.addObject("contentResult",ThymeleafViewObject.contentResult);
+        mv.addObject("secondMenu",ThymeleafViewObject.secondMenu);
         mv.addObject("lastAndNextProgress", ThymeleafViewObject.lastAndNextProgress);
         mv.addObject("tags",ThymeleafViewObject.tags);
         mv.addObject("news",ThymeleafViewObject.news);
@@ -147,6 +148,7 @@ public class TemplateTohtmlController {
     public ModelAndView detailsData(HttpServletRequest request, ModelAndView mv, @PathVariable("categoryId") Integer categoryId,@PathVariable("id") Integer id){
         mvAddObject(mv);
         mv.addObject("details",ThymeleafViewObject.contentResult);
+        mv.addObject("secondMenu",ThymeleafViewObject.secondMenu);
         mv.addObject("lastAndNextProgress",ThymeleafViewObject.lastAndNextProgress);
         mv.addObject("tags", ThymeleafViewObject.tags);
         mv.addObject("news",ThymeleafViewObject.news);

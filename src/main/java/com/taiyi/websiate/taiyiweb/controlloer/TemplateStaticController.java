@@ -116,6 +116,7 @@ public class TemplateStaticController {
                     ThymeleafViewObject.news=indexService.getNewsByMainCategory();
                     ThymeleafViewObject.relateCase65=indexService.getcontentByCategory(65,1,3);
                     ThymeleafViewObject.relateCase67=indexService.getcontentByCategory(67,1,3);
+                    ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                     List<CmsContentEntity> genPages= (List<CmsContentEntity>) indexService.getcontentByCategory(cmsCategoryEntity.getId());
                     int genTotalPages = genPages.size()%pageSize>0 ? genPages.size()/pageSize+1:genPages.size()/pageSize;
                     for (int i=1;i<=genTotalPages;i++){
@@ -171,6 +172,7 @@ public class TemplateStaticController {
                     ThymeleafViewObject.relateCase65=indexService.getcontentByCategory(65,1,3);
                     ThymeleafViewObject.relateCase67=indexService.getcontentByCategory(67,1,3);
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                        ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                         //获取分类下所有文章
                         List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
 
@@ -224,6 +226,7 @@ public class TemplateStaticController {
 
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
+                            ThymeleafViewObject.secondMenu = lampCategory;
                             int lampCategoryId = lampCategory.getId();
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>) indexService.getcontentByCategory(lampCategoryId);
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
@@ -265,6 +268,7 @@ public class TemplateStaticController {
                     break;
                 case "case":
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                        ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                         //获取分类下所有文章
                         List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                         //获取分类所有同级分类
@@ -310,7 +314,7 @@ public class TemplateStaticController {
                         ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
-
+                            ThymeleafViewObject.secondMenu = lampCategory;
                             int lampCategoryId = lampCategory.getId();
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
@@ -352,6 +356,7 @@ public class TemplateStaticController {
                     break;
                 case "news":
                     if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                        ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                         //获取分类下所有文章
                         List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                         //获取分类所有同级分类
@@ -397,6 +402,7 @@ public class TemplateStaticController {
                         ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                         for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                         ) {
+                            ThymeleafViewObject.secondMenu = lampCategory;
                             int lampCategoryId = lampCategory.getId();
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>) indexService.getcontentByCategory(lampCategoryId);
                             int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
@@ -487,6 +493,7 @@ public class TemplateStaticController {
                     case "generation":
                         ThymeleafViewObject.relateCase65=indexService.getcontentByCategory(65,1,3);
                         ThymeleafViewObject.relateCase67=indexService.getcontentByCategory(67,1,3);
+                        ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                         List<CmsContentEntity> genPages= (List<CmsContentEntity>) indexService.getcontentByCategory(cmsCategoryEntity.getId());
                         int genTotalPages = genPages.size()%pageSize>0 ? genPages.size()/pageSize+1:genPages.size()/pageSize;
                         for (int i=1;i<=genTotalPages;i++){
@@ -542,6 +549,7 @@ public class TemplateStaticController {
                         ThymeleafViewObject.relateCase65=indexService.getcontentByCategory(65,1,3);
                         ThymeleafViewObject.relateCase67=indexService.getcontentByCategory(67,1,3);
                         if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                             //获取分类下所有文章
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                             //获取分类所有同级分类
@@ -588,6 +596,7 @@ public class TemplateStaticController {
                             PageInfo<CmsContentEntity> pageInfo = new PageInfo<>();
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                             ) {
+                                ThymeleafViewObject.secondMenu = lampCategory;
                                 int lampCategoryId = lampCategory.getId();
                                 List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(lampCategoryId);
                                 int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
@@ -631,6 +640,7 @@ public class TemplateStaticController {
                         break;
                     case "case":
                         if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                             //获取分类下所有文章
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                             //获取分类所有同级分类
@@ -677,6 +687,7 @@ public class TemplateStaticController {
 
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                             ) {
+                                ThymeleafViewObject.secondMenu = lampCategory;
                                 int lampCategoryId = lampCategory.getId();
                                 List<CmsContentEntity> lampPages= (List<CmsContentEntity>) indexService.getcontentByCategory(lampCategoryId);
                                 int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
@@ -719,6 +730,7 @@ public class TemplateStaticController {
                         break;
                     case "news":
                         if (!(cmsCategoryEntity.getCategoryParentId()==null||cmsCategoryEntity.getCategoryParentId().equals("0"))){
+                            ThymeleafViewObject.secondMenu = cmsCategoryEntity;
                             //获取分类下所有文章
                             List<CmsContentEntity> lampPages= (List<CmsContentEntity>)indexService.getcontentByCategory(cmsCategoryEntity.getId());
                             //获取分类所有同级分类
@@ -764,6 +776,7 @@ public class TemplateStaticController {
                             ThymeleafViewObject.categoryList=cmsCategoryEntities2;
                             for (CmsCategoryEntity lampCategory:cmsCategoryEntities2
                             ) {
+                                ThymeleafViewObject.secondMenu = lampCategory;
                                 int lampCategoryId = lampCategory.getId();
                                 List<CmsContentEntity> lampPages= (List<CmsContentEntity>) indexService.getcontentByCategory(lampCategoryId);
                                 int lampTotalPages = lampPages.size()%pageSize>0 ? lampPages.size()/pageSize+1:lampPages.size()/pageSize;
