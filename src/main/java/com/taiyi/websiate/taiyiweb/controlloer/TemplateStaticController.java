@@ -849,6 +849,7 @@ public class TemplateStaticController {
         }else{
             pageInfo.setIsLastPage(true);
             pageInfo.setHasPreviousPage(true);
+            pageInfo.setPrePage(pageNum-1);
             List<CmsContentEntity> contentEntities2 = contentEntities.subList((pageNum-1)*pageSize,contentEntities.size());
             pageInfo.setList(contentEntities2);
             return pageInfo;
